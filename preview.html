@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>תצוגה רספונסיבית · אריאלה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple-900:#2e2452; --purple-800:#3d2f6b; --purple-700:#5b4b9e;
+    --purple-600:#6f5cc0; --purple-500:#8a76d6; --lav-300:#c4afe0; --lav-200:#dccdef;
+    --head:"Rubik",system-ui,sans-serif; --body:"Assistant",system-ui,sans-serif;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--body);color:#fff;overflow:hidden;
+    background:
+      radial-gradient(120% 120% at 82% -10%, #5a4794 0%, #2f2556 52%, #1f1740 100%);
+    display:flex;flex-direction:column;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:radial-gradient(rgba(255,255,255,.07) 1.3px,transparent 1.3px);
+    background-size:30px 30px;
+    -webkit-mask-image:radial-gradient(130% 100% at 50% 0%,#000 30%,transparent 78%);
+    mask-image:radial-gradient(130% 100% at 50% 0%,#000 30%,transparent 78%);
+  }
+
+  /* ---------- top control dock ---------- */
+  .dock{
+    position:relative;z-index:5;flex:none;display:flex;align-items:center;
+    justify-content:space-between;gap:18px;flex-wrap:wrap;
+    padding:16px clamp(16px,3vw,30px);
+  }
+  .brand{display:flex;align-items:center;gap:13px;min-width:0}
+  .brand .mark{
+    width:42px;height:42px;border-radius:13px;flex:none;display:grid;place-items:center;
+    background:linear-gradient(150deg,var(--purple-500),var(--purple-800));
+    box-shadow:0 10px 22px -6px rgba(0,0,0,.5),inset 0 2px 0 rgba(255,255,255,.25);
+  }
+  .brand .mark svg{width:22px;height:22px;color:#fff}
+  .brand .tt b{display:block;font-family:var(--head);font-weight:600;font-size:17px;line-height:1.1}
+  .brand .tt span{display:block;font-size:12.5px;color:var(--lav-300)}
+
+  /* segmented device picker */
+  .seg{display:flex;gap:5px;padding:6px;border-radius:999px;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+    backdrop-filter:blur(10px)}
+  .seg button{
+    display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:999px;
+    font-family:var(--head);font-weight:600;font-size:14.5px;color:rgba(255,255,255,.74);
+    transition:color .25s,background .25s,box-shadow .25s,transform .25s var(--ease)}
+  .seg button svg{width:18px;height:18px}
+  .seg button:hover{color:#fff}
+  .seg button.on{
+    color:#3a2d6e;background:#fff;box-shadow:0 8px 20px -6px rgba(0,0,0,.45);transform:translateY(-1px)}
+  .seg button.on svg{color:var(--purple-700)}
+
+  .tools{display:flex;align-items:center;gap:10px}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:999px;
+    font-family:var(--head);font-weight:600;font-size:14px;color:#fff;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);
+    transition:background .25s,transform .25s var(--ease),opacity .25s}
+  .pill svg{width:17px;height:17px}
+  .pill.act:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
+  .pill[disabled]{opacity:.35;pointer-events:none}
+  .dims{min-width:118px;justify-content:center;font-variant-numeric:tabular-nums;
+    color:var(--lav-200);letter-spacing:.02em;direction:ltr}
+  .dims b{color:#fff;font-weight:700}
+
+  /* ---------- stage ---------- */
+  .stage{position:relative;z-index:1;flex:1;min-height:0;display:grid;place-items:center;
+    padding:8px clamp(12px,3vw,40px) clamp(20px,3vw,34px);overflow:hidden}
+  .scaler{transition:transform .5s var(--ease)}
+  .frame{position:relative;transition:width .5s var(--ease),height .5s var(--ease)}
+
+  /* device shells */
+  .device{position:relative;background:#0f0c1c;transition:all .5s var(--ease);
+    box-shadow:0 50px 110px -30px rgba(0,0,0,.7),0 12px 40px rgba(0,0,0,.4),
+      inset 0 0 0 2px rgba(255,255,255,.06)}
+  .device .screen{position:relative;width:100%;height:100%;overflow:hidden;background:#fff}
+  .device iframe{border:0;display:block;background:#fff}
+
+  /* phone / tablet bezel + notch */
+  .device.phone{border-radius:56px;padding:14px}
+  .device.phone .screen{border-radius:42px}
+  .device.tablet{border-radius:40px;padding:18px}
+  .device.tablet .screen{border-radius:22px}
+  .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:3;
+    width:148px;height:30px;background:#0f0c1c;border-radius:0 0 18px 18px}
+  .device.tablet .notch{display:none}
+  .cam{position:absolute;top:50%;transform:translateY(-50%);left:24px;width:8px;height:8px;
+    border-radius:50%;background:radial-gradient(circle at 35% 35%,#3b3650,#0a0814)}
+
+  /* desktop browser chrome */
+  .device.desktop{border-radius:16px;padding:0;background:#14101f}
+  .device.desktop .bar{height:46px;display:flex;align-items:center;gap:8px;padding:0 16px;
+    background:linear-gradient(180deg,#241c3c,#1b1530);border-radius:16px 16px 0 0;
+    border-bottom:1px solid rgba(255,255,255,.08)}
+  .device.desktop .lights{display:flex;gap:8px;margin-inline-end:6px}
+  .device.desktop .lights i{width:12px;height:12px;border-radius:50%;display:block}
+  .device.desktop .lights i:nth-child(1){background:#ff5f57}
+  .device.desktop .lights i:nth-child(2){background:#febc2e}
+  .device.desktop .lights i:nth-child(3){background:#28c840}
+  .device.desktop .url{flex:1;max-width:420px;margin-inline:auto;height:28px;border-radius:8px;
+    background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;gap:8px;
+    color:#b9b1d4;font-size:12.5px;font-family:var(--head)}
+  .device.desktop .url svg{width:13px;height:13px;color:#7fd99b}
+  .device.desktop .screen{border-radius:0 0 16px 16px}
+
+  /* floating device caption */
+  .caption{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);z-index:6;
+    display:flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;
+    font-family:var(--head);font-weight:600;font-size:13px;color:#fff;white-space:nowrap;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(10px);
+    box-shadow:0 10px 28px rgba(0,0,0,.35)}
+  .caption .dot{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,211,153,.55)}70%{box-shadow:0 0 0 8px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+
+  /* hint on very small viewers */
+  @media (max-width:680px){
+    .brand .tt{display:none}
+    .seg button span{display:none}
+    .seg button{padding:11px 14px}
+    .dims{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="dock">
+  <div class="brand">
+    <span class="mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
+    </span>
+    <div class="tt">
+      <b>תצוגה רספונסיבית</b>
+      <span>אריאלה · דף הנחיתה בכל מכשיר</span>
+    </div>
+  </div>
+
+  <div class="seg" id="seg">
+    <button data-dev="phone" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+      <span>טלפון</span>
+    </button>
+    <button data-dev="tablet" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+      <span>טאבלט</span>
+    </button>
+    <button data-dev="desktop" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      <span>מחשב</span>
+    </button>
+  </div>
+
+  <div class="tools">
+    <button class="pill act" id="rotate" type="button" title="סיבוב">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 17-7l3 3M22 12a10 10 0 0 1-17 7l-3-3"/><path d="M22 3v5h-5M2 21v-5h5"/></svg>
+      <span>סיבוב</span>
+    </button>
+    <span class="pill dims" id="dims"><b>—</b></span>
+  </div>
+</div>
+
+<div class="stage" id="stage">
+  <div class="scaler" id="scaler">
+    <div class="frame" id="frame">
+      <div class="device" id="device">
+        <span class="notch" id="notch"><span class="cam"></span></span>
+        <div class="bar" id="bar" hidden>
+          <div class="lights"><i></i><i></i><i></i></div>
+          <div class="url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>ariela.co.il</div>
+        </div>
+        <div class="screen" id="screen">
+          <iframe id="frameDoc" src="index.html" title="דף הנחיתה של אריאלה"></iframe>
+        </div>
+      </div>
+      <div class="caption" id="caption"><span class="dot"></span><span id="capText">טלפון</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const DEVICES = {
+    phone:   {w:390,  h:844,  label:"טלפון",  bezel:14, chrome:0,  cls:"phone"},
+    tablet:  {w:820,  h:1180, label:"טאבלט",  bezel:18, chrome:0,  cls:"tablet"},
+    desktop: {w:1440, h:900,  label:"מחשב",   bezel:0,  chrome:46, cls:"desktop"},
+  };
+
+  const stage   = document.getElementById('stage');
+  const scaler  = document.getElementById('scaler');
+  const frame   = document.getElementById('frame');
+  const device  = document.getElementById('device');
+  const screen  = document.getElementById('screen');
+  const iframe  = document.getElementById('frameDoc');
+  const notch   = document.getElementById('notch');
+  const bar     = document.getElementById('bar');
+  const dims    = document.getElementById('dims');
+  const caption = document.getElementById('capText');
+  const seg     = document.getElementById('seg');
+  const rotateBtn = document.getElementById('rotate');
+
+  let current = localStorage.getItem('ariela-dev') || 'phone';
+  let landscape = localStorage.getItem('ariela-rot') === '1';
+  if(!DEVICES[current]) current = 'phone';
+
+  function dims_of(){
+    const d = DEVICES[current];
+    let w = d.w, h = d.h;
+    if(landscape && current !== 'desktop'){ w = d.h; h = d.w; }
+    return {w, h, d};
+  }
+
+  function render(){
+    const {w, h, d} = dims_of();
+
+    // device class
+    device.className = 'device ' + d.cls;
+    notch.hidden = (current !== 'phone');
+    bar.hidden   = (current !== 'desktop');
+
+    // screen (iframe viewport) size — what the page actually sees
+    screen.style.width  = w + 'px';
+    screen.style.height = h + 'px';
+    iframe.style.width  = w + 'px';
+    iframe.style.height = h + 'px';
+
+    // outer device footprint (incl. bezel + chrome)
+    const outerW = w + d.bezel*2;
+    const outerH = h + d.bezel*2 + d.chrome;
+    frame.style.width  = outerW + 'px';
+    frame.style.height = (outerH + 36) + 'px';   // +caption room
+
+    // fit-to-stage scale
+    const pad = 24;
+    const availW = stage.clientWidth  - pad*2;
+    const availH = stage.clientHeight - pad*2;
+    const scale = Math.min(availW/outerW, availH/(outerH+36), 1.1);
+    scaler.style.transform = 'scale(' + scale.toFixed(4) + ')';
+
+    // labels
+    dims.innerHTML = '<b>' + w + '</b> × <b>' + h + '</b> px';
+    caption.textContent = d.label + (landscape && current!=='desktop' ? ' · לרוחב' : '');
+
+    // active states
+    [...seg.children].forEach(b => b.classList.toggle('on', b.dataset.dev === current));
+    rotateBtn.toggleAttribute('disabled', current === 'desktop');
+
+    localStorage.setItem('ariela-dev', current);
+    localStorage.setItem('ariela-rot', landscape ? '1' : '0');
+  }
+
+  seg.addEventListener('click', e => {
+    const btn = e.target.closest('button'); if(!btn) return;
+    current = btn.dataset.dev;
+    if(current === 'desktop') landscape = false;
+    render();
+  });
+  rotateBtn.addEventListener('click', () => { landscape = !landscape; render(); });
+  window.addEventListener('resize', render);
+
+  render();
+})();
+</script>
+</body>
+</html>

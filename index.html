@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>אריאלה · המכון לשיפור יכולות למידה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+
+<!-- scroll progress -->
+<div class="progress" id="progress"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="header" data-screen-label="header">
+  <div class="header-in">
+    <a class="brand" href="#top" aria-label="אריאלה — דף הבית">
+      <img src="assets/logo.png" alt="אריאלה — המכון לשיפור יכולות למידה">
+    </a>
+    <nav class="nav" aria-label="ניווט ראשי">
+      <a href="#how">איך זה עובד</a>
+      <a href="#includes">מה כולל</a>
+      <a href="#gallery">מהמפגשים</a>
+      <a href="#about">עליי</a>
+      <a href="#testimonials">המלצות</a>
+      <a href="#faq">שאלות</a>
+    </nav>
+    <div class="header-cta">
+      <a class="icon-wa-link" href="https://wa.me/972500000000" target="_blank" rel="noopener" aria-label="וואטסאפ">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.11.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.39 8.24 8.24 0 0 1 14.07-5.83 8.18 8.18 0 0 1 2.42 5.83c0 4.54-3.7 8.24-8.07 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+      </a>
+      <a class="btn btn-primary" href="#form" data-magnet>השארת פרטים</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="תפריט">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile nav overlay -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mclose" id="mClose" type="button" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <a href="#how">איך זה עובד</a>
+  <a href="#includes">מה כולל הליווי</a>
+  <a href="#gallery">רגעים מהמפגשים</a>
+  <a href="#about">קצת עליי</a>
+  <a href="#testimonials">המלצות הורים</a>
+  <a href="#faq">שאלות נפוצות</a>
+  <a class="btn btn-primary btn-block" href="#form">השארת פרטים</a>
+</div>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="hero">
+  <div class="hero-bg">
+    <span class="orb o1"></span>
+    <span class="orb o2"></span>
+    <span class="orb o3"></span>
+    <span class="hero-grain"></span>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="hero-pill reveal">
+        <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.09 6.26L20.5 9.5l-5 3.8L17.5 20 12 16.2 6.5 20l2-6.7-5-3.8 6.41-.24z"/></svg></span>
+        קבוצה קטנה · גילאי 6–10
+      </span>
+      <h1 class="reveal d1">הקבוצה הקטנה שמחזירה לילד את <span class="grad-text">הביטחון</span> — ואת השמחה ללמוד</h1>
+      <p class="lead reveal d2">ליווי הוליסטי: לימודי, רגשי וחברתי. לא עוד שיעורי־עזר — אלא תהליך שמלמד את הילד <strong>איך</strong> ללמוד, ובונה אותו מבפנים.</p>
+      <div class="hero-actions reveal d3">
+        <a class="btn btn-primary" href="#form" data-magnet>רוצים לשמוע עוד? השאירו פרטים</a>
+        <a class="btn btn-ghost" href="#about">קצת עליי</a>
+      </div>
+      <ul class="trust reveal d4">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> מספר מקומות מוגבל</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> פגישת היכרות ללא התחייבות</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> בליווי אישי שלי</li>
+      </ul>
+    </div>
+
+    <div class="hero-stage reveal d2">
+      <div class="stage-3d">
+        <span class="halo"></span>
+        <span class="halo-ring"></span>
+        <span class="ground"></span>
+        <img class="ariela" src="assets/ariela-cutout.png" alt="אריאלה — מלווה אישית">
+      </div>
+      <div class="chip c1">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <div><small>בונים</small><b>ביטחון עצמי</b></div>
+      </div>
+      <div class="chip c2">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span>
+        <div><small>נותנים</small><b>כלים ללמידה</b></div>
+      </div>
+      <div class="chip c3">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></span>
+        <div><small>מחזירים</small><b>שמחה ללמוד</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="mouse"></span>
+    גללו לגלות
+  </div>
+</section>
+
+<!-- ============ PROOF STRIP ============ -->
+<div class="proof reveal">
+  <div class="proof-card">
+    <div class="proof-item"><div class="num"><span data-count="12" data-suffix="+">0</span></div><div class="lab">שנות ניסיון בליווי ילדים</div></div>
+    <div class="proof-item"><div class="num"><span data-count="300" data-suffix="+">0</span></div><div class="lab">ילדים שחזרו לאהוב ללמוד</div></div>
+    <div class="proof-item"><div class="num"><span data-count="98" data-suffix="%">0</span></div><div class="lab">הורים שממליצים בחום</div></div>
+  </div>
+</div>
+
+<!-- ============ PAIN ============ -->
+<section class="section pain-zone" data-screen-label="pain">
+  <span class="pz-orb a"></span><span class="pz-orb b"></span>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="center-eyebrow reveal"><span class="eyebrow">רגע, זה מוכר לכם?</span></div>
+      <h2 class="reveal d1">ילד חכם — שהפסיק להאמין בעצמו</h2>
+    </div>
+    <div class="ptiles">
+      <div class="ptile reveal">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+        <p>"אני לא מסוגל" — עוד לפני שניסה</p>
+      </div>
+      <div class="ptile reveal d1">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4m0 4h.01M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.7 3.86a2 2 0 0 0-3.4 0z"/></svg></span>
+        <p>מאבק מתיש על שיעורי הבית, כל ערב</p>
+      </div>
+      <div class="ptile reveal d2">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 14l4-4 4 4 5-6"/></svg></span>
+        <p>ציונים שלא משקפים את היכולת שלו</p>
+      </div>
+      <div class="ptile reveal d3">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01"/></svg></span>
+        <p>איבד את ההנאה והסקרנות מהלמידה</p>
+      </div>
+    </div>
+    <p class="pain-foot reveal">הבעיה כמעט אף פעם אינה היכולת.<br><span class="grad-text">היא הדרך.</span></p>
+  </div>
+</section>
+
+<!-- ============ HOW ============ -->
+<section class="section bg-grid" id="how" data-screen-label="how">
+  <span class="accent-top"></span>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="center-eyebrow reveal"><span class="eyebrow">המסע שלכם</span></div>
+      <h2 class="reveal d1">מ"אני לא מצליח" ל"אני יכול" — ב-4 צעדים</h2>
+    </div>
+    <div class="journey">
+      <div class="jstep reveal"><div class="num">1</div><h3>היכרות</h3><p>מבינים את הילד ואתכם. בלי התחייבות.</p></div>
+      <div class="jstep reveal d1"><div class="num">2</div><h3>תוכנית אישית</h3><p>מסלול מותאם בתוך קבוצה קטנה.</p></div>
+      <div class="jstep reveal d2"><div class="num">3</div><h3>ליווי שבועי</h3><p>למידה וחיזוק רגשי, יד ביד.</p></div>
+      <div class="jstep reveal d3"><div class="num">4</div><h3>צמיחה</h3><p>הילד לומד איך ללמוד — ומאמין בעצמו.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INCLUDES ============ -->
+<section class="section bg-soft" id="includes" data-screen-label="includes">
+  <span class="dots"></span>
+  <div class="wrap inc-split">
+    <div class="inc-intro reveal">
+      <span class="eyebrow">מה כולל הליווי</span>
+      <h2>הרבה מעבר<br>לשיעור פרטי</h2>
+      <p>ליווי הוליסטי שנותן לילד כלים לכל החיים — לא רק למבחן הקרוב.</p>
+      <a class="btn btn-primary" href="#form" data-magnet>רוצים לשמוע עוד?</a>
+    </div>
+    <div class="inc-list">
+      <div class="inc-item reveal">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <div><b>קבוצה קטנה</b><span>יחס אישי וקבוצה תומכת</span></div>
+      </div>
+      <div class="inc-item reveal d1">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></span>
+        <div><b>כלים ללמידה</b><span>ארגון, ריכוז וזיכרון</span></div>
+      </div>
+      <div class="inc-item reveal">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.3 2 4.8 5.3 4.2 7.4 3.8 9.3 4.9 12 7.6c2.7-2.7 4.6-3.8 6.7-3.4 3.3.6 4.9 4.1 3.3 7.5C19.5 16.4 12 21 12 21Z"/></svg></span>
+        <div><b>חיזוק רגשי</b><span>ביטחון, חוסן ומוטיבציה</span></div>
+      </div>
+      <div class="inc-item reveal d1">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3"/></svg></span>
+        <div><b>קצב אישי</b><span>בלי לחץ, בלי השוואות</span></div>
+      </div>
+      <div class="inc-item reveal">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+        <div><b>קשר עם ההורים</b><span>שותפים לדרך, לאורך כל הדרך</span></div>
+      </div>
+      <div class="inc-item reveal d1">
+        <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg></span>
+        <div><b>תוצאות שנשארות</b><span>הרגלים לכל החיים</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY — moments ============ -->
+<section class="section bg-ink-soft" id="gallery" data-screen-label="gallery">
+  <span class="accent-top"></span>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="center-eyebrow reveal"><span class="eyebrow">רגעים מהמפגשים</span></div>
+      <h2 class="reveal d1">כאן קורה הקסם</h2>
+      <p class="lead reveal d2">קבוצות קטנות, חיוכים גדולים, ולמידה שמרגישה אחרת לגמרי.</p>
+    </div>
+    <div class="gallery reveal">
+      <image-slot id="g-big" class="big" shape="rounded" radius="24" placeholder="תמונה ראשית מהמפגשים"></image-slot>
+      <image-slot id="g-a" shape="rounded" radius="24" placeholder="קבוצה קטנה"></image-slot>
+      <image-slot id="g-b" shape="rounded" radius="24" placeholder="רגע של הצלחה"></image-slot>
+      <image-slot id="g-c" class="wide" shape="rounded" radius="24" placeholder="פעילות לימודית"></image-slot>
+      <image-slot id="g-d" shape="rounded" radius="24" placeholder="ריכוז ושמחה"></image-slot>
+      <image-slot id="g-e" shape="rounded" radius="24" placeholder="עבודה אישית"></image-slot>
+      <image-slot id="g-f" class="wide" shape="rounded" radius="24" placeholder="כיף ללמוד יחד"></image-slot>
+    </div>
+    <p class="gallery-note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      גררו לכאן תמונות אמיתיות מהמפגשים — הן יישמרו אוטומטית
+    </p>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about" data-screen-label="about">
+  <span class="accent-top"></span>
+  <div class="atmo"><span class="g1"></span><span class="g2"></span></div>
+  <div class="wrap about-grid">
+    <div class="about-photo reveal">
+      <span class="ring"></span>
+      <div class="pf"><img src="assets/ariela.png" alt="אריאלה"></div>
+      <div class="badge">
+        <span class="h"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.3 2 4.8 5.3 4.2 7.4 3.8 9.3 4.9 12 7.6c2.7-2.7 4.6-3.8 6.7-3.4 3.3.6 4.9 4.1 3.3 7.5C19.5 16.4 12 21 12 21Z"/></svg></span>
+        <div><b>אריאלה</b><span>מלווה אישית, מהשיעור הראשון</span></div>
+      </div>
+    </div>
+    <div class="about reveal d1">
+      <span class="eyebrow">קצת עליי</span>
+      <h2>נעים מאוד, אני אריאלה</h2>
+      <p>שנים שאני מלווה ילדים שהמערכת התקשתה להכיל — וראיתי שוב ושוב שמאחורי כל "אני לא מצליח" מסתתר ילד מוכשר שפשוט עוד לא מצא את הדרך שלו.</p>
+      <p>הקמתי את המכון מתוך אמונה עמוקה: כשמשלבים כלים לימודיים נכונים עם חיזוק רגשי אמיתי — הילד לא רק משתפר בלימודים, הוא משתנה. חוזר לו הביטחון, הסקרנות והשמחה.</p>
+      <p class="quote">"כל ילד יכול — כשנותנים לו את הכלים הנכונים ומאמינים בו."</p>
+      <p class="sign">— אריאלה</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE BAND ============ -->
+<section class="quote-band" data-screen-label="quote-band">
+  <span class="qb-orb x"></span>
+  <div class="qb-inner reveal">
+    <span class="big-q">”</span>
+    <p>הילד שלי קם בבוקר ואמר ”אני אוהב ללמוד”.<br>לא האמנתי שאשמע ממנו את המשפט הזה.</p>
+    <span class="qb-by">— הורה לילד בכיתה ג'</span>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section bg-cream" id="testimonials" data-screen-label="testimonials">
+  <span class="dots"></span>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="center-eyebrow reveal"><span class="eyebrow">מה הורים מספרים</span></div>
+      <h2 class="reveal d1">השינוי שהם לא חלמו עליו</h2>
+    </div>
+    <div class="tst-feature">
+      <div class="tst tst-big card-3d reveal">
+        <span class="qmark">”</span>
+        <p>"תוך חודשיים ראינו ילד אחר. במקום בכי לפני כל מבחן — הוא מתיישב ללמוד לבד. אריאלה החזירה לו את הביטחון."</p>
+        <div class="who"><span class="av">מ</span><div><b>מיכל</b><span>אמא לאיתי, כיתה ג'</span></div></div>
+      </div>
+      <div class="tst-side">
+        <div class="tst card-3d reveal d1">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg>
+          </div>
+          <p>"הקבוצה הקטנה עשתה את כל ההבדל. הבת שלי הרגישה שייכת — סוף סוף מישהי שרואה אותה."</p>
+          <div class="who"><span class="av">ר</span><div><b>רונית</b><span>אמא לשירה, כיתה ד'</span></div></div>
+        </div>
+        <div class="tst card-3d reveal d2">
+          <div class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4L12 17l-6.3 4.4L8 14 2 9.4h7.6z"/></svg>
+          </div>
+          <p>"ניסינו מורים פרטיים בלי הצלחה. כאן הבנו שהבעיה לא הייתה החומר — אלא הגישה."</p>
+          <div class="who"><span class="av">ד</span><div><b>דנה</b><span>אמא ליואב, כיתה ב'</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq" data-screen-label="faq">
+  <span class="accent-top"></span>
+  <div class="atmo"><span class="g1"></span></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="center-eyebrow reveal"><span class="eyebrow">שאלות נפוצות</span></div>
+      <h2 class="reveal d1">כל מה שחשוב לכם לדעת</h2>
+    </div>
+    <div class="faq reveal">
+      <div class="qa">
+        <button class="qa-q" type="button">לאיזה גילאים מתאים הליווי?<span class="pm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="qa-a"><div>הקבוצות מיועדות לילדים בגילאי 6–10. בפגישת ההיכרות נוודא יחד שהמסגרת מתאימה בדיוק לילד שלכם ולשלב שבו הוא נמצא.</div></div>
+      </div>
+      <div class="qa">
+        <button class="qa-q" type="button">כמה ילדים יש בכל קבוצה?<span class="pm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="qa-a"><div>הקבוצות קטנות ואינטימיות במכוון, כדי לאפשר יחס אישי וקשב מלא לכל ילד. מספר המקומות מוגבל, ולכן כדאי לפנות מוקדם.</div></div>
+      </div>
+      <div class="qa">
+        <button class="qa-q" type="button">במה זה שונה משיעורי עזר רגילים?<span class="pm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="qa-a"><div>שיעור עזר מתרכז בחומר ספציפי למבחן הקרוב. כאן מלמדים את הילד <strong>איך</strong> ללמוד — כלים, ריכוז וארגון — לצד חיזוק רגשי שבונה ביטחון. התוצאה נשארת לאורך זמן.</div></div>
+      </div>
+      <div class="qa">
+        <button class="qa-q" type="button">איך מתחילים?<span class="pm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>
+        <div class="qa-a"><div>פשוט מאוד — משאירים פרטים בטופס למטה או שולחים הודעת וואטסאפ. אחזור אליכם לתיאום פגישת היכרות קצרה וללא התחייבות.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA + FORM ============ -->
+<section class="section cta" id="form" data-screen-label="cta-form">
+  <span class="corb a"></span><span class="corb b"></span><span class="cta-dots"></span>
+  <div class="wrap cta-grid">
+    <div class="cta-copy reveal">
+      <div class="cta-host">
+        <img class="ava" src="assets/ariela.png" alt="אריאלה">
+        <div class="t">
+          <b>אריאלה</b>
+          <span class="live">עונה אישית · בדרך כלל תוך יום</span>
+        </div>
+      </div>
+      <span class="eyebrow" style="color:var(--lav-300)">הצעד הראשון מתחיל כאן</span>
+      <h2 style="margin-top:14px">בואו נחזיר לילד את <span class="grad-text">השמחה ללמוד</span></h2>
+      <p>השאירו פרטים ואחזור אליכם לתיאום פגישת היכרות קצרה — להכיר, להבין ולראות יחד אם זה מתאים. בלי התחייבות.</p>
+      <ul class="cta-points">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> מענה אישי ממני, לא ממוקד מכירות</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> פגישת היכרות ללא עלות וללא התחייבות</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> מספר מקומות מוגבל לשנה הקרובה</li>
+      </ul>
+    </div>
+
+    <div class="form-card reveal d1">
+      <span class="ribbon"></span>
+      <form id="leadForm" novalidate>
+        <span class="spots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> נותרו מעט מקומות לשנה הקרובה</span>
+        <h3>השאירו פרטים</h3>
+        <p class="sub">ואחזור אליכם בהקדם 💜</p>
+        <div class="field" data-f="name">
+          <label for="f-name">שם ההורה</label>
+          <input id="f-name" type="text" name="name" placeholder="איך קוראים לך?" autocomplete="name">
+          <span class="err">נשמח לדעת איך לפנות אליך</span>
+        </div>
+        <div class="row2">
+          <div class="field" data-f="phone">
+            <label for="f-phone">טלפון</label>
+            <input id="f-phone" type="tel" name="phone" placeholder="050-0000000" inputmode="tel" autocomplete="tel">
+            <span class="err">מספר טלפון תקין</span>
+          </div>
+          <div class="field" data-f="age">
+            <label for="f-age">גיל הילד/ה</label>
+            <select id="f-age" name="age">
+              <option value="">בחרו</option>
+              <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+              <option value="אחר">אחר</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" data-f="msg">
+          <label for="f-msg">במה אפשר לעזור? <span style="color:var(--ink-faint);font-weight:500">(לא חובה)</span></label>
+          <textarea id="f-msg" name="msg" rows="2" placeholder="ספרו לי קצת על הילד/ה…"></textarea>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">שליחה — ואחזור אליכם</button>
+        <p class="form-tiny">הפרטים נשמרים אצלי בלבד ולא מועברים לאף גורם.</p>
+        <div class="or">או</div>
+        <a class="btn btn-wa btn-block" href="https://wa.me/972500000000?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A8%D7%99%D7%90%D7%9C%D7%94%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%95%D7%93%20%D7%A2%D7%9C%20%D7%94%D7%9C%D7%99%D7%95%D7%95%D7%99" target="_blank" rel="noopener">
+          <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+          לדבר איתי בוואטסאפ
+        </a>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <div class="big"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>תודה, <span class="uname">ההורה</span>! 💜</h3>
+        <p>קיבלתי את הפרטים ואחזור אליך בהקדם. בינתיים אפשר גם לכתוב לי ישירות בוואטסאפ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" data-screen-label="footer">
+  <div class="footer-in">
+    <div class="fcol">
+      <img src="assets/logo.png" alt="אריאלה — המכון לשיפור יכולות למידה">
+      <p>המכון לשיפור יכולות למידה — ליווי הוליסטי לימודי, רגשי וחברתי לילדים גילאי 6–10. מחזירים את הביטחון ואת השמחה ללמוד.</p>
+    </div>
+    <div class="fcol fcontact">
+      <a href="https://wa.me/972500000000" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Z"/></svg> 050-0000000</a>
+      <a href="mailto:hello@ariela.co.il"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg> hello@ariela.co.il</a>
+      <a href="#form">השארת פרטים →</a>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <span>© 2026 אריאלה · המכון לשיפור יכולות למידה. כל הזכויות שמורות.</span>
+    <span>נבנה באהבה 💜</span>
+  </div>
+</footer>
+
+<!-- ============ MOBILE STICKY CTA ============ -->
+<div class="mobile-cta">
+  <a class="btn btn-primary" href="#form">השארת פרטים</a>
+  <a class="btn btn-wa" href="https://wa.me/972500000000" target="_blank" rel="noopener" aria-label="וואטסאפ" style="flex:0 0 auto;padding:15px 18px">
+    <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Z"/></svg>
+  </a>
+</div>
+
+<script src="image-slot.js"></script>
+<script src="app2.js"></script>
+</body>
+</html>
