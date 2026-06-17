@@ -2,24 +2,25 @@
    אריאלה · Premium edition — depth, glass, glow, motion
    =================================================================== */
 :root{
-  --purple-950:#221a40;
-  --purple-900:#2e2452;
-  --purple-800:#3d2f6b;
-  --purple-700:#5b4b9e;
-  --purple-600:#6f5cc0;
-  --purple-500:#8a76d6;
-  --lav-400:#a78bc8;
-  --lav-300:#c4afe0;
-  --lav-200:#dccdef;
-  --lav-100:#ece3f8;
-  --lav-50:#f6f1fc;
-  --cream:#f7f1e6;
-  --cream-deep:#efe4cf;
-  --ink:#272232;
-  --ink-soft:#5b5570;
-  --ink-faint:#928ca6;
-  --paper:#fbfaf8;
-  --gold:#d8a657;
+  /* Elegant white-forward palette — softened, desaturated lavender + champagne (2026-06-17) */
+  --purple-950:#332d47;
+  --purple-900:#3f3954;
+  --purple-800:#514a66;
+  --purple-700:#675f80;
+  --purple-600:#857aa3;
+  --purple-500:#a99ec2;
+  --lav-400:#c3b8d8;
+  --lav-300:#dad0ea;
+  --lav-200:#e9e2f3;
+  --lav-100:#f3eef9;
+  --lav-50:#faf8fd;
+  --cream:#f8f2e9;
+  --cream-deep:#efe6d6;
+  --ink:#322d3c;
+  --ink-soft:#615b71;
+  --ink-faint:#938da3;
+  --paper:#fdfcfa;
+  --gold:#c6a263;
 
   --glass:rgba(255,255,255,.62);
   --glass-brd:rgba(255,255,255,.75);
@@ -310,7 +311,7 @@ h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.18;color:var(--in
    FINAL CTA + FORM (dark, dramatic)
    =================================================================== */
 .cta{position:relative;z-index:2;overflow:hidden;color:#fff;
-  background:radial-gradient(120% 130% at 80% -10%, #4a3a86 0%, #2e2452 55%, #221a40 100%)}
+  background:radial-gradient(120% 130% at 80% -10%, #564d6e 0%, #3a3450 55%, #2c2740 100%)}
 .cta .corb{position:absolute;border-radius:50%;filter:blur(70px);z-index:0}
 .cta .corb.a{width:520px;height:520px;background:radial-gradient(circle,#7a64c8,transparent 65%);top:-30%;inset-inline-start:-10%;opacity:.5}
 .cta .corb.b{width:420px;height:420px;background:radial-gradient(circle,#d8a657,transparent 66%);bottom:-30%;inset-inline-end:-8%;opacity:.22}
@@ -349,7 +350,7 @@ h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.18;color:var(--in
 @keyframes pop{0%{transform:scale(.92);opacity:0}100%{transform:scale(1);opacity:1}}
 
 /* ---------- footer ---------- */
-.footer{position:relative;z-index:2;background:#1c1730;color:rgba(255,255,255,.78);padding:56px 24px 30px}
+.footer{position:relative;z-index:2;background:#2a2538;color:rgba(255,255,255,.78);padding:56px 24px 30px}
 .footer-in{max-width:var(--maxw);margin-inline:auto;display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start}
 .footer img{height:54px;width:auto;filter:brightness(0) invert(1);opacity:.92;margin-bottom:14px}
 .footer .fcol p{font-size:14.5px;max-width:32em;line-height:1.7}
@@ -408,7 +409,7 @@ h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.18;color:var(--in
    CTA — premium redesign
    =================================================================== */
 .cta{background:
-  radial-gradient(110% 120% at 82% -10%, #5a4794 0%, #2f2556 52%, #1f1740 100%)}
+  radial-gradient(110% 120% at 82% -10%, #5e5578 0%, #3a3450 52%, #2a2640 100%)}
 /* designed soft glows (no hard squares) */
 .cta .corb{position:absolute;border-radius:50%;z-index:0;pointer-events:none}
 .cta .corb.a{width:60vw;max-width:680px;aspect-ratio:1;
