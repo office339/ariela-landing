@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>פְּנִימָה · אריאלה רויטלמן — המסע אל עצמך, אחרי הגירושין</title>
+<meta name="description" content="פְּנִימָה — מסע ליווי אינטימי לנשים אחרי גירושין: ריפוי, אמונה וקהילה תומכת בשבעה שלבים. לבנות מחדש את החיבור לעצמך, את הביטחון ואת השמחה.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;600;700&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* warm-white paper · whisper lavender · refined gold · dusty rose */
+  --paper:#FCFAF7; --paper2:#F6F1EC; --card:#FFFFFF;
+  --ink:#39323F; --ink-soft:#6E6675; --ink-faint:#9A93A0;
+  --lav:#C9BCDE; --lav-soft:#F3EFF8; --lav-deep:#7E6E9C; --lav-line:#E5DCEF;
+  --rose:#C7A39E; --rose-soft:#F6ECE9;
+  --gold:#BC9A5C; --gold-soft:#EBDFC4;
+  --line:#ECE5DC;
+  --serif:"Frank Ruhl Libre",Georgia,"Times New Roman",serif;
+  --sans:"Assistant",system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --maxw:1180px;
+  --shadow-sm:0 12px 30px -18px rgba(57,50,63,.28);
+  --shadow:0 34px 80px -42px rgba(70,56,98,.42);
+  --shadow-lg:0 60px 120px -50px rgba(70,56,98,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  font-family:var(--sans);color:var(--ink);background:var(--paper);
+  line-height:1.78;font-weight:400;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+.serif{font-family:var(--serif)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,4vw,40px);width:100%}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.16;color:var(--ink);letter-spacing:-.012em}
+
+/* eyebrow with gold rule */
+.eyebrow{display:inline-flex;align-items:center;gap:11px;font-family:var(--sans);
+  font-size:.78rem;font-weight:600;letter-spacing:.26em;color:var(--gold);text-transform:uppercase}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--gold);opacity:.7}
+.center .eyebrow::before{display:none}
+.center .eyebrow{letter-spacing:.3em}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;justify-content:center;
+  background:var(--ink);color:#fff;font-family:var(--sans);font-weight:600;font-size:1.02rem;
+  padding:16px 34px;border-radius:46px;text-decoration:none;border:0;cursor:pointer;
+  box-shadow:0 18px 40px -20px rgba(57,50,63,.7);
+  transition:transform .45s var(--ease),background .3s,box-shadow .45s var(--ease);position:relative}
+.btn:hover{transform:translateY(-3px);background:#4a4252;box-shadow:0 26px 50px -22px rgba(57,50,63,.75)}
+.btn svg{width:17px;height:17px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.4px solid var(--lav)}
+.btn.ghost:hover{background:var(--lav-soft);border-color:var(--lav-deep);transform:translateY(-3px);box-shadow:none}
+.btn.gold{background:var(--gold);box-shadow:0 18px 40px -20px rgba(188,154,92,.85)}
+.btn.gold:hover{background:#a9883f}
+
+/* ---------- header ---------- */
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease);padding:10px 0}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between}
+.bar.scrolled{background:rgba(252,250,247,.86);backdrop-filter:blur(16px) saturate(1.2);box-shadow:0 1px 0 var(--line),0 14px 40px -30px rgba(57,50,63,.4)}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none}
+.brand .glyph{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:linear-gradient(155deg,#fff,var(--lav-soft));border:1px solid var(--lav-line);
+  box-shadow:inset 0 1px 0 #fff,0 10px 24px -14px rgba(126,110,156,.6)}
+.brand .glyph span{font-family:var(--serif);font-weight:600;font-size:1.45rem;color:var(--lav-deep);line-height:1;margin-top:2px}
+.brand .bt b{font-family:var(--serif);font-weight:500;font-size:1.32rem;display:block;line-height:1.05;letter-spacing:.02em}
+.brand .bt small{font-family:var(--sans);font-size:.72rem;color:var(--ink-soft);letter-spacing:.04em}
+.bar-cta{padding:12px 26px;font-size:.95rem}
+@media(max-width:560px){.bar-cta{display:none}.brand .bt small{display:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;padding-top:clamp(110px,16vw,150px)}
+.hero::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(60% 55% at 86% 4%, var(--lav-soft) 0%, transparent 62%),
+  radial-gradient(46% 50% at 4% 96%, var(--rose-soft) 0%, transparent 60%);}
+.hero .wrap{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(32px,5vw,76px);align-items:center;
+  padding-bottom:clamp(48px,7vw,96px)}
+.hero h1{font-size:clamp(2.3rem,5.6vw,4.05rem);font-weight:500;margin:20px 0 22px;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--lav-deep);position:relative}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.05em;height:.36em;
+  background:var(--gold-soft);z-index:-1;opacity:.75;border-radius:3px}
+.hero .sub{font-size:clamp(1.08rem,1.85vw,1.26rem);color:var(--ink-soft);max-width:40ch;text-wrap:pretty;margin-bottom:32px}
+.hero .actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hero .micro{margin-top:30px;display:flex;flex-wrap:wrap;gap:10px 26px;font-size:.96rem;color:var(--ink-soft)}
+.hero .micro span{display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
+.hero .micro svg{width:16px;height:16px;color:var(--gold);flex:none}
+
+/* portrait */
+.portrait{position:relative;justify-self:center;width:100%;max-width:440px}
+.portrait .ph{position:relative;border-radius:230px 230px 30px 30px;overflow:hidden;
+  box-shadow:var(--shadow-lg);aspect-ratio:896/1120;
+  background:linear-gradient(180deg,var(--lav-soft),#fff)}
+.portrait .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 8%}
+.portrait .ring{position:absolute;inset:-16px;border:1.4px solid var(--lav);border-radius:244px 244px 40px 40px;z-index:-1}
+.portrait .ring.gold{inset:-28px;border-color:var(--gold-soft);border-radius:258px 258px 50px 50px}
+.portrait .namechip{position:absolute;bottom:22px;inset-inline-start:-18px;background:#fff;border-radius:18px;
+  padding:14px 22px;box-shadow:var(--shadow);text-align:start}
+.portrait .namechip b{font-family:var(--serif);font-size:1.12rem;color:var(--ink);display:block;line-height:1.1}
+.portrait .namechip small{font-family:var(--sans);font-size:.78rem;color:var(--lav-deep);letter-spacing:.04em}
+.portrait .float{position:absolute;top:30px;inset-inline-end:-14px;background:#fff;border-radius:14px;
+  padding:11px 17px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:9px;font-size:.9rem;color:var(--ink-soft)}
+.portrait .float b{color:var(--gold);font-family:var(--serif);font-size:1.15rem}
+
+/* scroll cue */
+.cue{display:flex;justify-content:center;padding-bottom:30px}
+.cue span{font-size:.74rem;letter-spacing:.24em;color:var(--ink-faint);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cue span::after{content:"";width:1px;height:34px;background:linear-gradient(var(--lav),transparent);animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{0%{transform:scaleY(.3);transform-origin:top;opacity:0}40%{opacity:1}100%{transform:scaleY(1);transform-origin:top;opacity:0}}
+
+/* ---------- section frame ---------- */
+section.pad{padding:clamp(60px,8.5vw,118px) 0}
+.center{text-align:center;max-width:60ch;margin-inline:auto}
+.center h2{margin-top:14px}
+.lead{font-size:1.16rem;color:var(--ink-soft);text-wrap:pretty}
+.hr-orn{width:60px;height:1px;background:var(--gold);margin:22px auto 0;position:relative;opacity:.8}
+.hr-orn::after{content:"";position:absolute;top:-3.5px;left:50%;transform:translateX(-50%) rotate(45deg);width:7px;height:7px;background:var(--gold)}
+
+/* ---------- empathy ---------- */
+.empathy{background:var(--paper2)}
+.empathy .q{font-family:var(--serif);font-weight:400;font-size:clamp(1.6rem,3.6vw,2.5rem);
+  text-align:center;max-width:22ch;margin:0 auto;color:var(--ink);text-wrap:balance;line-height:1.32}
+.feelings{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:38px}
+.feelings span{background:#fff;border:1px solid var(--line);border-radius:44px;padding:12px 24px;
+  font-size:1rem;color:var(--ink-soft);box-shadow:var(--shadow-sm)}
+.empathy .turn{text-align:center;margin-top:40px;font-family:var(--serif);font-size:clamp(1.2rem,2.4vw,1.5rem);color:var(--lav-deep);text-wrap:balance}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(30px,5vw,68px);align-items:center}
+.about-ph{position:relative;border-radius:24px 24px 120px 120px;overflow:hidden;box-shadow:var(--shadow);
+  aspect-ratio:896/1080;max-width:360px;justify-self:center;background:var(--lav-soft)}
+.about-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 6%}
+.about h2{font-size:clamp(1.8rem,3.8vw,2.7rem);margin:12px 0 20px}
+.about p{font-size:1.1rem;color:var(--ink-soft);margin-bottom:16px;max-width:58ch;text-wrap:pretty}
+.about p b{color:var(--ink);font-weight:600}
+.about .pull{font-family:var(--serif);font-size:clamp(1.2rem,2.4vw,1.45rem);color:var(--ink);
+  border-inline-start:2px solid var(--gold);padding-inline-start:20px;margin:24px 0;line-height:1.5;font-weight:400}
+.sign{font-family:var(--serif);font-size:1.7rem;color:var(--lav-deep);margin-top:8px}
+
+/* ---------- journey (7 stages, gold timeline) ---------- */
+.journey{background:linear-gradient(180deg,var(--paper) 0%,var(--lav-soft) 280%)}
+.timeline{margin-top:clamp(40px,5vw,60px);max-width:880px;margin-inline:auto;position:relative}
+.timeline::before{content:"";position:absolute;inset-inline-start:34px;top:14px;bottom:14px;width:2px;
+  background:linear-gradient(var(--gold-soft),var(--lav-line));border-radius:2px}
+.step{position:relative;display:grid;grid-template-columns:70px 1fr;gap:24px;align-items:start;padding:0 0 26px}
+.step:last-child{padding-bottom:0}
+.step .n{position:relative;z-index:1;width:70px;height:70px;border-radius:50%;flex:none;
+  display:grid;place-items:center;background:#fff;border:1.5px solid var(--lav-line);
+  font-family:var(--serif);font-size:1.7rem;font-weight:500;color:var(--lav-deep);
+  box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),border-color .4s,color .4s}
+.step .body{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px 28px;
+  box-shadow:var(--shadow-sm);transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.step:hover .body{transform:translateY(-3px);box-shadow:var(--shadow)}
+.step:hover .n{transform:scale(1.06);border-color:var(--gold);color:var(--gold)}
+.step h3{font-size:1.28rem;margin-bottom:6px}
+.step p{font-size:1.04rem;color:var(--ink-soft);text-wrap:pretty}
+
+/* ---------- how ---------- */
+.how .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:22px;margin-top:clamp(38px,4.5vw,54px)}
+.hcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:34px 28px;text-align:center;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .4s}
+.hcard:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--lav-line)}
+.hcard .ic{width:62px;height:62px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center;
+  background:linear-gradient(155deg,var(--lav-soft),#fff);border:1px solid var(--lav-line)}
+.hcard .ic svg{width:28px;height:28px;color:var(--lav-deep)}
+.hcard b{font-family:var(--serif);font-weight:500;font-size:1.22rem;display:block;margin-bottom:9px}
+.hcard p{font-size:1rem;color:var(--ink-soft);text-wrap:pretty}
+
+/* ---------- creed ---------- */
+.creed{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.creed::before{content:"";position:absolute;inset:0;opacity:.55;
+  background:radial-gradient(62% 120% at 88% -12%,var(--lav-deep),transparent 58%),
+            radial-gradient(50% 90% at 6% 110%,#5b4d75,transparent 60%)}
+.creed::after{content:"\201D";position:absolute;top:.05em;inset-inline-start:.18em;font-family:var(--serif);
+  font-size:14rem;line-height:1;color:rgba(255,255,255,.06);z-index:1}
+.creed .wrap{position:relative;z-index:2;text-align:center;padding:clamp(56px,8vw,108px) 0;max-width:900px}
+.creed q{font-family:var(--serif);font-weight:300;font-size:clamp(1.45rem,3.3vw,2.25rem);quotes:none;line-height:1.46;text-wrap:balance}
+.creed q b{color:var(--lav);font-weight:500}
+.creed cite{display:block;margin-top:26px;font-style:normal;font-family:var(--sans);color:#cabfd9;letter-spacing:.18em;font-size:.84rem;text-transform:uppercase}
+
+/* ---------- join ---------- */
+.join{background:var(--paper2)}
+.join-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(32px,5vw,62px);align-items:center}
+.join h2{font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:18px;text-wrap:balance}
+.join .lead{max-width:46ch}
+.join .pts{margin-top:26px;display:flex;flex-direction:column;gap:13px}
+.join .pts li{display:flex;gap:13px;align-items:flex-start;list-style:none;color:var(--ink-soft);font-size:1.04rem}
+.join .pts .ck{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--lav-soft);margin-top:1px}
+.join .pts .ck svg{width:14px;height:14px;color:var(--lav-deep)}
+.formcard{background:var(--card);border-radius:28px;padding:clamp(28px,4vw,44px);box-shadow:var(--shadow);border:1px solid var(--line)}
+.formcard h3{font-size:1.5rem;margin-bottom:5px}
+.formcard .fs{color:var(--ink-soft);margin-bottom:26px}
+.field{margin-bottom:18px}
+.field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:8px;color:var(--ink)}
+.field input{width:100%;border:1.5px solid var(--line);background:var(--paper);border-radius:14px;
+  padding:15px 17px;font-family:inherit;font-size:1.05rem;color:var(--ink);transition:border-color .25s,box-shadow .25s,background .25s}
+.field input::placeholder{color:var(--ink-faint)}
+.field input:focus{outline:none;border-color:var(--lav-deep);background:#fff;box-shadow:0 0 0 4px var(--lav-soft)}
+.formcard .btn{width:100%;margin-top:4px}
+.formcard .tiny{text-align:center;font-size:.82rem;color:var(--ink-faint);margin-top:14px}
+.thanks{text-align:center;padding:30px 10px}
+.thanks .ok{width:64px;height:64px;border-radius:50%;background:var(--lav-soft);display:grid;place-items:center;margin:0 auto 18px}
+.thanks .ok svg{width:30px;height:30px;color:var(--lav-deep)}
+.thanks h3{margin-bottom:8px}
+.thanks p{color:var(--ink-soft)}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#cabfd9;text-align:center;padding:48px 0 40px}
+footer .wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+footer .fmark{font-family:var(--serif);font-size:1.5rem;color:#fff;letter-spacing:.04em}
+footer .fsub{font-size:.95rem;max-width:46ch;text-wrap:pretty}
+footer .frule{width:48px;height:1px;background:var(--gold);opacity:.7;margin:6px 0}
+footer .fcr{font-size:.8rem;color:#8f86a0;margin-top:6px}
+
+/* ---------- reveal animation ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}
+  .reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+  .reveal.d5{transition-delay:.4s}.reveal.d6{transition-delay:.48s}
+}
+
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+  .hero-grid,.about-grid,.join-grid{grid-template-columns:1fr}
+  .portrait{order:-1;max-width:360px;margin-bottom:10px}
+  .portrait .float{inset-inline-end:0}
+  .about-ph{margin-bottom:6px}
+}
+@media(max-width:620px){
+  .hero{padding-top:104px}
+  .hero h1{font-size:clamp(2rem,8vw,2.5rem)}
+  .hero .actions{flex-direction:column;align-items:stretch}
+  .hero .actions .btn{width:100%}
+  .timeline::before{inset-inline-start:26px}
+  .step{grid-template-columns:54px 1fr;gap:16px}
+  .step .n{width:54px;height:54px;font-size:1.35rem}
+  .feelings span{padding:10px 18px;font-size:.94rem}
+  .portrait .namechip{inset-inline-start:0}
+}
+@media(max-width:380px){
+  .brand .glyph{width:40px;height:40px}
+  .brand .bt b{font-size:1.15rem}
+  .btn{padding:15px 26px}
+}
+@media print{
+  .bar,.cue{display:none}
+  .reveal{opacity:1!important;transform:none!important}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<!-- header -->
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="פנימה — לראש העמוד">
+      <span class="glyph"><span>פ</span></span>
+      <span class="bt"><b class="serif">פְּנִימָה</b><small>ליווי נשים אחרי גירושין</small></span>
+    </a>
+    <a href="#join" class="btn bar-cta">השארת פרטים</a>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow reveal">מסע בשבעה שלבים · קבוצה אינטימית</span>
+        <h1 class="reveal d1">המסע <em>אל עצמך</em>,<br>אחרי הגירושין</h1>
+        <p class="sub reveal d2">לנשים שמתפקדות כלפי חוץ — אך מבפנים איבדו את החיבור לעצמן. כאן בונות מחדש את הביטחון, האמון והשמחה — יחד, בקהילה תומכת.</p>
+        <div class="actions reveal d3">
+          <a href="#join" class="btn">רוצה לשמוע עוד? השאירי פרטים
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          </a>
+          <a href="#journey" class="btn ghost">המסע בשבעה שלבים</a>
+        </div>
+        <div class="micro reveal d4">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.6L21 9.3l-5 4.6 1.5 6.6L12 17l-5.5 3.5L8 13.9l-5-4.6 6.4-.7z"/></svg> 7 מפגשים קבוצתיים</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.6L21 9.3l-5 4.6 1.5 6.6L12 17l-5.5 3.5L8 13.9l-5-4.6 6.4-.7z"/></svg> 2 מפגשים אישיים</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.6 6.6L21 9.3l-5 4.6 1.5 6.6L12 17l-5.5 3.5L8 13.9l-5-4.6 6.4-.7z"/></svg> קהילה תומכת לאורך הדרך</span>
+        </div>
+      </div>
+      <div class="portrait reveal d2">
+        <span class="ring"></span>
+        <span class="ring gold"></span>
+        <div class="ph"><img data-pt="1" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="אריאלה רויטלמן" width="896" height="1200"></div>
+        <div class="namechip">
+          <b class="serif">אריאלה רויטלמן</b>
+          <small>מלווה את המסע פְּנִימָה</small>
+        </div>
+        <div class="float"><b class="serif">♡</b> קהילה של נשים</div>
+      </div>
+    </div>
+  </div>
+  <div class="cue"><span>גללי פנימה</span></div>
+</section>
+
+<!-- empathy -->
+<section class="pad empathy">
+  <div class="wrap">
+    <p class="q serif reveal">הגירושין מאחורייך — אבל בפנים נשארה בדידות שאיש לא רואה.</p>
+    <div class="feelings">
+      <span class="reveal d1">איבדתי את החיבור לעצמי</span>
+      <span class="reveal d2">בדידות עמוקה</span>
+      <span class="reveal d3">חוסר ודאות</span>
+      <span class="reveal d4">פחד מהעתיד הלא-ברור</span>
+      <span class="reveal d5">איפה הקול הפנימי שלי?</span>
+    </div>
+    <p class="turn serif reveal d3">את לא צריכה לעבור את זה לבד. יש דרך — ויש קהילה.</p>
+  </div>
+</section>
+
+<!-- about -->
+<section class="pad" id="about">
+  <div class="wrap about-grid">
+    <div class="about-ph reveal"><img data-pt="1" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="אריאלה רויטלמן" width="896" height="1200"></div>
+    <div class="about">
+      <span class="eyebrow reveal">נעים להכיר</span>
+      <h2 class="reveal d1">אני אריאלה רויטלמן</h2>
+      <p class="reveal d1">אמא לשני בנים ולארבעה נכדים מקסימים. בחרתי ללוות <b>נשים שעברו משבר גירושין</b> — נשים חזקות שמתפקדות כלפי חוץ, אבל מבפנים איבדו את החיבור לזהות ולקול הפנימי שלהן.</p>
+      <p class="reveal d2">אני מאמינה שאחרי השבר אפשר לבנות חיים חדשים — מרגשים, מלאים, ושלך לגמרי. לא לבד, אלא <b>בתוך קהילה תומכת</b> של נשים שעוברות את אותו מסע, יד ביד.</p>
+      <p class="pull reveal d3">"כשאישה חוזרת אל עצמה — היא הופכת למקור אור לכל מי שסביבה."</p>
+      <div class="sign reveal d3">— אריאלה</div>
+    </div>
+  </div>
+</section>
+
+<!-- journey -->
+<section class="pad journey" id="journey">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">המסע</span>
+      <h2 class="reveal d1" style="font-size:clamp(1.9rem,4vw,2.8rem)">פְּנִימָה — בשבעה שלבים</h2>
+      <p class="lead reveal d2" style="margin-top:14px">מהאיסוף הראשון של השברים — ועד שאת הופכת למנהיגה של חייך.</p>
+      <div class="hr-orn reveal d2"></div>
+    </div>
+    <div class="timeline">
+      <div class="step reveal"><span class="n">1</span><div class="body"><h3>איסוף השברים והחזרת הנשימה</h3><p>הגוף כמקלט. מדיטציה למודעות עצמית, תרגילי קרקוע והורדת סטרס — וחזרה רכה אל עצמך.</p></div></div>
+      <div class="step reveal"><span class="n">2</span><div class="body"><h3>ארגון התודעה</h3><p>פינוי רעשי הרקע וגיוס המיקוד. כלים מעולם הקשב — "היגיינה תודעתית", בהירות יומיומית, ואנרגיה שחוזרת אל ההווה במקום אל החרדות.</p></div></div>
+      <div class="step reveal"><span class="n">3</span><div class="body"><h3>איחוי האמון והסליחה</h3><p>מראש שבור — אל אמון הלב. תהליך סליחה עמוק עם עצמך, ובניית היכולת לסמוך שוב: קודם על עצמך, ואז על העולם.</p></div></div>
+      <div class="step reveal"><span class="n">4</span><div class="body"><h3>רפואת האמונה</h3><p>הפעלת ה-GPS הרוחני. מעבר מהשכל אל הרוח, וחיבור מחודש למקור הכוח — לאמונה ולנשמה.</p></div></div>
+      <div class="step reveal"><span class="n">5</span><div class="body"><h3>הטענת המצברים ואהבה עצמית</h3><p>סינרגיית גוף-נפש-רוח, בכוחה של הקהילה. הפגת הבדידות, חוסן וחיוניות, שמחה שחוזרת לפעום, ותחושת שייכות.</p></div></div>
+      <div class="step reveal"><span class="n">6</span><div class="body"><h3>נאמנות מוחלטת לעצמי</h3><p>לשים את עצמך במקום הראשון — בלי אשמה. ערך עצמי מוצק, גבולות בריאים, וקול פנימי שמוביל.</p></div></div>
+      <div class="step reveal"><span class="n">7</span><div class="body"><h3>מנהיגות אישית — לחיות את האור</h3><p>מפגש חגיגי. את הופכת למנהיגה של החיים של עצמך: מלאת שמחה, ביטחון ובהירות — ומחוברת לעצמך.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- how it works -->
+<section class="pad how">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">איך זה עובד</span>
+      <h2 class="reveal d1" style="font-size:clamp(1.8rem,3.8vw,2.5rem)">לא קורס — מסע, בתוך קהילה</h2>
+      <div class="hr-orn reveal d1"></div>
+    </div>
+    <div class="cols">
+      <div class="hcard reveal d1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><b>7 מפגשים קבוצתיים</b><p>קבוצה אינטימית של נשים שעוברות יחד את המסע — ויוצרות קהילה אמיתית.</p></div>
+      <div class="hcard reveal d2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span><b>קבוצת וואטסאפ תומכת</b><p>מרחב להתייעץ, להישען ולהיתמך — כל ימות השבוע, בין המפגשים.</p></div>
+      <div class="hcard reveal d3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></span><b>2 מפגשים אישיים</b><p>אבחון ועבודה פרטנית ועמוקה — שחרור מתחים, חסמים ואמונות מגבילות.</p></div>
+      <div class="hcard reveal d4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.3 2 4.8 5.3 4.2 7.4 3.8 9.3 4.9 12 7.6c2.7-2.7 4.6-3.8 6.7-3.4 3.3.6 4.9 4.1 3.3 7.5C19.5 16.4 12 21 12 21Z"/></svg></span><b>גישה ישירה אליי</b><p>ליווי אישי בוואטסאפ ובמייל — כדי שתטמיעי את המסע בחיים בפועל.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- creed -->
+<section class="creed">
+  <div class="wrap">
+    <q class="serif reveal">לרפא נשים, להחזיר להן את האמונה בעצמן ואת החיבור העמוק לעצמן — לשים את עצמן ראשונה, ולהפוך <b>למקור אור, כוח והשפעה</b> למשפחה, לסביבה ולעולם כולו.</q>
+    <cite class="reveal d1">השליחות של אריאלה</cite>
+  </div>
+</section>
+
+<!-- join -->
+<section class="pad join" id="join">
+  <div class="wrap join-grid">
+    <div>
+      <span class="eyebrow reveal">הצעד הראשון פְּנִימָה</span>
+      <h2 class="reveal d1">מוכנה להתחיל את המסע אל עצמך?</h2>
+      <p class="lead reveal d2">השאירי שם וטלפון — ואחזור אלייך אישית לשיחה קצרה, להכיר ולראות יחד אם הקבוצה מתאימה לך. בלי שום התחייבות.</p>
+      <ul class="pts">
+        <li class="reveal d2"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> שיחה אישית ממני — לא מוקד מכירות</li>
+        <li class="reveal d3"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> קבוצה אינטימית — מספר מקומות מוגבל</li>
+        <li class="reveal d4"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span> מלווה אותך מהשלב הראשון ועד האור</li>
+      </ul>
+    </div>
+    <form class="formcard reveal d2" id="leadForm">
+      <div id="formInner">
+        <h3 class="serif">השארת פרטים</h3>
+        <p class="fs">ואחזור אלייך בהקדם 🤍</p>
+        <div class="field"><label for="n">שם</label><input id="n" name="name" type="text" placeholder="איך לפנות אלייך?" autocomplete="name" required></div>
+        <div class="field"><label for="p">טלפון</label><input id="p" name="phone" type="tel" inputmode="tel" placeholder="050-0000000" autocomplete="tel" required></div>
+        <button class="btn" type="submit">אשמח שתחזרי אליי</button>
+        <p class="tiny">הפרטים נשמרים אצל אריאלה בלבד. ללא ספאם, לעולם.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="fmark serif">פְּנִימָה</span>
+    <div class="frule"></div>
+    <p class="fsub">ליווי נשים אחרי גירושין — ריפוי, אמונה וקהילה תומכת, בשבעה שלבים.</p>
+    <p class="fcr">אריאלה רויטלמן · כל הזכויות שמורות © 2026</p>
+  </div>
+</footer>
+
+<script>
+// sticky header state
+const bar = document.getElementById('bar');
+const onScroll = () => bar.classList.toggle('scrolled', window.scrollY > 24);
+onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+// scroll reveals
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reveals = document.querySelectorAll('.reveal');
+if(reduce || !('IntersectionObserver' in window)){
+  reveals.forEach(el => el.classList.add('in'));
+}else{
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  reveals.forEach(el => io.observe(el));
+}
+
+// form
+document.getElementById('leadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = (this.querySelector('#n').value || '').trim();
+  document.getElementById('formInner').innerHTML =
+    '<div class="thanks"><div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>'+
+    '<h3 class="serif">תודה'+(name?', '+name:'')+' 🤍</h3>'+
+    '<p>קיבלתי את הפרטים — אחזור אלייך אישית בהקדם לשיחה קצרה ולא מחייבת.</p></div>';
+});
+</script>
+<script>(function(){var P="data:image/jpeg;base64,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";document.querySelectorAll('img[data-pt]').forEach(function(i){i.src=P;});})();</script>
+<script src="../ariela-notes.js" defer></script>
+</body>
+</html>
