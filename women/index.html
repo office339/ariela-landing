@@ -143,16 +143,25 @@ section.pad{padding:clamp(60px,8.5vw,118px) 0}
 
 /* ---------- journey (7 stages, gold timeline) ---------- */
 .journey{background:linear-gradient(180deg,var(--paper) 0%,var(--lav-soft) 280%)}
-.timeline{margin-top:clamp(40px,5vw,60px);max-width:880px;margin-inline:auto;position:relative}
+.timeline{margin-top:0;max-width:880px;margin-inline:auto;position:relative}
 .timeline::before{content:"";position:absolute;inset-inline-start:34px;top:14px;bottom:14px;width:2px;
   background:linear-gradient(var(--gold-soft),var(--lav-line));border-radius:2px}
-.step{position:relative;display:grid;grid-template-columns:70px 1fr;gap:24px;align-items:start;padding:0 0 26px}
+/* phase headers split the 10 stages into 3 breathable groups (de-crowds the timeline) */
+.phase-head{max-width:880px;margin-inline:auto;display:flex;align-items:center;gap:13px;
+  margin-top:clamp(42px,5.5vw,60px);margin-bottom:22px}
+.phase-head:first-of-type{margin-top:clamp(36px,4.5vw,48px)}
+.phase-head b{font-family:var(--serif);font-weight:500;font-size:clamp(1.22rem,2.5vw,1.55rem);color:var(--lav-deep)}
+.phase-head span{font-family:var(--sans);font-weight:600;letter-spacing:.05em;color:var(--gold);font-size:.95rem;
+  position:relative;padding-inline-start:15px}
+.phase-head span::before{content:"";position:absolute;inset-inline-start:0;top:50%;width:6px;height:6px;
+  border-radius:50%;background:var(--gold);transform:translateY(-50%)}
+.step{position:relative;display:grid;grid-template-columns:70px 1fr;gap:24px;align-items:start;padding:0 0 34px}
 .step:last-child{padding-bottom:0}
 .step .n{position:relative;z-index:1;width:70px;height:70px;border-radius:50%;flex:none;
   display:grid;place-items:center;background:#fff;border:1.5px solid var(--lav-line);
   font-family:var(--serif);font-size:1.7rem;font-weight:500;color:var(--lav-deep);
   box-shadow:var(--shadow-sm);transition:transform .4s var(--ease),border-color .4s,color .4s}
-.step .body{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px 28px;
+.step .body{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 30px;
   box-shadow:var(--shadow-sm);transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
 .step:hover .body{transform:translateY(-3px);box-shadow:var(--shadow)}
 .step:hover .n{transform:scale(1.06);border-color:var(--gold);color:var(--gold)}
@@ -350,14 +359,21 @@ footer .fcr{font-size:.8rem;color:#8f86a0;margin-top:6px}
       <p class="lead reveal d2" style="margin-top:14px">עשרה מפגשים שבועיים קבוצתיים — מ"יוצרת אמון וביטחון" ועד "להנהיג את חייך מתוך בחירה".</p>
       <div class="hr-orn reveal d2"></div>
     </div>
+    <div class="phase-head reveal"><b class="serif">שלב א׳</b><span>ריפוי ושחרור</span></div>
     <div class="timeline">
       <div class="step reveal"><span class="n">1</span><div class="body"><h3>יוצרת אמון וביטחון</h3><p>יוצרות מרחב בטוח ומכיל. נברר יחד: מי אני היום? ואיפה אני בתוך כל מה שעשיתי עבור אחרים?</p><div class="gains"><span>ביטחון</span><span>חיבור מחודש לעצמך</span><span>תחילת גילוי עצמי</span></div></div></div>
       <div class="step reveal"><span class="n">2</span><div class="body"><h3>מתגרשת מהכאב</h3><p>נזהה את הפצעים והאמונות שמעכבים אותך — ונשחרר כעס, אשמה ואכזבה שנשארו מהעבר.</p><div class="gains"><span>הקלה רגשית</span><span>שחרור מטענים</span><span>חופש פנימי</span></div></div></div>
       <div class="step reveal"><span class="n">3</span><div class="body"><h3>הסיפור שאני מספרת לעצמי</h3><p>האם הסיפור שאת מספרת לעצמך מחזק אותך — או מגביל? נלמד לכתוב סיפור חדש.</p><div class="gains"><span>שינוי תפיסות</span><span>ביטחון עצמי</span><span>תקווה לעתיד</span></div></div></div>
       <div class="step reveal"><span class="n">4</span><div class="body"><h3>היגיינה תודעתית</h3><p>תלמדי להתבונן במחשבות מבלי להאמין לכל אחת — וליצור שקט פנימי ובהירות.</p><div class="gains"><span>פחות חרדה</span><span>יותר שלווה</span><span>איזון רגשי</span></div></div></div>
+    </div>
+    <div class="phase-head reveal"><b class="serif">שלב ב׳</b><span>חזרה אל עצמך</span></div>
+    <div class="timeline">
       <div class="step reveal"><span class="n">5</span><div class="body"><h3>חוזרת לאהוב את עצמי</h3><p>נרפא את הקשר שלך עם עצמך, ונלמד חמלה וקבלה עצמית.</p><div class="gains"><span>ערך עצמי</span><span>אהבה וקבלה</span><span>ביטחון פנימי</span></div></div></div>
       <div class="step reveal"><span class="n">6</span><div class="body"><h3>מגלה את הכוחות והמתנות שלי</h3><p>תגלי מחדש את היכולות, הכישרונות והעוצמות שטמונים בך.</p><div class="gains"><span>חיבור לייעוד</span><span>תחושת מסוגלות</span><span>אמונה בעצמך</span></div></div></div>
       <div class="step reveal"><span class="n">7</span><div class="body"><h3>מעזה לחלום מחדש</h3><p>מה את באמת רוצה ליצור? איזה חלום מחכה לך מעבר לפינה?</p><div class="gains"><span>חזון אישי</span><span>בהירות לעתיד</span><span>מוטיבציה</span></div></div></div>
+    </div>
+    <div class="phase-head reveal"><b class="serif">שלב ג׳</b><span>יצירת חיים חדשים</span></div>
+    <div class="timeline">
       <div class="step reveal"><span class="n">8</span><div class="body"><h3>יוצרת מציאות חדשה</h3><p>נהפוך את החלומות לתוכנית פעולה, ונבנה הרגלים חדשים ומקדמים.</p><div class="gains"><span>מיקוד</span><span>עשייה</span><span>שליטה בחייך</span></div></div></div>
       <div class="step reveal"><span class="n">9</span><div class="body"><h3>לחיות מתוך שמחה וחיוניות</h3><p>תלמדי ליצור חיים עם אנרגיה חדשה ושמחה — שאינה תלויה בנסיבות.</p><div class="gains"><span>שמחה וחיוניות</span><span>יותר אנרגיה</span><span>שייכות לקהילה</span></div></div></div>
       <div class="step reveal"><span class="n">10</span><div class="body"><h3>לחיות בנאמנות לעצמך ולהנהיג את חייך</h3><p>זו לא סוף המסע — זו תחילתה של דרך חדשה, שבה את בוחרת בעצמך. מתוך אמונה, מתוך עוצמה.</p><div class="gains"><span>ביטחון יציב</span><span>חופש פנימי</span><span>להוביל מתוך בחירה</span></div></div></div>
