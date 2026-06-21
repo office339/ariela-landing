@@ -14,6 +14,7 @@
   var PAGE = (document.body.getAttribute('data-anote-page') || document.title || 'page').slice(0, 60);
   var KEY = 'arielaNotes::' + PAGE;
   var SHAKED_NUMBER = ''; // '' = WhatsApp share-sheet (mom chooses Shaked). Set "9725........" to target directly.
+  var SYNC_URL = 'https://braindg-vm.taile81d36.ts.net:8443/api/anote'; // auto-capture (no button, no length limit)
 
   /* ---------------- state ---------------- */
   function fresh() { return { v: 1, page: PAGE, general: '', sections: {}, edits: {}, ts: 0 }; }
@@ -22,12 +23,37 @@
     return fresh();
   }
   var state = load();
-  function persist() { state.ts = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} updateBadges(); }
+  function persist() { state.ts = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} updateBadges(); syncToServer(); }
   function hasContent() {
     if (state.general && state.general.trim()) return true;
     for (var k in state.sections) { var s = state.sections[k]; if (s && (s.note || s.approved)) return true; }
     for (var e in state.edits) return true;
     return false;
+  }
+
+  /* ----- auto-sync: every change is POSTed to the server so it reaches Shaked instantly + COMPLETE
+     (no "send" tap needed, no WhatsApp 8000-char truncation). Debounced; fail-soft. ----- */
+  var SYNC_T = null, SYNC_LAST = '';
+  function syncPayload() {
+    return JSON.stringify({ v: 1, page: PAGE, general: state.general || '', sections: state.sections || {}, edits: state.edits || {}, ts: Date.now() });
+  }
+  function syncToServer() {
+    if (!hasContent()) return;
+    if (SYNC_T) clearTimeout(SYNC_T);
+    SYNC_T = setTimeout(function () {
+      var payload = syncPayload();
+      if (payload === SYNC_LAST) return;
+      try {
+        // text/plain → a CORS "simple" request (no preflight); server parses JSON via force=True
+        fetch(SYNC_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: payload, keepalive: true })
+          .then(function (r) { if (r && r.ok) { SYNC_LAST = payload; showSynced(); } })
+          .catch(function () {});   // offline/blocked → localStorage + the manual button still work
+      } catch (e) {}
+    }, 1300);
+  }
+  function showSynced() {
+    var el = document.getElementById('anoteSync');
+    if (el) { el.textContent = '✓ נשמר ונשלח לשקד'; el.style.opacity = '1'; }
   }
 
   /* ---------------- discover sections + editable text ---------------- */
@@ -108,6 +134,7 @@
     + '.anote-mic.rec{background:#E5484D;color:#fff;animation:anotePulse 1.1s infinite}'
     + '@keyframes anotePulse{0%{box-shadow:0 0 0 0 rgba(229,72,77,.55)}100%{box-shadow:0 0 0 13px rgba(229,72,77,0)}}'
     + '.anote-pop .anote-mic{width:36px;height:36px;font-size:15px;position:absolute;top:12px;inset-inline-end:12px}'
+    + '.anote-bar .anote-sync{font-size:12.5px;font-weight:700;color:#34d399;opacity:0;transition:opacity .3s;white-space:nowrap;order:4}'
     + '.anote-bar .anote-hint{flex-basis:100%;font-size:12.5px;color:#E8B964;order:5;margin-top:-2px;line-height:1.4}'
     + '@media(max-width:560px){.anote-bar input.gen{flex-basis:100%;order:3}}';
     var st = document.createElement('style'); st.id = 'anote-css'; st.textContent = css; document.head.appendChild(st);
@@ -224,6 +251,7 @@
       s.el.appendChild(pin);
     });
     wireEdits(); restoreEdits(); updateBadges(); buildBar(); renderReverts();
+    syncToServer();   // push whatever is already saved locally the moment she opens edit mode
   }
   function exit() {
     if (!ON) return; ON = false; document.body.classList.remove('anote-on');
@@ -235,12 +263,13 @@
     if (bar) bar.remove();
     bar = document.createElement('div'); bar.className = 'anote-bar';
     bar.innerHTML =
-      '<div class="t">✏️ <b>מצב עריכה</b> · כתבי או 🎤 הקליטי בעברית · נשמר אוטומטית</div>' +
+      '<div class="t">✏️ <b>מצב עריכה</b> · כתבי או 🎤 הקליטי · <b>נשמר ונשלח לשקד אוטומטית</b> 💜</div>' +
       '<input class="gen" placeholder="הערה כללית — כתבי כאן…">' +
       '<button class="anote-mic" type="button" title="להקליט הערה בעברית במקום לכתוב">🎤</button>' +
+      '<span class="anote-sync" id="anoteSync"></span>' +
       '<button class="send">📨 שליחה לשקד</button>' +
       '<button class="exit">סיום</button>' +
-      '<div class="anote-hint">🎤 רוצה פשוט לדבר? לחצי על המיקרופון והקליטי בעברית כל מה שתרצי לשנות — וזה ייכתב לבד.</div>';
+      '<div class="anote-hint">✓ כל שינוי נשמר ונשלח לשקד אוטומטית — לא צריך ללחוץ כלום. 🎤 ואפשר גם פשוט לדבר בעברית, וזה ייכתב לבד.</div>';
     document.body.appendChild(bar);
     var gen = bar.querySelector('.gen'); gen.value = state.general || '';
     gen.addEventListener('input', function () { state.general = gen.value; persist(); });
@@ -313,6 +342,10 @@
   function boot() {
     discover(); injectCSS();
     window.addEventListener('resize', function () { if (ON) renderReverts(); });
+    // final flush on leave/background — so the very last edit is never lost
+    window.addEventListener('pagehide', function () {
+      try { if (hasContent() && navigator.sendBeacon) navigator.sendBeacon(SYNC_URL, new Blob([syncPayload()], { type: 'text/plain' })); } catch (e) {}
+    });
     var wantEdit = /[?&#](edit|ערוך)/.test(location.href);
     var fab = document.createElement('button'); fab.className = 'anote-fab'; fab.type = 'button';
     fab.title = 'מצב עריכה — להוסיף הערות לדף'; fab.textContent = '✏️';
