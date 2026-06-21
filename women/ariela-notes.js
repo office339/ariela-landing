@@ -322,9 +322,16 @@
     var base = '', listening = false;
     function stopUI() { listening = false; btn.classList.remove('rec'); btn.textContent = '🎤'; }
     rec.onresult = function (e) {
-      var txt = '';
-      for (var i = 0; i < e.results.length; i++) txt += e.results[i][0].transcript;
-      targetEl.value = (base ? base + ' ' : '') + txt;
+      // Correct continuous-dictation pattern: fold each FINAL result into `base` exactly once
+      // (via resultIndex), show the live interim transiently. Prevents the cumulative
+      // "מהתחלהמהתחלה פנימה…" duplication some engines produce when you sum all results.
+      var interim = '';
+      for (var i = e.resultIndex; i < e.results.length; i++) {
+        var t = e.results[i][0].transcript;
+        if (e.results[i].isFinal) { base = (base ? base + ' ' : '') + t.trim(); }
+        else { interim += t; }
+      }
+      targetEl.value = (base + (interim ? ' ' + interim : '')).trim();
       onCommit(targetEl.value);
     };
     rec.onend = stopUI;
