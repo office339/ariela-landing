@@ -169,11 +169,22 @@
       var badPhone = !phoneRe.test(phoneV); setInvalid(phoneF, badPhone); if(badPhone) ok=false;
       if(!ok){ var first = form.querySelector('.invalid input'); if(first) first.focus(); return; }
       var btn = form.querySelector('button[type="submit"]'); btn.textContent = 'שולח…'; btn.disabled = true;
-      setTimeout(function(){
+      var ageEl = form.querySelector('[data-f="age"] select'), ageV = ageEl ? ageEl.value : '';
+      var msgEl = form.querySelector('[data-f="msg"] textarea'), msgV = msgEl ? msgEl.value.trim() : '';
+      function showSuccess(){
         form.style.display = 'none';
         var s = document.getElementById('formSuccess');
         if(s){ s.classList.add('show'); var u = s.querySelector('.uname'); if(u) u.textContent = nameV.split(' ')[0]; }
-      }, 700);
+      }
+      // שולח את הליד ל-shir-wa-proxy → וואטסאפ (אריאלה) + מייל. text/plain נמנע מ-CORS preflight (השרת מפרסר */*).
+      var payload = JSON.stringify({ name:nameV, phone:phoneV, age:ageV, msg:msgV });
+      var done = false; function finish(){ if(done) return; done = true; showSuccess(); }
+      try{
+        fetch('https://shir-wa-proxy.onrender.com/lead', { method:'POST', headers:{'Content-Type':'text/plain'}, body:payload, keepalive:true })
+          .then(function(){ finish(); })
+          .catch(function(){ finish(); });   // כשל-רשת → לא מענישים את המשתמש; עדיין מציגים תודה
+      }catch(e){ finish(); }
+      setTimeout(finish, 2500);   // גיבוי: לא משאירים את המשתמש תקוע גם אם fetch נתקע
     });
     form.querySelectorAll('input').forEach(function(inp){
       inp.addEventListener('input', function(){ inp.closest('.field').classList.remove('invalid'); });
