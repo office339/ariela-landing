@@ -353,34 +353,48 @@
     <div class="pod-card reveal">
       <div class="pod-photo"><img src="assets/ariela.png" alt="אריאלה" loading="lazy"></div>
       <div class="pod-main">
-        <div class="pod-count">פרק <b id="podNum">1</b> מתוך 20</div>
+        <div class="pod-count">פרק <b id="podNum">1</b> מתוך <span id="podTotal">20</span></div>
         <h3 class="pod-q" id="podQ"></h3>
         <audio id="podAudio" controls preload="none"></audio>
+        <div class="pod-status" id="podStatus" role="status" aria-live="polite"></div>
         <div class="pod-nav">
-          <button class="pod-btn" id="podPrev" type="button">‹ הפרק הקודם</button>
-          <button class="pod-btn primary" id="podNext" type="button">הפרק הבא ›</button>
+          <button class="pod-btn" id="podPrev" type="button">הפרק הקודם</button>
+          <button class="pod-btn primary" id="podNext" type="button">הפרק הבא</button>
         </div>
-        <div class="pod-chips" id="podChips" aria-label="בחירת פרק"></div>
+        <div class="pod-chips" id="podChips" role="group" aria-label="בחירת פרק"></div>
       </div>
     </div>
   </div>
 </section>
 <script>
 (function(){
-  var QS=["ספרי על הרגע שבו הבנת שזה הייעוד שלך — לעבוד עם ילדים. מה הצית בתוכך את האש הזו?", "מאיפה נולד המכון, ומה הופך את הגישה שלך לשונה מכל מקום אחר?", "מה הכי מרגש אותך בעבודה עם הילדים, יום אחרי יום?", "מהם האתגרים הכי נפוצים שאיתם ילדים מגיעים אלייך — לימודי, קשב, רגשי, חברתי?", "מה הורים מספרים לך כשהם פונים אלייך בפעם הראשונה — מהו הכאב שמביא אותם?", "מהי האמת על „קושי בלמידה” שרוב ההורים פשוט לא יודעים?", "למה כל כך הרבה ילדים מרגישים „טיפשים”, כשהם בעצם רק לומדים אחרת?", "מה הדבר הראשון שאת עושה עם ילד שמגיע אלייך מתוסכל ומאבד ביטחון בעצמו?", "איך הופכים ילד ש„שונא ללמוד” לילד שמאמין בעצמו ואוהב ללמוד?", "תני כלי פשוט אחד שכל הורה יכול ליישם כבר היום בבית.", "מה ההבדל בין ללמד ילד „חומר” לבין ללמד אותו „איך ללמוד”?", "ספרי על ילד אחד שהשתנה אצלך מן הקצה אל הקצה — מה קרה שם?", "מהו הרגע הכי מרגש שחווית עם הורה שראה את הילד שלו פורח מחדש?", "מה ילד לוקח איתו מהמכון שלך — מעבר לציונים ולמבחנים?", "מה היית אומרת להורה שמרגיש אשם או חסר אונים מול הקושי של הילד שלו?", "מהי הטעות הכי נפוצה שהורים עושים מתוך אהבה — ודווקא פוגעת בלי כוונה?", "איך הורה יכול לזהות שהילד שלו צריך עזרה — עוד לפני שזה מחמיר?", "מהו החלום שלך עבור כל ילד שעובר דרך המכון?", "אם היית יכולה לשנות דבר אחד בדרך שבה החינוך מתייחס לילדים שלומדים אחרת — מה זה היה?", "מה היית רוצה שכל הורה שמקשיב לפודקאסט הזה ייקח איתו אל הלב?"];
+  var QS=["ספרי על הרגע שבו הבנת שזה הייעוד שלך — לעבוד עם ילדים. מה הצית בתוכך את האש הזו?", "מאיפה נולד המכון, ומה הופך את הגישה שלך לשונה מכל מקום אחר?", "מה הכי מרגש אותך בעבודה עם הילדים, יום אחרי יום?", "מהם האתגרים הכי נפוצים שאיתם ילדים מגיעים אלייך — לימודי, קשב, רגשי, חברתי?", "מה הורים מספרים לך כשהם פונים אלייך בפעם הראשונה — מהו הכאב שמביא אותם?", "מהי האמת על „קושי בלמידה” שרוב ההורים פשוט לא יודעים?", "למה כל כך הרבה ילדים מרגישים „טיפשים”, כשהם בעצם רק לומדים אחרת?", "מה הדבר הראשון שאת עושה עם ילד שמגיע אלייך מתוסכל ומאבד ביטחון בעצמו?", "איך הופכים ילד ש„שונא ללמוד” לילד שמאמין בעצמו ואוהב ללמוד?", "תני כלי פשוט אחד שכל הורה יכול ליישם כבר היום בבית.", "מה ההבדל בין ללמד ילד „חומר” לבין ללמד אותו „איך ללמוד”?", "ספרי על ילד אחד שהשתנה אצלך מן הקצה אל הקצה — מה קרה שם?", "מהו הרגע הכי מרגש שחווית עם הורה שראה את הילד שלו פורח מחדש?", "מה ילד לוקח איתו מהמכון שלך — מעבר לציונים ולמבחנים?", "מה היית אומרת להורה שמרגיש אשם או חסר אונים מול הקושי של הילד שלו?", "מהי הטעות הכי נפוצה שהורים עושים מתוך אהבה — ודווקא פוגעת בלי כוונה?", "איך הורה יכול לזהות שהילד שלו צריך עזרה — עוד לפני שזה מחמיר?", "מהו החלום שלך עבור כל ילד שעובר דרך המכון?", "אם היית יכולה לשנות דבר אחד בדרך שבה החינוך מתייחס לילדים שלומדים אחרת — מה זה היה?", "מה היית רוצה שכל הורה שמקשיב לפודקאסט הזה ייקח איתו אל הלב?"]; var N=QS.length;
   var a=document.getElementById('podAudio'),qE=document.getElementById('podQ'),
-      nE=document.getElementById('podNum'),ch=document.getElementById('podChips'),cur=1;
+      nE=document.getElementById('podNum'),ch=document.getElementById('podChips'),
+      st=document.getElementById('podStatus'),tE=document.getElementById('podTotal'),
+      pv=document.getElementById('podPrev'),nx=document.getElementById('podNext'),cur=0;
   function pad(n){return (n<10?'0':'')+n}
-  function sel(n,play){cur=Math.max(1,Math.min(20,n));qE.textContent=QS[cur-1];nE.textContent=cur;
+  function upd(){pv.disabled=cur<=1;nx.disabled=cur>=N;}
+  function sel(n,play){
+    var t=Math.max(1,Math.min(N,n));
+    if(t===cur){upd();return;}
+    cur=t;qE.textContent=QS[cur-1];nE.textContent=cur;st.textContent='';
+    for(var i=0;i<ch.children.length;i++){var on=(i===cur-1);
+      ch.children[i].classList.toggle('on',on);
+      ch.children[i].setAttribute('aria-pressed',on?'true':'false');}
     a.src='audio/podcast_q'+pad(cur)+'.mp3';
-    for(var i=0;i<ch.children.length;i++)ch.children[i].classList.toggle('on',i===cur-1);
-    if(play){var p=a.play();if(p&&p.catch)p.catch(function(){});}}
-  for(var i=1;i<=20;i++){(function(n){
+    if(play){var p=a.play();if(p&&p.catch)p.catch(function(){st.textContent='לחצו ▶ בנגן כדי להפעיל את הפרק';});}
+    upd();
+  }
+  if(tE)tE.textContent=N;
+  for(var i=1;i<=N;i++){(function(n){
     var b=document.createElement('button');b.type='button';b.textContent=n;
+    b.setAttribute('aria-label','פרק '+n);b.setAttribute('aria-pressed','false');
     b.addEventListener('click',function(){sel(n,true)});ch.appendChild(b);})(i);}
-  document.getElementById('podPrev').addEventListener('click',function(){sel(cur-1,true)});
-  document.getElementById('podNext').addEventListener('click',function(){sel(cur+1,true)});
-  a.addEventListener('ended',function(){if(cur<20)sel(cur+1,true)});
+  pv.addEventListener('click',function(){sel(cur-1,true)});
+  nx.addEventListener('click',function(){sel(cur+1,true)});
+  a.addEventListener('ended',function(){if(cur<N)sel(cur+1,true)});
+  a.addEventListener('error',function(){if(a.src)st.textContent='⚠️ הפרק לא נטען כרגע — בדקו את החיבור ונסו שוב';});
   sel(1,false);
 })();
 </script>
