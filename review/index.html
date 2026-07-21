@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf7f3">
+<meta name="robots" content="noindex, nofollow">
+<title>הפודקאסט של אריאלה — אישור סרטונים</title>
+<style>
+  :root{
+    --cream:#faf7f3;
+    --card:#ffffff;
+    --ink:#2a2035;
+    --ink-2:#4a3568;
+    --muted:#8a7ea3;
+    --lilac:#b9a7e8;
+    --lilac-deep:#6b5b95;
+    --lilac-bg:#eee7f8;
+    --line:#e8dff5;
+    --green:#2f9268;
+    --green-bg:#eaf6f0;
+    --green-line:#a7ddc4;
+    --green-ink:#1f7a55;
+    --red:#c9545c;
+    --red-bg:#fdecee;
+    --red-line:#f2b8bd;
+    --red-ink:#b0454d;
+    --shadow:0 8px 26px rgba(107,91,149,.12);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue","Arial Hebrew",Arial,sans-serif;
+    font-size:19px;
+    line-height:1.6;
+    -webkit-text-size-adjust:100%;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 16px 70px;}
+
+  /* ---------- header ---------- */
+  header.top{text-align:center;padding:28px 8px 6px;}
+  header.top h1{
+    font-size:30px;line-height:1.3;margin:0 0 12px;
+    color:var(--ink-2);font-weight:800;letter-spacing:-.2px;
+  }
+  header.top .lead{
+    font-size:19px;line-height:1.75;color:#5f5470;
+    margin:0 auto;max-width:540px;
+  }
+  .heart{color:var(--lilac-deep);}
+
+  /* ---------- sticky progress ---------- */
+  .sticky{
+    position:sticky;top:0;z-index:60;
+    background:rgba(250,247,243,.94);
+    -webkit-backdrop-filter:saturate(1.3) blur(9px);
+    backdrop-filter:saturate(1.3) blur(9px);
+    border-bottom:1px solid var(--line);
+    margin:16px -16px 24px;padding:12px 16px 13px;
+  }
+  .sticky .row{
+    display:flex;align-items:center;gap:10px;
+    justify-content:space-between;flex-wrap:wrap;
+  }
+  .counter{font-size:18px;font-weight:800;color:var(--ink-2);white-space:nowrap;}
+  .bar{height:10px;border-radius:10px;background:var(--lilac-bg);overflow:hidden;margin-top:11px;}
+  .bar > span{
+    display:block;height:100%;width:0%;border-radius:10px;
+    background:linear-gradient(90deg,#c9b8f2,#6b5b95);
+    transition:width .35s ease;
+  }
+  .send-mini{
+    flex:0 1 auto;text-decoration:none;text-align:center;
+    background:linear-gradient(180deg,#7d6bab,#6b5b95);color:#fff;
+    font-weight:800;font-size:16px;line-height:1.25;
+    padding:12px 16px;border-radius:14px;white-space:nowrap;
+    box-shadow:0 5px 15px rgba(107,91,149,.35);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .send-mini:active{transform:translateY(1px);}
+
+  /* ---------- cards ---------- */
+  .card{
+    background:var(--card);border:2px solid var(--line);border-radius:22px;
+    padding:18px 16px 20px;margin:0 0 22px;box-shadow:var(--shadow);
+    transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .card.approved{border-color:var(--green-line);box-shadow:0 8px 26px rgba(47,146,104,.16);}
+  .card.rejected{border-color:var(--red-line);box-shadow:0 8px 26px rgba(201,84,92,.14);}
+
+  .badge{display:flex;align-items:center;gap:9px;margin-bottom:13px;}
+  .badge .num{
+    background:var(--lilac-bg);color:var(--ink-2);font-weight:800;font-size:15px;
+    padding:7px 15px;border-radius:20px;display:inline-block;letter-spacing:.2px;
+  }
+  .badge .check{
+    display:none;color:#fff;border-radius:50%;
+    width:25px;height:25px;line-height:25px;text-align:center;
+    font-size:15px;font-weight:900;
+  }
+  .card.approved .badge .check{display:inline-block;background:var(--green);}
+  .card.rejected .badge .check{display:inline-block;background:var(--red);}
+
+  .q{font-size:21px;font-weight:700;line-height:1.55;margin:2px 2px 16px;color:var(--ink);}
+
+  .video-wrap{
+    position:relative;width:100%;aspect-ratio:4 / 5;
+    border-radius:16px;overflow:hidden;background:#000;margin-bottom:16px;
+  }
+  .video-wrap video{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:contain;background:#000;border:0;display:block;
+  }
+  .vid-fallback{
+    position:absolute;inset:0;display:none;
+    align-items:center;justify-content:center;text-align:center;
+    color:#cdbfe6;background:#efe9f6;font-size:17px;font-weight:600;padding:22px;
+  }
+  .video-wrap.err video{display:none;}
+  .video-wrap.err{background:#efe9f6;}
+  .video-wrap.err .vid-fallback{display:flex;color:var(--muted);}
+
+  .choices{display:flex;gap:12px;margin-bottom:14px;}
+  .choice{
+    flex:1;min-height:66px;border-radius:16px;border:2px solid var(--line);
+    font-size:20px;font-weight:800;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:8px;padding:8px;
+    -webkit-tap-highlight-color:transparent;
+    transition:background .18s ease, color .18s ease, border-color .18s ease, transform .12s ease, box-shadow .18s ease;
+  }
+  .choice.approve{border-color:var(--green-line);background:var(--green-bg);color:var(--green-ink);}
+  .choice.reject{border-color:var(--red-line);background:var(--red-bg);color:var(--red-ink);}
+  .choice.approve.active{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 6px 16px rgba(47,146,104,.34);transform:translateY(-1px);}
+  .choice.reject.active{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 6px 16px rgba(201,84,92,.30);transform:translateY(-1px);}
+  .choice:active{transform:translateY(1px);}
+
+  .note{
+    width:100%;min-height:72px;border-radius:14px;border:2px solid var(--line);
+    background:#fbfaff;padding:14px;font-size:18px;font-family:inherit;color:var(--ink);
+    resize:vertical;margin-bottom:14px;line-height:1.6;
+  }
+  .note::placeholder{color:#b0a6c4;}
+  .note:focus,.choice:focus-visible,.send-mini:focus-visible,.big-send:focus-visible{
+    outline:3px solid rgba(185,167,232,.55);outline-offset:2px;
+  }
+
+  .wa-btn{
+    display:block;text-align:center;text-decoration:none;line-height:1.3;
+    font-weight:800;font-size:18px;padding:16px;border-radius:16px;min-height:58px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .ep-send{background:#f3eefc;color:var(--ink-2);border:2px solid var(--lilac);}
+  .ep-send:active{transform:translateY(1px);}
+
+  /* ---------- composer ---------- */
+  .composer{
+    background:#fff;border:2px solid var(--line);border-radius:22px;
+    padding:24px 18px;box-shadow:var(--shadow);margin-top:10px;scroll-margin-top:96px;
+  }
+  .composer h2{font-size:24px;margin:0 0 8px;color:var(--ink-2);}
+  .composer p{font-size:18px;line-height:1.7;color:#5f5470;margin:0 0 18px;}
+  .composer.flash{animation:flash 1.1s ease 1;}
+  @keyframes flash{
+    0%{box-shadow:0 0 0 0 rgba(185,167,232,.0);}
+    25%{box-shadow:0 0 0 6px rgba(185,167,232,.55);}
+    100%{box-shadow:var(--shadow);}
+  }
+  .big-send{
+    display:block;text-align:center;text-decoration:none;line-height:1.3;
+    background:linear-gradient(180deg,#7d6bab,#6b5b95);color:#fff;font-weight:800;
+    font-size:20px;padding:19px;border-radius:18px;min-height:66px;margin-bottom:13px;
+    box-shadow:0 8px 20px rgba(107,91,149,.32);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .big-send:last-child{margin-bottom:0;}
+  .big-send:active{transform:translateY(1px);}
+  .big-send.sent{background:linear-gradient(180deg,#5aa585,#3f8f6b);}
+  .big-send.sent::after{content:"  ✓ נשלח";font-weight:800;}
+
+  footer{text-align:center;color:var(--muted);font-size:15px;margin-top:30px;line-height:1.7;}
+
+  .nojs{background:#fff;border:2px solid var(--red-line);border-radius:16px;padding:18px;color:var(--red-ink);text-align:center;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>הפודקאסט של אריאלה <span class="heart">·</span> אישור סרטונים</h1>
+    <p class="lead">אריאלה היקרה <span class="heart">💜</span> לפנייך 20 סרטונים קצרים מהפודקאסט שלך.
+    צפי בכל סרטון, אשרי או פסלי אותו לשיווק, ואפשר גם לכתוב לי הערה קטנה.
+    בסוף פשוט לחצי על „שליחת הסיכום” ואני אקבל את הכול בוואטסאפ.</p>
+  </header>
+
+  <div class="sticky">
+    <div class="row">
+      <span class="counter" id="counter">סומנו 0 מתוך 20</span>
+      <a class="send-mini" id="stickySend" href="https://wa.me/972506481052" target="_blank" rel="noopener">📤 שלחי סיכום מלא לשקד</a>
+    </div>
+    <div class="bar"><span id="fill"></span></div>
+  </div>
+
+  <noscript>
+    <div class="nojs">כדי לצפות בסרטונים ולאשר אותם, יש להפעיל JavaScript בדפדפן 💜</div>
+  </noscript>
+
+  <main id="cards"></main>
+
+  <section class="composer" id="composer">
+    <h2>שליחת הסיכום המלא <span class="heart">💜</span></h2>
+    <p id="composerNote">לחצי על הכפתור לשליחת הסיכום המלא בוואטסאפ.</p>
+    <div id="composerBtns"></div>
+  </section>
+
+  <footer>נבנה באהבה עבור אריאלה <span class="heart">💜</span><br>ההחלטות שלך נשמרות בטלפון עד שתסיימי.</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ===== 20 questions — inline, episode N = question N (source: make_video.py KIDS_Q) ===== */
+  var QUESTIONS = [
+    'ספרי על הרגע שבו הבנת שזה הייעוד שלך — לעבוד עם ילדים. מה הצית בתוכך את האש הזו?',
+    'מאיפה נולד המכון, ומה הופך את הגישה שלך לשונה מכל מקום אחר?',
+    'מה הכי מרגש אותך בעבודה עם הילדים, יום אחרי יום?',
+    'מהם האתגרים הכי נפוצים שאיתם ילדים מגיעים אלייך — לימודי, קשב, רגשי, חברתי?',
+    'מה הורים מספרים לך כשהם פונים אלייך בפעם הראשונה — מהו הכאב שמביא אותם?',
+    'מהי האמת על „קושי בלמידה” שרוב ההורים פשוט לא יודעים?',
+    'למה כל כך הרבה ילדים מרגישים „טיפשים”, כשהם בעצם רק לומדים אחרת?',
+    'מה הדבר הראשון שאת עושה עם ילד שמגיע אלייך מתוסכל ומאבד ביטחון בעצמו?',
+    'איך הופכים ילד ש„שונא ללמוד” לילד שמאמין בעצמו ואוהב ללמוד?',
+    'תני כלי פשוט אחד שכל הורה יכול ליישם כבר היום בבית.',
+    'מה ההבדל בין ללמד ילד „חומר” לבין ללמד אותו „איך ללמוד”?',
+    'ספרי על ילד אחד שהשתנה אצלך מן הקצה אל הקצה — מה קרה שם?',
+    'מהו הרגע הכי מרגש שחווית עם הורה שראה את הילד שלו פורח מחדש?',
+    'מה ילד לוקח איתו מהמכון שלך — מעבר לציונים ולמבחנים?',
+    'מה היית אומרת להורה שמרגיש אשם או חסר אונים מול הקושי של הילד שלו?',
+    'מהי הטעות הכי נפוצה שהורים עושים מתוך אהבה — ודווקא פוגעת בלי כוונה?',
+    'איך הורה יכול לזהות שהילד שלו צריך עזרה — עוד לפני שזה מחמיר?',
+    'מהו החלום שלך עבור כל ילד שעובר דרך המכון?',
+    'אם היית יכולה לשנות דבר אחד בדרך שבה החינוך מתייחס לילדים שלומדים אחרת — מה זה היה?',
+    'מה היית רוצה שכל הורה שמקשיב לפודקאסט הזה ייקח איתו אל הלב?'
+  ];
+
+  var TOTAL   = QUESTIONS.length;                 /* 20 */
+  var PHONE   = "972506481052";
+  var BASE    = "https://wa.me/" + PHONE + "?text=";
+  var MAX_ENC = 1650;                             /* headroom under ~1800 (per-part prefix + header) */
+
+  /* state[n] = {choice:"approve"|"reject"|null, note:""} */
+  var state = {};
+  for (var i = 1; i <= TOTAL; i++) state[i] = { choice: null, note: "" };
+
+  function esc(s){
+    return String(s).replace(/[&<>"]/g, function(c){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", "\"":"&quot;" }[c];
+    });
+  }
+  function pad2(n){ return (n < 10 ? "0" : "") + n; }
+  function lsKey(n){ return "ariela_rev_ep_" + n; }
+
+  function load(){
+    for (var n = 1; n <= TOTAL; n++){
+      try{
+        var raw = localStorage.getItem(lsKey(n));
+        if (raw){
+          var o = JSON.parse(raw);
+          if (o && typeof o === "object"){
+            state[n].choice = (o.choice === "approve" || o.choice === "reject") ? o.choice : null;
+            state[n].note   = (typeof o.note === "string") ? o.note : "";
+          }
+        }
+      }catch(e){ /* private mode / file:// — ignore */ }
+    }
+  }
+  function save(n){
+    try{ localStorage.setItem(lsKey(n), JSON.stringify(state[n])); }
+    catch(e){ /* storage unavailable — ignore */ }
+  }
+
+  /* ----- build 20 cards ----- */
+  var html = "";
+  for (var n = 1; n <= TOTAL; n++){
+    html +=
+      '<article class="card" id="card-' + n + '" data-ep="' + n + '">' +
+        '<div class="badge">' +
+          '<span class="num">פרק ' + n + ' מתוך ' + TOTAL + '</span>' +
+          '<span class="check">✓</span>' +
+        '</div>' +
+        '<p class="q">' + esc(QUESTIONS[n-1]) + '</p>' +
+        '<div class="video-wrap">' +
+          '<video controls preload="metadata" playsinline>' +
+            '<source src="../videos/ariela_q' + pad2(n) + '.mp4" type="video/mp4">' +
+          '</video>' +
+          '<div class="vid-fallback">🎬 הסרטון של פרק ' + n + ' יופיע כאן</div>' +
+        '</div>' +
+        '<div class="choices">' +
+          '<button type="button" class="choice approve" data-ep="' + n + '" data-choice="approve">✓ מאשרת</button>' +
+          '<button type="button" class="choice reject" data-ep="' + n + '" data-choice="reject">✗ לא מאשרת</button>' +
+        '</div>' +
+        '<textarea class="note" data-ep="' + n + '" rows="2" placeholder="הערה (לא חובה)…"></textarea>' +
+        '<a class="wa-btn ep-send" data-ep="' + n + '" target="_blank" rel="noopener" href="' + BASE + '">📤 שלחי לשקד את הפרק הזה</a>' +
+      '</article>';
+  }
+  var cardsEl = document.getElementById("cards");
+  cardsEl.innerHTML = html;
+
+  /* ----- restore saved state ----- */
+  load();
+  var noteEls = document.querySelectorAll("textarea.note");
+  for (var j = 0; j < noteEls.length; j++){
+    noteEls[j].value = state[ +noteEls[j].getAttribute("data-ep") ].note || "";
+  }
+
+  /* ----- message helpers ----- */
+  function statusFull(c){   return c === "approve" ? "מאושר ✓" : c === "reject" ? "לא מאושר ✗" : "טרם סומן"; }
+  function statusSingle(c){ return c === "approve" ? "מאושר ✓" : c === "reject" ? "לא מאושר ✗" : "עוד לא סימנתי"; }
+
+  function encLen(s){ return encodeURIComponent(s).length; }
+
+  /* pack summary lines into WhatsApp-sized chunks; header repeats in each chunk */
+  function chunkLines(header, lines, maxEnc){
+    var chunks = [], cur = [];
+    for (var k = 0; k < lines.length; k++){
+      var trial = [header].concat(cur, [lines[k]]).join("\n");
+      if (encLen(trial) > maxEnc && cur.length > 0){
+        chunks.push([header].concat(cur).join("\n"));
+        cur = [ lines[k] ];
+      } else {
+        cur.push(lines[k]);
+      }
+    }
+    chunks.push([header].concat(cur).join("\n"));
+    return chunks;
+  }
+  function labelChunk(chunks, idx){
+    if (chunks.length <= 1) return chunks[0];
+    return "חלק " + (idx + 1) + " מתוך " + chunks.length + "\n" + chunks[idx];
+  }
+  function waHref(text){ return BASE + encodeURIComponent(text); }
+
+  /* ----- live refresh: visuals + counters + all wa.me hrefs + localStorage-driven state ----- */
+  var counterEl     = document.getElementById("counter");
+  var fillEl        = document.getElementById("fill");
+  var stickySend    = document.getElementById("stickySend");
+  var composerBtns  = document.getElementById("composerBtns");
+  var composerNote  = document.getElementById("composerNote");
+  var lastChunks    = 1;
+
+  function refresh(){
+    var marked = 0, lines = [];
+
+    for (var n = 1; n <= TOTAL; n++){
+      var c    = state[n].choice;
+      var note = (state[n].note || "").trim();
+      if (c) marked++;
+
+      var card = document.getElementById("card-" + n);
+      card.classList.toggle("approved", c === "approve");
+      card.classList.toggle("rejected", c === "reject");
+
+      var btns = card.querySelectorAll(".choice");
+      for (var b = 0; b < btns.length; b++){
+        btns[b].classList.toggle("active", btns[b].getAttribute("data-choice") === c);
+      }
+
+      var epMsg = "פודקאסט · פרק " + n + ": " + statusSingle(c) +
+                  (note ? " · הערה: " + note : "") +
+                  "\nהשאלה: " + QUESTIONS[n-1];
+      card.querySelector(".ep-send").href = waHref(epMsg);
+
+      lines.push("פרק " + n + ": " + statusFull(c) + (note ? " · הערה: " + note : ""));
+    }
+
+    counterEl.textContent = "סומנו " + marked + " מתוך " + TOTAL;
+    fillEl.style.width = (marked / TOTAL * 100) + "%";
+
+    var header = "אישור סרטוני פודקאסט — אריאלה 💜\nסומנו " + marked + " מתוך " + TOTAL;
+    var chunks = chunkLines(header, lines, MAX_ENC);
+    lastChunks = chunks.length;
+
+    stickySend.href = waHref(labelChunk(chunks, 0));
+
+    composerBtns.innerHTML = "";
+    if (chunks.length <= 1){
+      composerNote.textContent = "לחצי על הכפתור לשליחת הסיכום המלא בוואטסאפ.";
+      composerBtns.appendChild(makeSendBtn(waHref(chunks[0]), "📤 שלחי סיכום מלא לשקד"));
+    } else {
+      composerNote.textContent = "הסיכום קצת ארוך, לכן חילקתי אותו ל-" + chunks.length +
+                                 " הודעות. שלחי אותן לפי הסדר 👇";
+      for (var g = 0; g < chunks.length; g++){
+        composerBtns.appendChild(
+          makeSendBtn(waHref(labelChunk(chunks, g)), "📤 שלחי חלק " + (g + 1) + " מתוך " + chunks.length)
+        );
+      }
+    }
+  }
+
+  function makeSendBtn(href, label){
+    var a = document.createElement("a");
+    a.className = "big-send";
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.href = href;
+    a.textContent = label;
+    a.addEventListener("click", function(){ this.classList.add("sent"); });
+    return a;
+  }
+
+  /* ----- interactions (event delegation) ----- */
+  cardsEl.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest(".choice") : null;
+    if (!b) return;
+    var n = +b.getAttribute("data-ep");
+    state[n].choice = b.getAttribute("data-choice");   /* set choice (tap the other to change) */
+    save(n);
+    refresh();
+  });
+
+  cardsEl.addEventListener("input", function(e){
+    var t = e.target;
+    if (!t.classList || !t.classList.contains("note")) return;
+    var n = +t.getAttribute("data-ep");
+    state[n].note = t.value;
+    save(n);
+    refresh();
+  });
+
+  /* ----- one video at a time + graceful fallback if a clip is missing ----- */
+  var vids = document.querySelectorAll("video");
+  for (var v = 0; v < vids.length; v++){
+    (function(vid){
+      vid.addEventListener("play", function(){
+        for (var w = 0; w < vids.length; w++){ if (vids[w] !== vid) vids[w].pause(); }
+      });
+      vid.addEventListener("error", function(){
+        var wrap = vid.parentNode;
+        if (wrap && wrap.classList) wrap.classList.add("err");
+      });
+    })(vids[v]);
+  }
+
+  /* ----- sticky send: single message opens directly; multi-part guides to the composer ----- */
+  stickySend.addEventListener("click", function(e){
+    var comp = document.getElementById("composer");
+    if (lastChunks > 1 && e.preventDefault) e.preventDefault();  /* don't half-open; send the parts below */
+    comp.classList.remove("flash");
+    void comp.offsetWidth;                                       /* restart the highlight animation */
+    comp.classList.add("flash");
+    setTimeout(function(){
+      comp.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+  });
+
+  refresh();
+})();
+</script>
+</body>
+</html>
