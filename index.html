@@ -402,7 +402,7 @@
       ch.children[i].classList.toggle('on',on);
       ch.children[i].setAttribute('aria-pressed',on?'true':'false');}
     a.src='audio/podcast_q'+pad(cur)+'.mp3';
-    if(play){var p=a.play();if(p&&p.catch)p.catch(function(){st.textContent='לחצו ▶ בנגן כדי להפעיל את הפרק';});}
+    if(play){var p=a.play();if(p&&p.catch)p.catch(function(err){if(err&&err.name==='AbortError')return;st.textContent='לחצו ▶ בנגן כדי להפעיל את הפרק';});}
     trRender();
     upd();
   }
