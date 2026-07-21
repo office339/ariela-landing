@@ -179,7 +179,7 @@
   .big-send:last-child{margin-bottom:0;}
   .big-send:active{transform:translateY(1px);}
   .big-send.sent{background:linear-gradient(180deg,#5aa585,#3f8f6b);}
-  .big-send.sent::after{content:"  ✓ נשלח";font-weight:800;}
+  .big-send.sent::after{content:"  ✓ נפתח בוואטסאפ";font-weight:800;}
 
   footer{text-align:center;color:var(--muted);font-size:15px;margin-top:30px;line-height:1.7;}
 
@@ -296,13 +296,13 @@
         '<p class="q">' + esc(QUESTIONS[n-1]) + '</p>' +
         '<div class="video-wrap">' +
           '<video controls preload="metadata" playsinline src="../videos/ariela_q' + pad2(n) + '.mp4"></video>' +
-          '<div class="vid-fallback">🎬 הסרטון של פרק ' + n + ' יופיע כאן</div>' +
+          '<div class="vid-fallback">🎬 הסרטון לא נטען — לחצי כאן לניסיון חוזר</div>' +
         '</div>' +
         '<div class="choices">' +
           '<button type="button" class="choice approve" data-ep="' + n + '" data-choice="approve">✓ מאשרת</button>' +
           '<button type="button" class="choice reject" data-ep="' + n + '" data-choice="reject">✗ לא מאשרת</button>' +
         '</div>' +
-        '<textarea class="note" data-ep="' + n + '" rows="2" placeholder="הערה (לא חובה)…"></textarea>' +
+        '<textarea class="note" data-ep="' + n + '" rows="2" maxlength="500" placeholder="הערה (לא חובה)…"></textarea>' +
         '<a class="wa-btn ep-send" data-ep="' + n + '" target="_blank" rel="noopener" href="' + BASE + '">📤 שלחי לשקד את הפרק הזה</a>' +
       '</article>';
   }
@@ -315,6 +315,25 @@
   for (var j = 0; j < noteEls.length; j++){
     noteEls[j].value = state[ +noteEls[j].getAttribute("data-ep") ].note || "";
   }
+
+  /* ----- storage capability check — warn honestly if private-mode / disabled / full ----- */
+  (function(){
+    var ok = false;
+    try{
+      var tk = "ariela_rev_test";
+      localStorage.setItem(tk, "1");
+      ok = (localStorage.getItem(tk) === "1");
+      localStorage.removeItem(tk);
+    }catch(e){ ok = false; }
+    if (!ok){
+      var warn = document.createElement("div");
+      warn.className = "nojs";
+      warn.style.margin = "0 0 20px";
+      warn.textContent = "⚠️ הדפדפן במצב פרטי או חוסם שמירה — הבחירות לא יישמרו אם תרעני את הדף. מומלץ לסמן ולשלוח באותה ישיבה 💜";
+      var m = document.getElementById("cards");
+      if (m && m.parentNode) m.parentNode.insertBefore(warn, m);
+    }
+  })();
 
   /* ----- message helpers ----- */
   function statusFull(c){   return c === "approve" ? "מאושר ✓" : c === "reject" ? "לא מאושר ✗" : "טרם סומן"; }
@@ -386,12 +405,14 @@
     stickySend.href = waHref(labelChunk(chunks, 0));
 
     composerBtns.innerHTML = "";
-    if (chunks.length <= 1){
+    if (marked === 0){
+      composerNote.textContent = "סמני לפחות פרק אחד ✓ / ✗ ואז יופיע כאן כפתור השליחה 💜";
+    } else if (chunks.length <= 1){
       composerNote.textContent = "לחצי על הכפתור לשליחת הסיכום המלא בוואטסאפ.";
       composerBtns.appendChild(makeSendBtn(waHref(chunks[0]), "📤 שלחי סיכום מלא לשקד"));
     } else {
       composerNote.textContent = "הסיכום קצת ארוך, לכן חילקתי אותו ל-" + chunks.length +
-                                 " הודעות. שלחי אותן לפי הסדר 👇";
+                                 " הודעות. שלחי אותן לפי הסדר 👇  (אם ערכת הערה אחרי ששלחת חלק — שלחי שוב את כל החלקים).";
       for (var g = 0; g < chunks.length; g++){
         composerBtns.appendChild(
           makeSendBtn(waHref(labelChunk(chunks, g)), "📤 שלחי חלק " + (g + 1) + " מתוך " + chunks.length)
@@ -430,17 +451,25 @@
     refresh();
   });
 
-  /* ----- one video at a time + graceful fallback if a clip is missing ----- */
+  /* ----- one video at a time + recoverable fallback (transient errors clear on load / tap-retry) ----- */
   var vids = document.querySelectorAll("video");
   for (var v = 0; v < vids.length; v++){
     (function(vid){
+      var wrap = vid.parentNode;
       vid.addEventListener("play", function(){
         for (var w = 0; w < vids.length; w++){ if (vids[w] !== vid) vids[w].pause(); }
       });
       vid.addEventListener("error", function(){
-        var wrap = vid.parentNode;
         if (wrap && wrap.classList) wrap.classList.add("err");
       });
+      vid.addEventListener("loadeddata", function(){
+        if (wrap && wrap.classList) wrap.classList.remove("err");   /* a transient error recovered */
+      });
+      if (wrap){
+        wrap.addEventListener("click", function(){
+          if (wrap.classList.contains("err")){ wrap.classList.remove("err"); vid.load(); }
+        });
+      }
     })(vids[v]);
   }
 

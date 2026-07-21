@@ -394,15 +394,27 @@
     (trB.getAttribute('aria-expanded')==='true')?trClose():trOpen();});
   function pad(n){return (n<10?'0':'')+n}
   function upd(){pv.disabled=cur<=1;nx.disabled=cur>=N;}
+  var gen=0;
+  function playAudio(){
+    var my=gen,p=a.play();
+    if(p&&p.catch)p.catch(function(err){
+      if(err&&err.name==='AbortError')return;
+      if(my!==gen)return;                       /* stale — another episode was selected meanwhile */
+      st.textContent='לחצו ▶ בנגן כדי להפעיל את הפרק';});
+  }
   function sel(n,play){
     var t=Math.max(1,Math.min(N,n));
-    if(t===cur){upd();return;}
+    if(t===cur){                                /* same episode: an explicit tap should (re)play/retry */
+      if(play){st.textContent='';a.load();playAudio();}
+      upd();return;
+    }
+    gen++;
     cur=t;qE.textContent=QS[cur-1];nE.textContent=cur;st.textContent='';
     for(var i=0;i<ch.children.length;i++){var on=(i===cur-1);
       ch.children[i].classList.toggle('on',on);
       ch.children[i].setAttribute('aria-pressed',on?'true':'false');}
     a.src='audio/podcast_q'+pad(cur)+'.mp3';
-    if(play){var p=a.play();if(p&&p.catch)p.catch(function(err){if(err&&err.name==='AbortError')return;st.textContent='לחצו ▶ בנגן כדי להפעיל את הפרק';});}
+    if(play){playAudio();}
     trRender();
     upd();
   }
@@ -482,7 +494,7 @@
 
     <div class="form-card reveal d1">
       <span class="ribbon"></span>
-      <form id="leadForm" novalidate>
+      <form id="leadForm" novalidate onsubmit="return false">
         <span class="spots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> מספר המקומות בקבוצות מוגבל</span>
         <h3>השאירו פרטים</h3>
         <p class="sub">ואחזור אליכם לתיאום פגישת היכרות 💜</p>
