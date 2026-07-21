@@ -7,7 +7,7 @@
 <meta name="description" content="קוראים להצלחה — תוכנית לילדים בגילאי 6–10 המשלבת קריאה, כתיבה והבנת הנקרא עם חיזוק הביטחון העצמי, הקשב והריכוז ומיומנויות חברתיות. פגישת היכרות ללא עלות.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Rubik:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&amp;family=Rubik:wght@400;500;600;700&amp;family=Frank+Ruhl+Libre:wght@500;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles2.css">
 </head>
 <body>
@@ -22,12 +22,12 @@
       <img src="assets/logo.png" alt="אריאלה — המכון לשיפור יכולות למידה">
     </a>
     <nav class="nav" aria-label="ניווט ראשי">
+      <a href="#podcast">הפודקאסט</a>
       <a href="#how">מה בתוכנית</a>
       <a href="#journey">המסע</a>
       <a href="#includes">מה הילד מקבל</a>
       <a href="#fit">למי זה מתאים</a>
       <a href="#about">עליי</a>
-      <a href="#podcast">הפודקאסט</a>
       <a href="#faq">שאלות</a>
     </nav>
     <div class="header-cta">
@@ -45,12 +45,12 @@
 <!-- mobile nav overlay -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mclose" id="mClose" type="button" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <a href="#podcast">הפודקאסט</a>
   <a href="#how">מה בתוכנית</a>
   <a href="#journey">המסע — 10 מפגשים</a>
   <a href="#includes">מה הילד מקבל</a>
   <a href="#fit">למי זה מתאים</a>
   <a href="#about">קצת עליי</a>
-  <a href="#podcast">הפודקאסט</a>
   <a href="#faq">שאלות נפוצות</a>
   <a class="btn btn-primary btn-block" href="#form">השארת פרטים</a>
 </div>
@@ -117,6 +117,40 @@
     גללו לגלות
   </div>
 </section>
+
+<!-- ============ PODCAST ============ -->
+<section class="section bg-soft" id="podcast" data-screen-label="podcast">
+  <span class="accent-top"></span>
+  <div class="atmo"><span class="g1"></span></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="center-eyebrow reveal"><span class="eyebrow">🎧 הפודקאסט של אריאלה</span></div>
+      <h2 class="reveal d1">20 שאלות, 20 תשובות מהלב — על ילדים והדרך להצלחה</h2>
+      <p class="pod-sub reveal d2">אריאלה עונה בקולה, פרק קצר לכל שאלה. בחרו שאלה — או תנו לפרקים להתנגן ברצף.</p>
+    </div>
+
+    <div class="pod-card reveal">
+      <div class="pod-photo"><img src="assets/ariela.png" alt="אריאלה" loading="lazy"></div>
+      <div class="pod-main">
+        <div class="pod-count">פרק <b id="podNum">1</b> מתוך <span id="podTotal">20</span></div>
+        <h3 class="pod-q" id="podQ"></h3>
+        <audio id="podAudio" controls preload="none"></audio>
+        <div class="pod-cap" id="podCap" hidden aria-live="off"></div>
+        <div class="pod-status" id="podStatus" role="status" aria-live="polite"></div>
+        <div class="pod-nav">
+          <button class="pod-btn" id="podPrev" type="button">הפרק הקודם</button>
+          <button class="pod-btn primary" id="podNext" type="button">הפרק הבא</button>
+        </div>
+        <div class="pod-tr" id="podTr" hidden>
+          <button class="pod-btn pod-tr-toggle" id="podTrToggle" type="button" aria-expanded="false" aria-controls="podTrBody"><span class="pod-tr-ico" aria-hidden="true">📖</span><span class="pod-tr-lbl" id="podTrLabel">הצג תמליל</span></button>
+          <div class="pod-tr-body" id="podTrBody" role="region" aria-label="תמליל הפרק" tabindex="-1" hidden></div>
+        </div>
+        <div class="pod-chips" id="podChips" role="group" aria-label="בחירת פרק"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ PAIN ============ -->
 <section class="section pain-zone" data-screen-label="pain">
@@ -339,98 +373,6 @@
   </div>
 </section>
 
-<!-- ============ PODCAST ============ -->
-<section class="section bg-soft" id="podcast" data-screen-label="podcast">
-  <span class="accent-top"></span>
-  <div class="atmo"><span class="g1"></span></div>
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="center-eyebrow reveal"><span class="eyebrow">🎧 הפודקאסט של אריאלה</span></div>
-      <h2 class="reveal d1">20 שאלות, 20 תשובות מהלב — על ילדים והדרך להצלחה</h2>
-      <p class="pod-sub reveal d2">אריאלה עונה בקולה, פרק קצר לכל שאלה. בחרו שאלה — או תנו לפרקים להתנגן ברצף.</p>
-    </div>
-
-    <div class="pod-card reveal">
-      <div class="pod-photo"><img src="assets/ariela.png" alt="אריאלה" loading="lazy"></div>
-      <div class="pod-main">
-        <div class="pod-count">פרק <b id="podNum">1</b> מתוך <span id="podTotal">20</span></div>
-        <h3 class="pod-q" id="podQ"></h3>
-        <audio id="podAudio" controls preload="none"></audio>
-        <div class="pod-status" id="podStatus" role="status" aria-live="polite"></div>
-        <div class="pod-nav">
-          <button class="pod-btn" id="podPrev" type="button">הפרק הקודם</button>
-          <button class="pod-btn primary" id="podNext" type="button">הפרק הבא</button>
-        </div>
-        <div class="pod-tr" id="podTr" hidden>
-          <button class="pod-btn pod-tr-toggle" id="podTrToggle" type="button" aria-expanded="false" aria-controls="podTrBody"><span class="pod-tr-ico" aria-hidden="true">📖</span><span class="pod-tr-lbl" id="podTrLabel">הצג תמליל</span></button>
-          <div class="pod-tr-body" id="podTrBody" role="region" aria-label="תמליל הפרק" tabindex="-1" hidden></div>
-        </div>
-        <div class="pod-chips" id="podChips" role="group" aria-label="בחירת פרק"></div>
-      </div>
-    </div>
-  </div>
-</section>
-<script src="transcripts.js"></script>
-<script>
-(function(){
-  var QS=["ספרי על הרגע שבו הבנת שזה הייעוד שלך — לעבוד עם ילדים. מה הצית בתוכך את האש הזו?", "מאיפה נולד המכון, ומה הופך את הגישה שלך לשונה מכל מקום אחר?", "מה הכי מרגש אותך בעבודה עם הילדים, יום אחרי יום?", "מהם האתגרים הכי נפוצים שאיתם ילדים מגיעים אלייך — לימודי, קשב, רגשי, חברתי?", "מה הורים מספרים לך כשהם פונים אלייך בפעם הראשונה — מהו הכאב שמביא אותם?", "מהי האמת על „קושי בלמידה” שרוב ההורים פשוט לא יודעים?", "למה כל כך הרבה ילדים מרגישים „טיפשים”, כשהם בעצם רק לומדים אחרת?", "מה הדבר הראשון שאת עושה עם ילד שמגיע אלייך מתוסכל ומאבד ביטחון בעצמו?", "איך הופכים ילד ש„שונא ללמוד” לילד שמאמין בעצמו ואוהב ללמוד?", "תני כלי פשוט אחד שכל הורה יכול ליישם כבר היום בבית.", "מה ההבדל בין ללמד ילד „חומר” לבין ללמד אותו „איך ללמוד”?", "ספרי על ילד אחד שהשתנה אצלך מן הקצה אל הקצה — מה קרה שם?", "מהו הרגע הכי מרגש שחווית עם הורה שראה את הילד שלו פורח מחדש?", "מה ילד לוקח איתו מהמכון שלך — מעבר לציונים ולמבחנים?", "מה היית אומרת להורה שמרגיש אשם או חסר אונים מול הקושי של הילד שלו?", "מהי הטעות הכי נפוצה שהורים עושים מתוך אהבה — ודווקא פוגעת בלי כוונה?", "איך הורה יכול לזהות שהילד שלו צריך עזרה — עוד לפני שזה מחמיר?", "מהו החלום שלך עבור כל ילד שעובר דרך המכון?", "אם היית יכולה לשנות דבר אחד בדרך שבה החינוך מתייחס לילדים שלומדים אחרת — מה זה היה?", "מה היית רוצה שכל הורה שמקשיב לפודקאסט הזה ייקח איתו אל הלב?"]; var N=QS.length;
-  var a=document.getElementById('podAudio'),qE=document.getElementById('podQ'),
-      nE=document.getElementById('podNum'),ch=document.getElementById('podChips'),
-      st=document.getElementById('podStatus'),tE=document.getElementById('podTotal'),
-      pv=document.getElementById('podPrev'),nx=document.getElementById('podNext'),cur=0;
-  var trW=document.getElementById('podTr'),trB=document.getElementById('podTrToggle'),
-      trBody=document.getElementById('podTrBody'),trL=document.getElementById('podTrLabel');
-  function trGet(i){var T=window.POD_TRANSCRIPTS;
-    if(!T||typeof T.length!=='number'||i<1||i>T.length)return '';
-    var s=T[i-1];return (typeof s==='string')?s.trim():'';}
-  function trClose(){if(!trB)return;trB.setAttribute('aria-expanded','false');
-    if(trBody)trBody.hidden=true;if(trL)trL.textContent='הצג תמליל';}
-  function trOpen(){if(!trB)return;trB.setAttribute('aria-expanded','true');
-    if(trBody)trBody.hidden=false;if(trL)trL.textContent='הסתר תמליל';}
-  function trRender(){if(!trW)return;var txt=trGet(cur);
-    if(!txt){trClose();trW.hidden=true;return;}
-    if(trBody)trBody.textContent=txt;trW.hidden=false;trClose();}
-  if(trB)trB.addEventListener('click',function(){
-    (trB.getAttribute('aria-expanded')==='true')?trClose():trOpen();});
-  function pad(n){return (n<10?'0':'')+n}
-  function upd(){pv.disabled=cur<=1;nx.disabled=cur>=N;}
-  var gen=0;
-  function playAudio(){
-    var my=gen,p=a.play();
-    if(p&&p.catch)p.catch(function(err){
-      if(err&&err.name==='AbortError')return;
-      if(my!==gen)return;                       /* stale — another episode was selected meanwhile */
-      st.textContent='לחצו ▶ בנגן כדי להפעיל את הפרק';});
-  }
-  function sel(n,play){
-    var t=Math.max(1,Math.min(N,n));
-    if(t===cur){                                /* same episode: an explicit tap should (re)play/retry */
-      if(play){st.textContent='';a.load();playAudio();}
-      upd();return;
-    }
-    gen++;
-    cur=t;qE.textContent=QS[cur-1];nE.textContent=cur;st.textContent='';
-    for(var i=0;i<ch.children.length;i++){var on=(i===cur-1);
-      ch.children[i].classList.toggle('on',on);
-      ch.children[i].setAttribute('aria-pressed',on?'true':'false');}
-    a.src='audio/podcast_q'+pad(cur)+'.mp3';
-    if(play){playAudio();}
-    trRender();
-    upd();
-  }
-  if(tE)tE.textContent=N;
-  for(var i=1;i<=N;i++){(function(n){
-    var b=document.createElement('button');b.type='button';b.textContent=n;
-    b.setAttribute('aria-label','פרק '+n);b.setAttribute('aria-pressed','false');
-    b.addEventListener('click',function(){sel(n,true)});ch.appendChild(b);})(i);}
-  pv.addEventListener('click',function(){sel(cur-1,true)});
-  nx.addEventListener('click',function(){sel(cur+1,true)});
-  a.addEventListener('ended',function(){if(cur<N)sel(cur+1,true)});
-  a.addEventListener('error',function(){if(a.src)st.textContent='⚠️ הפרק לא נטען כרגע — בדקו את החיבור ונסו שוב';});
-  sel(1,false);
-})();
-</script>
-
 <!-- ============ FAQ ============ -->
 <section class="section" id="faq" data-screen-label="faq">
   <span class="accent-top"></span>
@@ -494,7 +436,8 @@
 
     <div class="form-card reveal d1">
       <span class="ribbon"></span>
-      <form id="leadForm" novalidate onsubmit="return false">
+      <form id="leadForm" method="post" novalidate onsubmit="return false">
+        <noscript><p style="background:#fdecee;border:1px solid #f2b8bd;border-radius:12px;padding:12px 14px;color:#b0454d;font-size:15px;margin:0 0 14px">כדי לשלוח את הטופס יש להפעיל JavaScript. לחלופין אפשר לשלוח לי הודעת וואטסאפ ישירה בכפתור למטה 💜</p></noscript>
         <span class="spots"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> מספר המקומות בקבוצות מוגבל</span>
         <h3>השאירו פרטים</h3>
         <p class="sub">ואחזור אליכם לתיאום פגישת היכרות 💜</p>
@@ -568,6 +511,103 @@
   </a>
 </div>
 
+<script src="transcripts.js"></script>
+<script>
+(function(){
+  var QS=["ספרי על הרגע שבו הבנת שזה הייעוד שלך — לעבוד עם ילדים. מה הצית בתוכך את האש הזו?", "מאיפה נולד המכון, ומה הופך את הגישה שלך לשונה מכל מקום אחר?", "מה הכי מרגש אותך בעבודה עם הילדים, יום אחרי יום?", "מהם האתגרים הכי נפוצים שאיתם ילדים מגיעים אלייך — לימודי, קשב, רגשי, חברתי?", "מה הורים מספרים לך כשהם פונים אלייך בפעם הראשונה — מהו הכאב שמביא אותם?", "מהי האמת על „קושי בלמידה” שרוב ההורים פשוט לא יודעים?", "למה כל כך הרבה ילדים מרגישים „טיפשים”, כשהם בעצם רק לומדים אחרת?", "מה הדבר הראשון שאת עושה עם ילד שמגיע אלייך מתוסכל ומאבד ביטחון בעצמו?", "איך הופכים ילד ש„שונא ללמוד” לילד שמאמין בעצמו ואוהב ללמוד?", "תני כלי פשוט אחד שכל הורה יכול ליישם כבר היום בבית.", "מה ההבדל בין ללמד ילד „חומר” לבין ללמד אותו „איך ללמוד”?", "ספרי על ילד אחד שהשתנה אצלך מן הקצה אל הקצה — מה קרה שם?", "מהו הרגע הכי מרגש שחווית עם הורה שראה את הילד שלו פורח מחדש?", "מה ילד לוקח איתו מהמכון שלך — מעבר לציונים ולמבחנים?", "מה היית אומרת להורה שמרגיש אשם או חסר אונים מול הקושי של הילד שלו?", "מהי הטעות הכי נפוצה שהורים עושים מתוך אהבה — ודווקא פוגעת בלי כוונה?", "איך הורה יכול לזהות שהילד שלו צריך עזרה — עוד לפני שזה מחמיר?", "מהו החלום שלך עבור כל ילד שעובר דרך המכון?", "אם היית יכולה לשנות דבר אחד בדרך שבה החינוך מתייחס לילדים שלומדים אחרת — מה זה היה?", "מה היית רוצה שכל הורה שמקשיב לפודקאסט הזה ייקח איתו אל הלב?"]; var N=QS.length;
+  var a=document.getElementById('podAudio'),qE=document.getElementById('podQ'),
+      nE=document.getElementById('podNum'),ch=document.getElementById('podChips'),
+      st=document.getElementById('podStatus'),tE=document.getElementById('podTotal'),
+      pv=document.getElementById('podPrev'),nx=document.getElementById('podNext'),cur=0;
+  var trW=document.getElementById('podTr'),trB=document.getElementById('podTrToggle'),
+      trBody=document.getElementById('podTrBody'),trL=document.getElementById('podTrLabel');
+  var cap=document.getElementById('podCap');
+  var INTRO=2.5, rafId=0, curSeg=-1;
+
+  function segs(i){var S=window.POD_SEGMENTS;return (S&&S[i-1]&&S[i-1].length)?S[i-1]:null;}
+  function trGet(i){var T=window.POD_TRANSCRIPTS;
+    if(!T||typeof T.length!=='number'||i<1||i>T.length)return '';
+    var s=T[i-1];return (typeof s==='string')?s.trim():'';}
+
+  /* ---- פאנל-תמליל: מקטעים אם יש (highlightable), אחרת טקסט מלא ---- */
+  function trClose(){if(!trB)return;trB.setAttribute('aria-expanded','false');
+    if(trBody)trBody.hidden=true;if(trL)trL.textContent='הצג תמליל';}
+  function trOpen(){if(!trB)return;trB.setAttribute('aria-expanded','true');
+    if(trBody)trBody.hidden=false;if(trL)trL.textContent='הסתר תמליל';}
+  function trRender(){if(!trW)return;
+    var S=segs(cur),txt=trGet(cur);
+    if(!S&&!txt){trClose();trW.hidden=true;return;}
+    if(trBody){trBody.textContent='';
+      if(S){for(var i=0;i<S.length;i++){var sp=document.createElement('span');
+        sp.className='pod-tr-seg';sp.setAttribute('data-si',i);sp.textContent=S[i].t+' ';
+        trBody.appendChild(sp);}}
+      else{trBody.textContent=txt;}}
+    trW.hidden=false;trClose();}
+  if(trB)trB.addEventListener('click',function(){
+    (trB.getAttribute('aria-expanded')==='true')?trClose():trOpen();});
+
+  /* ---- קריוקי: כתובית-חיה + סחיפת-מילים לפי חותמות-הזמן ---- */
+  function activeIdx(vt){var S=segs(cur);if(!S)return -1;
+    if(vt<S[0].s)return -1;
+    var idx=-1;for(var i=0;i<S.length;i++){if(S[i].s<=vt)idx=i;else break;}return idx;}
+  function buildWords(text){cap.textContent='';
+    var ws=text.split(/\s+/);
+    for(var w=0;w<ws.length;w++){var sp=document.createElement('span');sp.className='pod-w';
+      sp.textContent=ws[w]+(w<ws.length-1?' ':'');cap.appendChild(sp);}}
+  function renderCap(){var S=segs(cur);
+    if(!cap||!S){if(cap)cap.hidden=true;return;}
+    var vt=a.currentTime-INTRO,si=activeIdx(vt);
+    if(si<0){cap.hidden=true;curSeg=-1;return;}
+    cap.hidden=false;
+    if(si!==curSeg){curSeg=si;buildWords(S[si].t);
+      if(trBody){var segEl=trBody.querySelectorAll('.pod-tr-seg');
+        for(var j=0;j<segEl.length;j++)segEl[j].classList.toggle('on',j===si);
+        if(segEl[si]&&!trBody.hidden&&segEl[si].scrollIntoView)
+          segEl[si].scrollIntoView({block:'nearest'});}}
+    var seg=S[si],span=Math.max(0.1,seg.e-seg.s),frac=(vt-seg.s)/span;
+    frac=Math.max(0,Math.min(1,frac));
+    var words=cap.children,nW=words.length,tot=Math.max(1,seg.t.length),target=frac*tot,acc=0;
+    for(var k=0;k<nW;k++){acc+=words[k].textContent.length;
+      words[k].classList.toggle('on',acc<=target||(k===0&&frac>0));}}
+  function tick(){renderCap();if(!a.paused&&!a.ended)rafId=requestAnimationFrame(tick);}
+  function startCap(){cancelAnimationFrame(rafId);rafId=requestAnimationFrame(tick);}
+  function stopCap(){cancelAnimationFrame(rafId);}
+  function resetCap(){curSeg=-1;if(cap){cap.hidden=true;cap.textContent='';}}
+  a.addEventListener('play',startCap);
+  a.addEventListener('pause',stopCap);
+  a.addEventListener('timeupdate',renderCap);
+  a.addEventListener('seeked',function(){curSeg=-1;renderCap();});
+
+  function pad(n){return (n<10?'0':'')+n}
+  function upd(){pv.disabled=cur<=1;nx.disabled=cur>=N;}
+  var gen=0;
+  function playAudio(){var my=gen,pr=a.play();
+    if(pr&&pr.catch)pr.catch(function(err){
+      if(err&&err.name==='AbortError')return;
+      if(my!==gen)return;
+      st.textContent='לחצו ▶ בנגן כדי להפעיל את הפרק';});}
+  function sel(n,play){var t=Math.max(1,Math.min(N,n));
+    if(t===cur){if(play){st.textContent='';a.load();playAudio();}upd();return;}
+    gen++;cur=t;qE.textContent=QS[cur-1];nE.textContent=cur;st.textContent='';
+    resetCap();
+    for(var i=0;i<ch.children.length;i++){var on=(i===cur-1);
+      ch.children[i].classList.toggle('on',on);
+      ch.children[i].setAttribute('aria-pressed',on?'true':'false');}
+    a.src='audio/podcast_q'+pad(cur)+'.mp3';
+    if(play){playAudio();}
+    trRender();upd();}
+  if(tE)tE.textContent=N;
+  for(var i=1;i<=N;i++){(function(n){
+    var b=document.createElement('button');b.type='button';b.textContent=n;
+    b.setAttribute('aria-label','פרק '+n);b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',function(){sel(n,true)});ch.appendChild(b);})(i);}
+  pv.addEventListener('click',function(){sel(cur-1,true)});
+  nx.addEventListener('click',function(){sel(cur+1,true)});
+  a.addEventListener('ended',function(){resetCap();if(cur<N)sel(cur+1,true);});
+  a.addEventListener('error',function(){if(a.src)st.textContent='⚠️ הפרק לא נטען כרגע — בדקו את החיבור ונסו שוב';});
+  sel(1,false);
+})();
+</script>
 <script src="image-slot.js"></script>
 <script src="app2.js"></script>
 <script src="ariela-notes.js" defer></script>
