@@ -524,7 +524,9 @@
   var cap=document.getElementById('podCap');
   var INTRO=2.5, rafId=0, curSeg=-1;
 
-  function segs(i){var S=window.POD_SEGMENTS;return (S&&S[i-1]&&S[i-1].length)?S[i-1]:null;}
+  function segs(i){var S=window.POD_SEGMENTS;if(!S||!S[i-1]||!S[i-1].length)return null;
+    var arr=S[i-1];for(var q=0;q<arr.length;q++){var x=arr[q];
+      if(!x||typeof x.t!=='string'||!isFinite(x.s)||!isFinite(x.e)||x.e<=x.s)return null;}return arr;}
   function trGet(i){var T=window.POD_TRANSCRIPTS;
     if(!T||typeof T.length!=='number'||i<1||i>T.length)return '';
     var s=T[i-1];return (typeof s==='string')?s.trim():'';}
@@ -549,7 +551,8 @@
   /* ---- קריוקי: כתובית-חיה + סחיפת-מילים לפי חותמות-הזמן ---- */
   function activeIdx(vt){var S=segs(cur);if(!S)return -1;
     if(vt<S[0].s)return -1;
-    var idx=-1;for(var i=0;i<S.length;i++){if(S[i].s<=vt)idx=i;else break;}return idx;}
+    for(var i=0;i<S.length;i++){if(vt>=S[i].s&&vt<S[i].e)return i;}   /* קטע מדויק */
+    var idx=-1;for(var j=0;j<S.length;j++){if(S[j].s<=vt)idx=j;else break;}return idx;}  /* gap/זנב → נשאר חלק */
   function buildWords(text){cap.textContent='';
     var ws=text.split(/\s+/);
     for(var w=0;w<ws.length;w++){var sp=document.createElement('span');sp.className='pod-w';
@@ -557,7 +560,7 @@
   function renderCap(){var S=segs(cur);
     if(!cap||!S){if(cap)cap.hidden=true;return;}
     var vt=a.currentTime-INTRO,si=activeIdx(vt);
-    if(si<0){cap.hidden=true;curSeg=-1;return;}
+    if(si<0){resetCap();return;}   /* אינטרו/seek-אחורה: מסתיר כתובית + מנקה .on מהפאנל */
     cap.hidden=false;
     if(si!==curSeg){curSeg=si;buildWords(S[si].t);
       if(trBody){var segEl=trBody.querySelectorAll('.pod-tr-seg');
@@ -567,12 +570,14 @@
     var seg=S[si],span=Math.max(0.1,seg.e-seg.s),frac=(vt-seg.s)/span;
     frac=Math.max(0,Math.min(1,frac));
     var words=cap.children,nW=words.length,tot=Math.max(1,seg.t.length),target=frac*tot,acc=0;
-    for(var k=0;k<nW;k++){acc+=words[k].textContent.length;
-      words[k].classList.toggle('on',acc<=target||(k===0&&frac>0));}}
+    for(var k=0;k<nW;k++){words[k].classList.toggle('on',frac>0&&acc<=target);
+      acc+=words[k].textContent.length;}}
   function tick(){renderCap();if(!a.paused&&!a.ended)rafId=requestAnimationFrame(tick);}
   function startCap(){cancelAnimationFrame(rafId);rafId=requestAnimationFrame(tick);}
   function stopCap(){cancelAnimationFrame(rafId);}
-  function resetCap(){curSeg=-1;if(cap){cap.hidden=true;cap.textContent='';}}
+  function resetCap(){curSeg=-1;if(cap){cap.hidden=true;cap.textContent='';}
+    if(trBody){var sg=trBody.querySelectorAll('.pod-tr-seg.on');
+      for(var z=0;z<sg.length;z++)sg[z].classList.remove('on');}}
   a.addEventListener('play',startCap);
   a.addEventListener('pause',stopCap);
   a.addEventListener('timeupdate',renderCap);
