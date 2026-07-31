@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>פְּנִימָה — חמישה ימים לחזור אל עצמך</title>
+<meta name="description" content="להכיר אותך, ולדעת בדיוק מה זו תכנית הפתיחה לאיזון — חמישה צעדים מעשיים, צעד אחד בכל יום למייל — ומה בדיוק היא לוקחת מהם.">
+<meta name="theme-color" content="#5f5390">
+<meta property="og:title" content="פְּנִימָה — חמישה ימים לחזור אל עצמך">
+<meta property="og:description" content="להכיר אותך, ולדעת בדיוק מה זו תכנית הפתיחה לאיזון — חמישה צעדים מעשיים, צעד אחד בכל יום למייל — ומה בדיוק היא לוקחת מהם.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://office339.github.io/ariela-landing/assets/ariela.png">
+<link rel="icon" href="../assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=Frank+Ruhl+Libre:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lav:#8779b3; --lav-d:#5f5390; --lav-dd:#463c6e; --lav-l:#f1ecf8;
+    --gold:#bc9a5c; --gold-l:#f6f1e0;
+    --ink:#39323f; --ink-soft:#5d5670; --bg:#faf8fd; --line:#e7e0ef; --ok:#4a9d6f;
+    --shadow:0 10px 34px rgba(78,66,120,.13);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Heebo',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-weight:300;-webkit-text-size-adjust:100%;overflow-x:hidden}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:'Frank Ruhl Libre',Georgia,serif;font-weight:700;line-height:1.28}
+  section{padding:52px 0}
+
+  /* ── גיבור ── */
+  .hero{position:relative;background:linear-gradient(160deg,#5f5390 0%,#7b6ca6 55%,#8779b3 100%);color:#fff;padding:40px 0 46px;overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:auto -18% -55% -18%;height:60%;background:radial-gradient(ellipse at center,rgba(188,154,92,.30),transparent 68%);pointer-events:none}
+  .hero .wrap{position:relative;z-index:1}
+  .brand{display:flex;align-items:center;gap:9px;font-family:'Frank Ruhl Libre',serif;font-size:19px;font-weight:700;letter-spacing:.06em;opacity:.96}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);flex:none}
+  .hero .hook{margin-top:20px;font-size:clamp(14.5px,3.6vw,16px);font-weight:300;opacity:.9;max-width:32em;line-height:1.65}
+  .hero h1{font-size:clamp(29px,7.4vw,42px);margin:12px 0 14px}
+  .hero h1 em{font-style:normal;color:#f0dcae;display:block;font-size:.55em;font-family:'Heebo',sans-serif;font-weight:400;margin-top:8px}
+  .hero .sub{font-size:clamp(16px,4.1vw,18.5px);font-weight:300;opacity:.95;max-width:34em}
+  .hero .sub b{font-weight:500;color:#fff}
+  .wins{list-style:none;margin:20px 0 0;display:grid;gap:7px;max-width:30em}
+  .wins li{display:flex;align-items:flex-start;gap:9px;font-size:15.5px;font-weight:400}
+  .wins li::before{content:"✓";color:#f0dcae;font-weight:800;flex:none;line-height:1.55}
+
+  /* ── נגן ההקלטה ── */
+  .player{margin-top:28px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(6px);border-radius:20px;padding:16px 17px}
+  .player-top{display:flex;align-items:center;gap:14px}
+  .pbtn{flex:none;width:60px;height:60px;border-radius:50%;border:0;background:var(--gold);color:#fff;font-size:23px;cursor:pointer;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.22);transition:transform .16s,background .16s;font-family:inherit;padding-right:4px}
+  .pbtn:hover{transform:scale(1.06)}
+  .pbtn:active{transform:scale(.97)}
+  .pbtn.playing{padding-right:0}
+  .pbtn:disabled{background:rgba(255,255,255,.3);cursor:default;transform:none;box-shadow:none}
+  .p-meta{flex:1;min-width:0}
+  .p-title{font-size:15.5px;font-weight:500}
+  .p-hint{font-size:13px;opacity:.85;margin-top:2px}
+  .p-bar{margin-top:13px;height:7px;border-radius:99px;background:rgba(255,255,255,.22);cursor:pointer;position:relative}
+  .p-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#f0dcae,var(--gold));transition:width .12s linear}
+  .p-time{display:flex;justify-content:space-between;font-size:12px;opacity:.82;margin-top:6px;font-variant-numeric:tabular-nums;direction:ltr}
+  .player.soon .p-bar,.player.soon .p-time{display:none}
+
+  .cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;background:var(--gold);color:#fff;border:0;border-radius:14px;padding:15px 30px;font-size:16.5px;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:none;box-shadow:0 8px 22px rgba(139,105,40,.3);transition:transform .16s,box-shadow .16s}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(139,105,40,.36)}
+  .hero .cta{margin-top:26px}
+  .hero .free{display:block;margin-top:11px;font-size:13.5px;opacity:.88}
+
+  /* ── חמשת הימים ── */
+  .sec-head{text-align:center;margin-bottom:34px}
+  .kicker{display:inline-block;background:var(--lav-l);color:var(--lav-d);border-radius:99px;padding:5px 15px;font-size:13px;font-weight:600;letter-spacing:.03em;margin-bottom:12px}
+  .sec-head h2{font-size:clamp(23px,5.6vw,30px);color:var(--lav-dd)}
+  .sec-head p{color:var(--ink-soft);margin-top:10px;font-size:16px}
+  .days{display:grid;gap:13px}
+  .day{display:flex;gap:15px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px 18px;box-shadow:0 3px 12px rgba(101,88,143,.055);transition:transform .18s,box-shadow .18s,border-color .18s}
+  .day:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#d8ccef}
+  .day-n{flex:none;width:52px;text-align:center;border-left:1px solid var(--line);padding-left:13px;color:var(--lav-d)}
+  .day-n span{display:block;font-size:11.5px;font-weight:500;opacity:.72;letter-spacing:.05em}
+  .day-n b{display:block;font-family:'Frank Ruhl Libre',serif;font-size:29px;line-height:1.05;color:var(--gold)}
+  .day-body h3{font-size:17.5px;color:var(--lav-dd)}
+  .day-body p{font-size:14.8px;color:var(--ink-soft);margin-top:5px}
+  .day-tool{display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:var(--gold-l);color:#7d6122;border-radius:99px;padding:4px 13px;font-size:13px;font-weight:600}
+
+  /* ── מי אני ── */
+  .about{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .about-in{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+  .about img{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:top center;border:4px solid var(--lav-l);flex:none;background:var(--lav-l)}
+  .about-txt{flex:1;min-width:250px}
+  .about-txt h2{font-size:clamp(21px,5vw,27px);color:var(--lav-dd);margin-bottom:11px}
+  .about-txt p{color:var(--ink-soft);font-size:15.6px}
+  .about-txt p + p{margin-top:11px}
+  .about-txt b{color:var(--lav-d);font-weight:500}
+
+  /* ── טופס ── */
+  .form-sec{background:linear-gradient(165deg,var(--lav-l),#fbf9fe)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px 24px;box-shadow:var(--shadow);max-width:520px;margin:0 auto}
+  .card h2{font-size:clamp(21px,5.2vw,27px);color:var(--lav-dd);text-align:center}
+  .card .lede{text-align:center;color:var(--ink-soft);font-size:15.3px;margin-top:9px}
+  .fld{margin-top:17px}
+  .fld label{display:block;font-size:14px;font-weight:500;color:var(--lav-dd);margin-bottom:6px}
+  .fld input,.fld textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;font-size:16px;font-family:inherit;font-weight:300;color:var(--ink);background:#fdfcff;transition:border-color .16s,box-shadow .16s}
+  .fld input:focus,.fld textarea:focus{outline:0;border-color:var(--lav);box-shadow:0 0 0 3px rgba(135,121,179,.16)}
+  .fld textarea{min-height:78px;resize:vertical}
+  .fld.bad input{border-color:#d9756c;background:#fdf6f5}
+  .err{display:none;color:#b3453a;font-size:13px;margin-top:5px;font-weight:500}
+  .fld.bad .err{display:block}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .card .cta{width:100%;margin-top:22px}
+  .card .cta[disabled]{opacity:.62;cursor:default;transform:none}
+  .assure{margin-top:15px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .assure span{background:var(--lav-l);color:var(--lav-d);border-radius:99px;padding:4px 12px;font-size:12.6px;font-weight:500}
+  .formmsg{display:none;margin-top:14px;border-radius:12px;padding:12px 14px;font-size:14.4px;font-weight:500;text-align:center}
+  .formmsg.show{display:block}
+  .formmsg.bad{background:#fdf3f2;color:#a8433a;border:1px solid #f0d3cf}
+  .done{text-align:center;padding:8px 0 4px}
+  .done .v{width:64px;height:64px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:31px;margin:0 auto 15px}
+  .done h2{color:var(--lav-dd)}
+  .done p{color:var(--ink-soft);margin-top:10px;font-size:15.4px}
+
+  footer{background:#413a52;color:#cfc8dd;padding:30px 0 36px;font-size:13.2px;font-weight:300}
+  footer .safety{background:rgba(255,255,255,.07);border-radius:12px;padding:12px 14px;margin-top:14px;line-height:1.65}
+  footer b{color:#fff;font-weight:500}
+  @media (max-width:520px){
+    section{padding:42px 0}
+    .about img{width:112px;height:112px}
+    .about-in{gap:18px}
+    .card{padding:24px 19px}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important;scroll-behavior:auto!important} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>פְּנִימָה</div>
+    <p class="hook">את לאחר גירושין או פרידה משמעותית — ממשיכה לעבוד ולתפקד מבחוץ, אבל מבפנים מרגישה עייפה, מבולבלת ורחוקה מהאישה שהיית פעם?</p>
+    <h1>תכנית פתיחה לאיזון<em>חמישה צעדים מעשיים, צעד אחד בכל יום.</em></h1>
+    <p class="sub">כלים שאת יכולה להשתמש בהם <b>כבר בשבוע הזה</b> — כדי להפחית את החרדה, לאזן את עצמך רגשית, ולהתחיל לבנות את הביטחון העצמי שלך בחזרה. בכל יום יישלח אלייך <b>צעד אחד</b> שיקדם אותך להרגשת הרוגע והביטחון.</p>
+    <ul class="wins">
+      <li>תשקיטי את סערת הרגשות</li>
+      <li>תפסיקי לפחד</li>
+      <li>תורידי את רמות הסטרס</li>
+      <li>ואפילו תחזרי לחייך</li>
+    </ul>
+
+    <div class="player" id="player">
+      <div class="player-top">
+        <button class="pbtn" id="pbtn" type="button" aria-label="השמעת ההקלטה של אריאלה" disabled>▶</button>
+        <div class="p-meta">
+          <div class="p-title">ההקלטה של אריאלה — שמעי לפני שאת מחליטה</div>
+          <div class="p-hint" id="phint">רגע, טוענת…</div>
+        </div>
+      </div>
+      <div class="p-bar" id="pbar" role="progressbar" aria-label="התקדמות ההקלטה" tabindex="0"><div class="p-fill" id="pfill"></div></div>
+      <div class="p-time"><span id="pcur">0:00</span><span id="pdur">0:00</span></div>
+      <audio id="aud" preload="none" playsinline></audio>
+    </div>
+
+    <a class="cta" href="#form">אני רוצה את תכנית הפתיחה 💜</a>
+    <span class="free">חינם · חמישה ימים · בלי שום התחייבות</span>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">מה יש בתכנית</span>
+      <h2>חמישה צעדים, צעד אחד בכל יום</h2>
+      <p>כל יום מגיעה אלייך הקלטה קצרה מאריאלה — ובסופה כלי אחד מעשי לאותו יום. לא שיעורי בית. משהו שלוקח כמה דקות ומחזיר לך נשימה.</p>
+    </div>
+    <div class="days">
+      <article class="day"><div class="day-n"><span>יום</span><b>1</b></div><div class="day-body"><h3>התבוננות במה שקרה</h3><p>עשר דקות שמתחילות להשקיט את סערת הרגשות — בלי אף אחד, בלי שום ציוד, ואפשר לעשות אותן כבר היום.</p><div class="day-tool"><span aria-hidden="true">🎁</span>הכיסא השקט</div></div></article>
+      <article class="day"><div class="day-n"><span>יום</span><b>2</b></div><div class="day-body"><h3>שחרור מתחים וחסימות</h3><p>לתת לפחד שם מדויק, ואז לשחרר אותו מהגוף בפועל — בחמש דקות, בלי אף אחד ובלי שום ציוד.</p><div class="day-tool"><span aria-hidden="true">🎁</span>לפחד יש שם</div></div></article>
+      <article class="day"><div class="day-n"><span>יום</span><b>3</b></div><div class="day-body"><h3>מקורבנות למסוגלות</h3><p>להפסיק לסחוב על הגב את מה שבכלל לא תלוי בך, ולבחור דבר אחד קטן שכן — כדי להוריד ממך משקל כבר היום.</p><div class="day-tool"><span aria-hidden="true">🎁</span>מה תלוי בי</div></div></article>
+      <article class="day"><div class="day-n"><span>יום</span><b>4</b></div><div class="day-body"><h3>היזכרות בחוזקות ובמי שאת</h3><p>לאסוף את השברים שלך ולגלות שהם יהלומים — ולתת לחיוך הראשון מקום לחזור אל הפנים שלך.</p><div class="day-tool"><span aria-hidden="true">🎁</span>מהשבר ליהלום</div></div></article>
+      <article class="day"><div class="day-n"><span>יום</span><b>5</b></div><div class="day-body"><h3>בניית חזון ומטרות קצרות טווח</h3><p>לצאת עם תמונה ברורה של לאן את הולכת — ועם מטרה אחת קטנה שמתחילה כבר בשבוע הקרוב.</p><div class="day-tool"><span aria-hidden="true">🎁</span>עשר שנים ושבוע אחד</div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap about-in">
+    <img src="../assets/ariela.png" alt="אריאלה רויטלמן" loading="lazy" width="150" height="150">
+    <div class="about-txt">
+      <h2>מי אני</h2>
+      <p>שמי <b>אריאלה</b>, וגם אני עברתי גירושין. המשכתי לתפקד בשביל כולם — אבל מבפנים הרגשתי עייפה, מבולבלת ורחוקה מהאישה שהייתי פעם. הייתי מנותקת מעצמי, מהפנימיות שלי ומהסביבה, עד שהרגשתי שקופה וכבויה.</p>
+      <p>מתוך ההתמודדות האישית שלי, ומגוון השתלמויות וקורסים טיפוליים ורוחניים, רכשתי כלים רבים וגיליתי מומחיות בעבודה רוחנית עמוקה — בחיבור מחדש לפנימיות, בהכרת נקודות החוזק ובאהבה עצמית ללא תנאי.</p>
+      <p><b>למדתי שהביטחון האמיתי לא מגיע מבחוץ</b> — הוא מגיע מהרגע שבו אני מפסיקה להיות מנותקת מעצמי, ומתחילה לחיות מתוך הפנימיות שלי. והיום אני כאן כדי שאת לא תצטרכי להישאר בבלבול — מהניתוק חזרה לבהירות, לחיבור ולביטחון בעצמך.</p>
+      <p style="font-size:14.4px;opacity:.85">באהבה,<br>אריאלה 🌷</p>
+    </div>
+  </div>
+</section>
+
+<section class="form-sec" id="form">
+  <div class="wrap">
+    <div class="card" id="card">
+      <h2>לקבלת תכנית הפתיחה לאיזון</h2>
+      <p class="lede">השאירי את הפרטים שלך וקבלי גישה מיידית.<br>
+      הצעד הראשון מגיע אלייך <b>למייל</b>, ואחריו עוד צעד אחד בכל יום — חמישה ימים.</p>
+      <form id="leadForm" novalidate>
+        <div class="fld" id="f-name">
+          <label for="name">שם מלא</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="השם שלך" required>
+          <div class="err">רק שאדע איך לפנות אלייך 🌸</div>
+        </div>
+        <div class="fld" id="f-email">
+          <label for="email">מייל</label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="name@example.co.il" required>
+          <div class="err">לכאן נשלחים חמשת הצעדים — אפשר לבדוק את הכתובת?</div>
+        </div>
+        <div class="fld" id="f-phone">
+          <label for="phone">טלפון</label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="050-0000000" required>
+          <div class="err">נראה שחסרה ספרה — אפשר לבדוק שוב?</div>
+        </div>
+        <div class="fld">
+          <label for="msg">רוצה לספר לי משהו? <span style="font-weight:300;opacity:.7">(לא חובה)</span></label>
+          <textarea id="msg" name="msg" placeholder="אפשר גם רק מילה אחת."></textarea>
+        </div>
+        <input class="hp" id="website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="cta" id="submit" type="submit">שלחי לי את תכנית הפתיחה 💜</button>
+        <div class="formmsg" id="formmsg" role="alert"></div>
+        <div class="assure"><span>✓ חינם לגמרי</span><span>✓ בלי שום התחייבות</span><span>✓ שיחה אישית מאריאלה — לא מוקד מכירות</span><span>✓ הפרטים נשמרים אצל אריאלה בלבד</span></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>פְּנִימָה · אריאלה רויטלמן — ליווי נשים אחרי גירושין</div>
+    <div class="safety">
+      פְּנִימָה היא <b>ליווי רגשי ורוחני</b> — לא תחליף לטיפול מקצועי או לייעוץ משפטי.
+      אם את, או מישהי שאת מכירה, בסכנה או חווה אלימות — פני מיד לגורמי מקצוע:
+      <b>משטרה 100</b> · <b>קו הסיוע לנשים 118</b> (או 1202).
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var PROXY = "https://shir-wa-proxy.onrender.com";
+
+  /* ═══ הקלטה 1 — נטענת ישירות מ-rec/ שבאותו repo (אין שרת באמצע, אין נקודת-כשל) ═══ */
+  var aud=document.getElementById('aud'), btn=document.getElementById('pbtn'),
+      hint=document.getElementById('phint'), bar=document.getElementById('pbar'),
+      fill=document.getElementById('pfill'), cur=document.getElementById('pcur'),
+      dur=document.getElementById('pdur'), player=document.getElementById('player');
+  /* 🔒 פרטיות: הדף הזה **לא** קורא את rec/manifest.json ואינו נוגע בתיקיית ההקלטות.
+     המניפסט מפרט את כל הסשנים והקבצים של אריאלה — כולל תשובות אישיות מאוד — ודף
+     ציבורי שמוריד אותו הופך אותם לרשימה שאפשר לדפדף בה. במקום זה, ההקלטה של דף-הנחיתה
+     מתפרסמת בנפרד לתוך pnima/ ע"י publish_intro.py, ורק היא נגישה מכאן. */
+  function soon(txt){ player.classList.add('soon'); btn.disabled=true; hint.textContent=txt; }
+  function mmss(s){ s=Math.max(0,Math.floor(s||0)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+
+  fetch('intro.json?x='+Date.now(), {cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){
+      var fn = j && j.f;
+      if(typeof fn!=='string' || !/^intro\.[A-Za-z0-9]{2,5}$/.test(fn)) throw 0;   // שם קבוע וסגור — אין דרך להצביע על קובץ אחר
+      aud.src = fn;
+      btn.disabled=false;
+      hint.textContent='כמה דקות. שווה להקשיב עד הסוף.';
+    })
+    .catch(function(){ soon('ההקלטה בדרך — בינתיים אפשר להשאיר פרטים ולקבל אותה ראשונה.'); });
+
+  btn.addEventListener('click', function(){
+    if(!aud.src) return;
+    if(aud.paused){ aud.play().catch(function(){ hint.textContent='לא הצלחתי להשמיע כאן — נסי לרענן.'; }); }
+    else aud.pause();
+  });
+  aud.addEventListener('play', function(){ btn.textContent='❚❚'; btn.classList.add('playing'); btn.setAttribute('aria-label','עצירת ההקלטה'); });
+  aud.addEventListener('pause', function(){ btn.textContent='▶'; btn.classList.remove('playing'); btn.setAttribute('aria-label','השמעת ההקלטה של אריאלה'); });
+  aud.addEventListener('loadedmetadata', function(){ if(isFinite(aud.duration)) dur.textContent=mmss(aud.duration); });
+  aud.addEventListener('timeupdate', function(){
+    cur.textContent=mmss(aud.currentTime);
+    if(isFinite(aud.duration) && aud.duration>0){
+      var p=(aud.currentTime/aud.duration)*100;
+      fill.style.width=p+'%'; bar.setAttribute('aria-valuenow', String(Math.round(p)));
+    }
+  });
+  aud.addEventListener('ended', function(){ fill.style.width='100%'; });
+  aud.addEventListener('error', function(){ soon('ההקלטה בדרך — בינתיים אפשר להשאיר פרטים ולקבל אותה ראשונה.'); });
+  function seek(clientX){
+    if(!isFinite(aud.duration) || !aud.duration) return;
+    var r=bar.getBoundingClientRect();
+    var ratio = (r.right - clientX) / r.width;          // RTL: אפס מימין
+    aud.currentTime = Math.min(aud.duration, Math.max(0, ratio*aud.duration));
+  }
+  bar.addEventListener('click', function(ev){ seek(ev.clientX); });
+  bar.addEventListener('keydown', function(ev){
+    if(!isFinite(aud.duration)) return;
+    if(ev.key==='ArrowRight'){ aud.currentTime=Math.max(0,aud.currentTime-5); ev.preventDefault(); }
+    if(ev.key==='ArrowLeft'){ aud.currentTime=Math.min(aud.duration,aud.currentTime+5); ev.preventDefault(); }
+  });
+
+  /* ═══ הטופס ═══ */
+  var form=document.getElementById('leadForm'), card=document.getElementById('card'),
+      sub=document.getElementById('submit'), fmsg=document.getElementById('formmsg');
+
+  function normIL(raw){                                  // זהה ל-normIL שבשרת — כדי שלא תקבל שגיאה מבלבלת
+    var x=String(raw||'').replace(/\D/g,''); if(!x) return '';
+    if(x.indexOf('00')===0) x=x.slice(2);
+    if(x.indexOf('972')!==0){ if(x[0]==='0') x='972'+x.slice(1); else if(x.length===9) x='972'+x; }
+    return x;
+  }
+  function mark(id,bad){ document.getElementById(id).classList[bad?'add':'remove']('bad'); }
+  function say(t){ fmsg.textContent=t; fmsg.className='formmsg bad show'; }
+
+  // אותו כלל בדיוק כמו בשרת — כולל דומיינים עם נקודות (‎.co.il), שאחרת היו נפסלים
+  function okMail(v){ return /^[^\s@,;]+@[^\s@,;]+\.[A-Za-z]{2,}$/.test(String(v||'').trim()); }
+  ['name','email','phone'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){ mark('f-'+id,false); });
+  });
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    fmsg.className='formmsg';
+    if(document.getElementById('website').value) return;   // מלכודת-בוטים — בשקט, בלי לרמוז
+    var name=document.getElementById('name').value.trim();
+    var email=document.getElementById('email').value.trim();
+    var phoneRaw=document.getElementById('phone').value.trim();
+    var msg=document.getElementById('msg').value.trim();
+    var okName=name.length>=2, okMailV=okMail(email), okPhone=normIL(phoneRaw).length>=11;
+    mark('f-name',!okName); mark('f-email',!okMailV); mark('f-phone',!okPhone);
+    if(!okName||!okMailV||!okPhone){ document.getElementById(!okName?'name':!okMailV?'email':'phone').focus(); return; }
+
+    sub.disabled=true; sub.textContent='שולחת…';
+    var payload=JSON.stringify({name:name, email:email, phone:phoneRaw, msg:msg, source:'pnima'});
+    var ctl = (typeof AbortController!=='undefined') ? new AbortController() : null;
+    var tmr = ctl ? setTimeout(function(){ try{ctl.abort();}catch(e){} }, 15000) : null;
+
+    fetch(PROXY+'/lead', Object.assign({
+      method:'POST', headers:{'Content-Type':'text/plain'}, body:payload, keepalive:true
+    }, ctl?{signal:ctl.signal}:{}))
+      .then(function(r){ return r.json().catch(function(){ return {ok:false,error:'bad_json'}; }); })
+      .then(function(j){
+        if(j && j.ok){ success(name); return; }
+        throw new Error((j&&j.error)||'failed');
+      })
+      .catch(function(err){
+        sub.disabled=false; sub.textContent='שלחי לי את תכנית הפתיחה 💜';
+        var e=String((err&&err.message)||'');
+        if(e==='missing_name_or_phone'){ mark('f-phone',true); say('משהו בפרטים לא נקלט — אפשר לבדוק את הטלפון?'); }
+        else if(e==='bad_email'){ mark('f-email',true); say('כתובת המייל לא נקלטה — לשם נשלחים חמשת הצעדים.'); }
+        else if(e==='rate_limited'){ say('יש כרגע עומס. נסי שוב בעוד דקה — אני לא הולכת לשום מקום 💜'); }
+        // ⚠️ בלי קישור אמיתי, "שלחי לי בוואטסאפ" הוא מבוי-סתום שמאבד את הליד בדיוק ברגע התקלה
+        else { say('לא הצלחתי לשלוח כרגע. נסי שוב בעוד רגע — ואם זה ממשיך, אפשר לכתוב לי ישירות בוואטסאפ מהכפתור למטה.'); waFallback(name,email,phoneRaw); }
+      })
+      .finally(function(){ if(tmr) clearTimeout(tmr); });
+  });
+
+  /* מסלול-חילוץ אמיתי כשהשרת לא זמין: כפתור וואטסאפ אל המספר של אריאלה, עם ההודעה
+     מוכנה מראש — כדי שהליד לא ילך לאיבוד בדיוק ברגע התקלה. מופיע רק אחרי כישלון. */
+  function waFallback(name,email,phone){
+    if(document.getElementById('waFb')) return;
+    var a=document.createElement('a');
+    a.id='waFb'; a.className='cta'; a.target='_blank'; a.rel='noopener';
+    a.style.cssText='margin-top:12px;background:#25a45a;box-shadow:0 8px 22px rgba(20,120,60,.28)';
+    a.href='https://wa.me/972545673063?text='+encodeURIComponent(
+      'היי אריאלה, ניסיתי להשאיר פרטים לתכנית הפתיחה לאיזון והאתר לא הצליח לשלוח.\n'+
+      'שם: '+name+'\nמייל: '+email+'\nטלפון: '+phone);
+    a.textContent='לשלוח את הפרטים בוואטסאפ ↗';
+    fmsg.parentNode.insertBefore(a, fmsg.nextSibling);
+  }
+
+  function success(name){
+    card.innerHTML =
+      '<div class="done"><div class="v">✓</div>'+
+      '<h2>כל הכבוד, '+String(name).replace(/[<>&]/g,'')+' — את בדרך הנכונה 💜</h2>'+
+      '<p>בעוד כמה שניות תקבלי את <b>הצעד הראשון</b> של התכנית שלי למייל שלך, ואחריו עוד צעד אחד בכל יום — חמישה ימים.</p>'+
+      '<p style="font-size:14.6px">לא רואה את המייל? כדאי להציץ גם בקידומי-מכירות ובספאם, ולסמן אותו כ„לא ספאם” כדי שהצעדים הבאים יגיעו ישר אלייך.</p>'+
+      '<p style="font-size:14.3px;opacity:.85">בינתיים — אם עוד לא שמעת את ההקלטה של אריאלה למעלה, זה הרגע.</p></div>';
+    card.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+})();
+</script>
+</body>
+</html>
