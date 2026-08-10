@@ -226,12 +226,24 @@ window.TESTIMONIALS = [
      capture=true תופס את אירוע ה-play של כל <audio> בדף, גם עתידי. */
   if (!window.__tstAudioCoord) {
     window.__tstAudioCoord = true;
-    document.addEventListener("play", function (e) {
-      var t = e.target;
-      if (!t || String(t.tagName).toUpperCase() !== "AUDIO") return;
+    function pauseOthers(t) {
       var all = document.querySelectorAll("audio");
       for (var k = 0; k < all.length; k++)
         if (all[k] !== t && !all[k].paused) all[k].pause();
+    }
+    document.addEventListener("play", function (e) {
+      var t = e.target;
+      if (!t || String(t.tagName).toUpperCase() !== "AUDIO") return;
+      if (t.muted) return;   /* ניגון מושתק (אמביינט-הפודקאסט) לא מפריע לאף אחד — לא עוצר אחרים */
+      pauseOthers(t);
+    }, true);
+    /* נגן שהיה מושתק-ומתנגן וקיבל קול (unmute) לא יורה 'play' — נתפס כאן,
+       אחרת שני נגנים משמיעים יחד (ממצא-עין 10/08) */
+    document.addEventListener("volumechange", function (e) {
+      var t = e.target;
+      if (!t || String(t.tagName).toUpperCase() !== "AUDIO") return;
+      if (t.muted || t.paused) return;
+      pauseOthers(t);
     }, true);
   }
 
