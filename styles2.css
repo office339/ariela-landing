@@ -830,3 +830,16 @@ h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.18;color:var(--in
   .tst-nav{display:none}
   .tst-track .tst-card{flex-basis:88%}
 }
+
+/* ===== פודקאסט תמיד-פעיל — כפתור-קול (10/08/2026) ===== */
+.pod-sound-wrap{text-align:center;margin:8px 0 2px}
+.pod-sound{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;
+  border:0;border-radius:999px;cursor:pointer;font-weight:700;font-size:15.5px;font-family:inherit;
+  color:#fff;background:linear-gradient(135deg,var(--purple-600),var(--purple-800));
+  box-shadow:0 8px 22px rgba(51,45,71,.25);
+  transition:transform .2s var(--ease);animation:podPulse 2.4s ease-in-out infinite}
+.pod-sound:hover{transform:translateY(-2px)}
+.pod-sound[hidden]{display:none}
+@keyframes podPulse{0%,100%{box-shadow:0 8px 22px rgba(51,45,71,.25)}
+  50%{box-shadow:0 10px 32px rgba(133,122,163,.55)}}
+@media (prefers-reduced-motion: reduce){.pod-sound{animation:none}}
