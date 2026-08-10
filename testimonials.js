@@ -3,7 +3,13 @@
    כל המלצה: {name, age, quote, audio}. audio = שם immutable (נגזר-folder)
    כדי שהוספת המלצה לא תמספר-מחדש קבצים קיימים.
    שער-כפול במקור (pub_approved=✓ של אמא + marketing_consent של ההורה);
-   כאן רק רינדור. נגן אחד מתנגן בכל פעם. אין מאושרות → הסקשן מוסתר (לא ריק).
+   כאן רק רינדור. נגן אחד מתנגן בכל פעם (רכז-אודיו עמודי — כולל הפודקאסט).
+   אין מאושרות → הסקשן מוסתר (לא ריק).
+
+   קרוסלה נגללת (scroll-snap + חיצים + נקודות). בכוונה בלי class="reveal"
+   על אלמנטים דינמיים: ה-observer של app2.js נרשם לפני DOMContentLoaded,
+   וכרטיס שנולד אחריו לעולם לא נצפה → נשאר opacity:0 (הבאג של 10/08).
+   כניסת-הכרטיסים חיה ב-CSS עצמאי (tstIn) שלא תלוי באף observer.
    ============================================================ */
 window.TESTIMONIALS = [
   {
@@ -27,77 +33,182 @@ window.TESTIMONIALS = [
 ];
 
 (function () {
+  var reduce = !!(window.matchMedia &&
+                  window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
   /* E: פריט תקין = אובייקט עם name+quote מחרוזתיים. פריט פגום מסונן — לא מפיל את הסקשן. */
   function isValid(t) {
     return t && typeof t === "object" &&
            typeof t.name === "string" && typeof t.quote === "string";
   }
 
+  function el(tag, cls) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    return e;
+  }
+
+  var CHEV_R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+  var CHEV_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>';
+
+  function buildCard(t) {
+    var card = el("article", "tst-card");
+
+    var q = el("span", "tst-q");
+    q.setAttribute("aria-hidden", "true"); q.textContent = "”";
+
+    var p = el("p", "tst-text");
+    p.textContent = t.quote;
+
+    var foot = el("div", "tst-foot");
+    var av = el("span", "tst-av");
+    av.setAttribute("aria-hidden", "true");
+    av.textContent = (t.name || "♥").trim().charAt(0) || "♥";
+    var who = el("div", "tst-who");
+    var nm = el("b", "tst-name"); nm.textContent = t.name;
+    var ag = el("span", "tst-age"); ag.textContent = typeof t.age === "string" ? t.age : "";
+    who.appendChild(nm); who.appendChild(ag);
+    foot.appendChild(av); foot.appendChild(who);
+
+    card.appendChild(q); card.appendChild(p);
+
+    if (typeof t.audio === "string" && t.audio) {
+      var lab = el("div", "tst-listen");
+      lab.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+        'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>' +
+        '<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><span>בקולם של ההורים</span>';
+      var au = document.createElement("audio");
+      au.controls = true; au.preload = "none";
+      au.className = "tst-audio"; au.src = t.audio;
+      au.setAttribute("aria-label", "הקלטת המלצה של " + t.name);
+      card.appendChild(lab); card.appendChild(au);
+    }
+
+    card.appendChild(foot);
+    return card;
+  }
+
   function build() {
-    var grid = document.getElementById("tst-grid");
+    var host = document.getElementById("tst-grid");
     var sec = document.getElementById("testimonials");
-    if (!grid || !sec) return;
+    if (!host || !sec) return;
     var data = (window.TESTIMONIALS || []).filter(isValid);   // E — פריטים פגומים מסוננים
     if (!data.length) { sec.hidden = true; return; }          // אין מאושרות → אין סקשן ריק
+
+    /* שלב 1: בונים קודם את כל הכרטיסים שמצליחים — הניווט נגזר רק מהמוצלחים,
+       כך שאינדקסי הנקודות/החיצים תמיד רציפים ותואמים (ממצא-עין 10/08). */
+    var cards = [];
+    data.forEach(function (t) {
+      try { cards.push(buildCard(t)); }
+      catch (e) { if (window.console && console.warn) console.warn("testimonial skipped:", e); }
+    });
+    if (!cards.length) { sec.hidden = true; return; }         // כולם נפלו → אין סקשן ריק
     sec.hidden = false;                                       // K — שחזור אם הוסתר בעבר
-    grid.textContent = "";
-    var audios = [];
+    host.textContent = "";
 
-    data.forEach(function (t, i) {
-      try {
-        var card = document.createElement("article");
-        card.className = "tst-card reveal" + (i % 2 ? " d1" : "");
+    var car = el("div", "tst-carousel");
+    var track = el("div", "tst-track");
+    track.setAttribute("tabindex", "0");
+    track.setAttribute("role", "region");
+    track.setAttribute("aria-label", "המלצות הורים — אפשר לגלול בין ההמלצות");
+    var dots = el("div", "tst-dots");
+    /* RTL: הכרטיס הראשון מימין; "הקודמת" חוזרת ימינה, "הבאה" ממשיכה שמאלה */
+    var btnPrev = el("button", "tst-nav prev");
+    btnPrev.type = "button"; btnPrev.innerHTML = CHEV_R;
+    btnPrev.setAttribute("aria-label", "ההמלצה הקודמת");
+    var btnNext = el("button", "tst-nav next");
+    btnNext.type = "button"; btnNext.innerHTML = CHEV_L;
+    btnNext.setAttribute("aria-label", "ההמלצה הבאה");
 
-        var q = document.createElement("span");
-        q.className = "tst-q"; q.setAttribute("aria-hidden", "true"); q.textContent = "”";
+    cards.forEach(function (card, i) {
+      card.style.animationDelay = reduce ? "0s" : (Math.min(i, 5) * 0.09) + "s";
+      track.appendChild(card);
+      var dot = el("button", "tst-dot");
+      dot.type = "button";
+      dot.setAttribute("aria-label", "המלצה " + (i + 1) + " מתוך " + cards.length);
+      dot.addEventListener("click", function () { go(i); });
+      dots.appendChild(dot);
+    });
 
-        var p = document.createElement("p");
-        p.className = "tst-text"; p.textContent = t.quote;
+    car.appendChild(btnPrev); car.appendChild(track); car.appendChild(btnNext);
+    host.appendChild(car); host.appendChild(dots);
+    /* כרטיס יחיד — אין מה לנווט: מסתירים חיצים ונקודות */
+    if (cards.length < 2) { btnPrev.hidden = true; btnNext.hidden = true; dots.hidden = true; }
 
-        var foot = document.createElement("div");
-        foot.className = "tst-foot";
-        var av = document.createElement("span");
-        av.className = "tst-av"; av.setAttribute("aria-hidden", "true");
-        av.textContent = (t.name || "♥").trim().charAt(0) || "♥";
-        var who = document.createElement("div");
-        who.className = "tst-who";
-        var nm = document.createElement("b");
-        nm.className = "tst-name"; nm.textContent = t.name;
-        var ag = document.createElement("span");
-        ag.className = "tst-age"; ag.textContent = typeof t.age === "string" ? t.age : "";
-        who.appendChild(nm); who.appendChild(ag);
-        foot.appendChild(av); foot.appendChild(who);
-
-        card.appendChild(q); card.appendChild(p); card.appendChild(foot);
-
-        if (typeof t.audio === "string" && t.audio) {
-          var lab = document.createElement("div");
-          lab.className = "tst-listen";
-          lab.innerHTML =
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
-            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-            '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>' +
-            '<path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><span>בקולם של ההורים</span>';
-          var au = document.createElement("audio");
-          au.controls = true; au.preload = "none";
-          au.className = "tst-audio"; au.src = t.audio;
-          au.setAttribute("aria-label", "הקלטת המלצה של " + t.name);
-          audios.push(au);
-          card.appendChild(lab); card.appendChild(au);
-        }
-
-        grid.appendChild(card);
-      } catch (e) {
-        if (window.console && console.warn) console.warn("testimonial skipped:", e);
+    var cur = 0;
+    function go(i) {
+      i = Math.max(0, Math.min(cards.length - 1, i));
+      /* scrollIntoView צירי — עמיד-RTL (בלי חשבונות scrollLeft שליליים);
+         block:'nearest' כדי שהעמוד לא יקפוץ אנכית; reduced-motion → בלי smooth */
+      try { cards[i].scrollIntoView({ behavior: reduce ? "auto" : "smooth", inline: "center", block: "nearest" }); }
+      catch (e) { cards[i].scrollIntoView(); }
+      setCur(i);
+    }
+    function setCur(i) {
+      cur = i;
+      for (var k = 0; k < dots.children.length; k++) {
+        var on = (k === cur);
+        dots.children[k].classList.toggle("on", on);
+        if (on) dots.children[k].setAttribute("aria-current", "true");
+        else dots.children[k].removeAttribute("aria-current");
       }
+      btnPrev.disabled = (cur === 0);
+      btnNext.disabled = (cur === cards.length - 1);
+    }
+    /* הקרוב-למרכז קובע את הנקודה הפעילה; בקצוות הגלילה מהדקים לקצה —
+       כרטיס-קצה לא תמיד מסוגל להתמרכז, והמרכז-הקרוב היה "גונב" לו את הנקודה
+       (ממצא-עין 10/08). |scrollLeft| עובד זהה ב-RTL (כרום: 0 → שלילי). */
+    var raf = 0;
+    function sync() {
+      raf = 0;
+      var best = 0;
+      var sl = Math.abs(track.scrollLeft);
+      var max = track.scrollWidth - track.clientWidth;
+      if (max <= 1) best = 0;
+      else if (sl <= 2) best = 0;
+      else if (sl >= max - 2) best = cards.length - 1;
+      else {
+        var tr = track.getBoundingClientRect();
+        var mid = tr.left + tr.width / 2, bestD = Infinity;
+        for (var k = 0; k < cards.length; k++) {
+          var r = cards[k].getBoundingClientRect();
+          var d = Math.abs((r.left + r.width / 2) - mid);
+          if (d < bestD) { bestD = d; best = k; }
+        }
+      }
+      setCur(best);
+    }
+    track.addEventListener("scroll", function () {
+      if (!raf) raf = requestAnimationFrame(sync);
+    }, { passive: true });
+    window.addEventListener("resize", function () {
+      if (!raf) raf = requestAnimationFrame(sync);
     });
+    /* מקלדת: רק כשה-track עצמו בפוקוס — חיצים בתוך נגן-אודיו ממוקד שייכים לנגן
+       (ממצא-עין 10/08: בלי המגן, seek בנגן היה מזיז את הקרוסלה). */
+    track.addEventListener("keydown", function (ev) {
+      if (ev.target !== track) return;
+      if (ev.key === "ArrowLeft") { ev.preventDefault(); go(cur + 1); }
+      else if (ev.key === "ArrowRight") { ev.preventDefault(); go(cur - 1); }
+    });
+    btnPrev.addEventListener("click", function () { go(cur - 1); });
+    btnNext.addEventListener("click", function () { go(cur + 1); });
+    setCur(0);
+  }
 
-    /* one-at-a-time: הפעלת נגן אחד עוצרת את השאר */
-    audios.forEach(function (a) {
-      a.addEventListener("play", function () {
-        audios.forEach(function (o) { if (o !== a && !o.paused) o.pause(); });
-      });
-    });
+  /* רכז-אודיו עמודי (once): נגן אחד בכל רגע — כולל הפודקאסט והנגנים בכרטיסים.
+     capture=true תופס את אירוע ה-play של כל <audio> בדף, גם עתידי. */
+  if (!window.__tstAudioCoord) {
+    window.__tstAudioCoord = true;
+    document.addEventListener("play", function (e) {
+      var t = e.target;
+      if (!t || String(t.tagName).toUpperCase() !== "AUDIO") return;
+      var all = document.querySelectorAll("audio");
+      for (var k = 0; k < all.length; k++)
+        if (all[k] !== t && !all[k].paused) all[k].pause();
+    }, true);
   }
 
   if (document.readyState === "loading")
