@@ -797,3 +797,36 @@ h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.18;color:var(--in
   #testimonials .tst-grid{grid-template-columns:1fr;gap:20px}
   .tst-card{padding:34px 24px 24px}
 }
+
+/* ===== המלצות-הורים — קרוסלה נגללת (10/08/2026) =====
+   מחליף את פריסת-הגריד: track נגלל עם snap, חיצים ונקודות.
+   הכרטיסים הדינמיים נכנסים עם tstIn עצמאי — לא תלויים ב-.reveal/observer. */
+#testimonials .tst-grid{display:block}
+.tst-carousel{display:flex;align-items:stretch;gap:10px}
+.tst-track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:10px 4px 20px;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex:1;min-width:0}
+.tst-track::-webkit-scrollbar{display:none}
+.tst-track .tst-card{flex:0 0 min(88%,480px);scroll-snap-align:center;margin:0}
+.tst-track:focus-visible{outline:2px solid var(--purple-500);outline-offset:4px;border-radius:14px}
+.tst-nav{align-self:center;flex:0 0 auto;width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(103,95,128,.25);background:var(--paper);color:var(--purple-700);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(51,45,71,.12);transition:transform .2s var(--ease),opacity .2s}
+.tst-nav:hover:not([disabled]){transform:scale(1.08)}
+.tst-nav[disabled]{opacity:.32;cursor:default}
+.tst-nav svg{width:20px;height:20px}
+.tst-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.tst-dot{position:relative;width:24px;height:24px;border-radius:50%;border:0;background:transparent;
+  cursor:pointer;padding:0}
+.tst-dot::after{content:"";position:absolute;inset:0;margin:auto;width:9px;height:9px;border-radius:50%;
+  background:rgba(103,95,128,.28);transition:transform .2s var(--ease),background .2s}
+.tst-dot.on::after{background:var(--purple-700);transform:scale(1.3)}
+.form-err{margin-top:10px;font-size:14.5px;color:#a4423f}
+.form-err a{color:inherit;font-weight:700;text-decoration:underline}
+.tst-card{animation:tstIn .7s var(--ease) backwards}
+@keyframes tstIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.tst-card{animation:none}}
+@media (max-width:720px){
+  .tst-nav{display:none}
+  .tst-track .tst-card{flex-basis:88%}
+}
