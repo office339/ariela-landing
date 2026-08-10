@@ -3,7 +3,10 @@
    =================================================================== */
 (function(){
   "use strict";
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  /* WebView ישן בלי IntersectionObserver: בלעדי המגן, ה-throw היה מפיל את כל
+     הסקריפט — כולל רישום טופס-הלידים (ממצא-עין 10/08). fallback: הכל גלוי מיד. */
+  var hasIO = ('IntersectionObserver' in window);
 
   /* ---- header pill ---- */
   var header = document.querySelector('.header');
@@ -34,7 +37,7 @@
   /* ---- active nav link on scroll ---- */
   var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
   var sectionsForNav = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
-  if(navLinks.length){
+  if(navLinks.length && hasIO){
     var navIo = new IntersectionObserver(function(es){
       es.forEach(function(e){
         if(e.isIntersecting){
@@ -47,10 +50,14 @@
   }
 
   /* ---- scroll reveal ---- */
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.14, rootMargin:'0px 0px -7% 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  if(hasIO){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{threshold:.14, rootMargin:'0px 0px -7% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  }else{
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
 
   /* ---- animated counters ---- */
   var counted = false;
@@ -73,17 +80,21 @@
     });
   }
   if(proof){
-    var pio = new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting){ animateCounts(); pio.disconnect(); } });
-    },{threshold:.4});
-    pio.observe(proof);
+    if(hasIO){
+      var pio = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ animateCounts(); pio.disconnect(); } });
+      },{threshold:.4});
+      pio.observe(proof);
+    }else{
+      animateCounts();
+    }
   }
 
   /* ---- hero 3D parallax (mouse) ---- */
   var stage = document.querySelector('.stage-3d');
   var chips = document.querySelectorAll('.chip');
   var heroSection = document.querySelector('.hero');
-  if(stage && heroSection && !reduce && window.matchMedia('(pointer:fine)').matches){
+  if(stage && heroSection && !reduce && (window.matchMedia && window.matchMedia('(pointer:fine)').matches)){
     var tx = 0, ty = 0, cx = 0, cy = 0;
     heroSection.addEventListener('mousemove', function(e){
       var r = heroSection.getBoundingClientRect();
@@ -112,7 +123,7 @@
   }
 
   /* ---- generic 3D tilt on cards ---- */
-  if(!reduce && window.matchMedia('(pointer:fine)').matches){
+  if(!reduce && (window.matchMedia && window.matchMedia('(pointer:fine)').matches)){
     document.querySelectorAll('[data-tilt]').forEach(function(card){
       card.addEventListener('mousemove', function(e){
         var r = card.getBoundingClientRect();
@@ -125,7 +136,7 @@
   }
 
   /* ---- magnetic buttons ---- */
-  if(!reduce && window.matchMedia('(pointer:fine)').matches){
+  if(!reduce && (window.matchMedia && window.matchMedia('(pointer:fine)').matches)){
     document.querySelectorAll('[data-magnet]').forEach(function(b){
       b.addEventListener('mousemove', function(e){
         var r = b.getBoundingClientRect();
@@ -151,7 +162,7 @@
     a.addEventListener('click', function(ev){
       var id = a.getAttribute('href');
       if(id.length>1){ var t = document.querySelector(id);
-        if(t){ ev.preventDefault(); window.scrollTo({top:t.getBoundingClientRect().top + window.scrollY - 72, behavior:'smooth'}); }
+        if(t){ ev.preventDefault(); window.scrollTo({top:t.getBoundingClientRect().top + window.scrollY - 72, behavior: reduce ? 'auto' : 'smooth'}); }
       }
     });
   });
@@ -177,14 +188,32 @@
         if(s){ s.classList.add('show'); var u = s.querySelector('.uname'); if(u) u.textContent = nameV.split(' ')[0]; }
       }
       // שולח את הליד ל-shir-wa-proxy → וואטסאפ (אריאלה) + מייל. text/plain נמנע מ-CORS preflight (השרת מפרסר */*).
+      // כנות-מסירה (ממצא-עין 10/08): "קיבלתי" רק אחרי 2xx מאושר. כשל/timeout →
+      // הטופס נשאר עם הפרטים, כפתור שליחה-חוזרת, ולינק-ווטסאפ ישיר — ליד לא אובד בשקט.
       var payload = JSON.stringify({ name:nameV, phone:phoneV, age:ageV, msg:msgV });
-      var done = false; function finish(){ if(done) return; done = true; showSuccess(); }
+      var settled = false, timer = null;
+      function succeed(){ if(settled) return; settled = true; clearTimeout(timer); hideSendError(); showSuccess(); }
+      function fail(){
+        if(settled) return; settled = true; clearTimeout(timer);
+        btn.textContent = 'שליחה חוזרת'; btn.disabled = false;
+        var err = document.getElementById('formSendErr');
+        if(!err){
+          err = document.createElement('p');
+          err.id = 'formSendErr'; err.className = 'form-err';
+          btn.parentNode ? btn.parentNode.insertBefore(err, btn.nextSibling) : form.appendChild(err);
+        }
+        var wa = 'https://wa.me/972545673063?text=' +
+                 encodeURIComponent('היי אריאלה 💜 השארתי פרטים באתר ונראה שלא עבר — ' + nameV + ' · ' + phoneV);
+        err.innerHTML = 'לא הצלחנו לוודא שהפרטים התקבלו. נסו שוב בלחיצה, או ' +
+                        '<a href="' + wa + '" target="_blank" rel="noopener">שלחו לנו הודעה ישירה בוואטסאפ</a>.';
+      }
+      function hideSendError(){ var e = document.getElementById('formSendErr'); if(e) e.remove(); }
+      timer = setTimeout(fail, 12000);   // אין אישור-קבלה תוך 12ש' → אמת, לא "קיבלתי" מזויף
       try{
         fetch('https://shir-wa-proxy.onrender.com/lead', { method:'POST', headers:{'Content-Type':'text/plain'}, body:payload, keepalive:true })
-          .then(function(){ finish(); })
-          .catch(function(){ finish(); });   // כשל-רשת → לא מענישים את המשתמש; עדיין מציגים תודה
-      }catch(e){ finish(); }
-      setTimeout(finish, 2500);   // גיבוי: לא משאירים את המשתמש תקוע גם אם fetch נתקע
+          .then(function(r){ if(r && r.ok) succeed(); else fail(); })
+          .catch(function(){ fail(); });
+      }catch(e){ fail(); }
     });
     form.querySelectorAll('input').forEach(function(inp){
       inp.addEventListener('input', function(){ inp.closest('.field').classList.remove('invalid'); });
