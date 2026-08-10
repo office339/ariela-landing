@@ -135,6 +135,7 @@
         <div class="pod-count">פרק <b id="podNum">1</b> מתוך <span id="podTotal">20</span></div>
         <h3 class="pod-q" id="podQ"></h3>
         <audio id="podAudio" controls preload="none"></audio>
+        <div class="pod-sound-wrap"><button class="pod-sound" id="podSound" type="button" hidden>🔊 להפעלת הקול של אריאלה</button></div>
         <div class="pod-cap" id="podCap" hidden aria-live="off"></div>
         <div class="pod-status" id="podStatus" role="status" aria-live="polite"></div>
         <div class="pod-nav">
@@ -593,11 +594,81 @@
   for(var i=1;i<=N;i++){(function(n){
     var b=document.createElement('button');b.type='button';b.textContent=n;
     b.setAttribute('aria-label','פרק '+n);b.setAttribute('aria-pressed','false');
-    b.addEventListener('click',function(){sel(n,true)});ch.appendChild(b);})(i);}
-  pv.addEventListener('click',function(){sel(cur-1,true)});
-  nx.addEventListener('click',function(){sel(cur+1,true)});
-  a.addEventListener('ended',function(){resetCap();if(cur<N)sel(cur+1,true);});
+    b.addEventListener('click',function(){userTakeover(true);sel(n,true)});ch.appendChild(b);})(i);}
+  pv.addEventListener('click',function(){userTakeover(true);sel(cur-1,true)});
+  nx.addEventListener('click',function(){userTakeover(true);sel(cur+1,true)});
+  a.addEventListener('ended',function(){resetCap();
+    if(amb.on){                                    /* אמביינט: לולאה על אותו פרק — אפס דאטה נוסף (הקובץ כבר בזיכרון) */
+      try{a.currentTime=0;}catch(e){}
+      amb.expectPlay=true;var lp=a.play();
+      if(lp&&lp.catch)lp.catch(function(){amb.expectPlay=false;});
+      return;}
+    if(cur<N)sel(cur+1,true);});
   a.addEventListener('error',function(){if(a.src)st.textContent='⚠️ הפרק לא נטען כרגע — בדקו את החיבור ונסו שוב';});
+
+  /* ---- מצב-אמביינט: הסקשן תמיד פעיל (הנחיית שקד 10/08, מוקשח בעין-פרימיום) ----
+     כניסה-לתצוגה → ניגון מושתק (autoplay-policy-safe) והכתוביות רצות; באמביינט
+     הפרק מתנגן בלולאה (לא צורך את כל 20 הפרקים בדאטה). כפתור-הקול מוצג תמיד
+     כהזמנה (גם כשאמביינט לא זמין) ומדליק שמע מתחילת הפרק. כל בחירת-משתמש —
+     קול / עצירה / ▶ בנגן / בחירת-פרק — עוברת דרך userTakeover אחד: האמביינט
+     מפסיק להתערב לצמיתות. אירוע pause מגיע אסינכרונית → הדגל pausing נצרך
+     בתוך ה-handler (לא מסביב ל-pause()). */
+  var amb={on:false,done:false,pausing:false,expectPlay:false};
+  var sndBtn=document.getElementById('podSound');
+  function othersListening(){var all=document.querySelectorAll('audio');
+    for(var i=0;i<all.length;i++)
+      if(all[i]!==a&&!all[i].paused&&!all[i].muted)return true;
+    return false;}
+  function ambientEligible(){
+    if(amb.done)return false;
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return false;
+    if(navigator.connection&&navigator.connection.saveData)return false;
+    if(othersListening())return false;
+    return true;}
+  function userTakeover(unmute){
+    amb.on=false;amb.done=true;amb.expectPlay=false;
+    if(unmute)a.muted=false;
+    if(sndBtn)sndBtn.hidden=true;}
+  function ambientStart(){
+    if(!ambientEligible())return;
+    a.muted=true;amb.on=true;amb.expectPlay=true;
+    var pr=a.play();
+    if(pr&&pr.catch)pr.catch(function(err){
+      amb.expectPlay=false;
+      if(err&&err.name==='AbortError')return;
+      amb.on=false;});                       /* דפדפן חסם (iOS ישן) → הכפתור נשאר כהזמנת-play רגילה */
+  }
+  function ambientStop(){if(amb.on&&!a.paused){amb.pausing=true;a.pause();}}
+  function soundOn(){
+    userTakeover(true);
+    try{a.currentTime=0;}catch(e){}
+    playAudio();}
+  if(sndBtn){sndBtn.hidden=true;sndBtn.addEventListener('click',soundOn);}
+  a.addEventListener('play',function(){
+    if(amb.expectPlay){amb.expectPlay=false;return;} /* play שהאמביינט יזם */
+    if(a.muted)a.muted=false;                        /* המשתמש לחץ ▶ בעצמו — שיישמע קול */
+    if(!amb.done)userTakeover(false);});
+  a.addEventListener('volumechange',function(){      /* הדליקו קול דרך הנגן עצמו */
+    if(amb.on&&!a.muted)userTakeover(false);});
+  a.addEventListener('pause',function(){
+    if(amb.pausing){amb.pausing=false;return;}       /* ההשהיה שלנו (יציאה-מתצוגה) — אמביינט יתחדש בכניסה הבאה */
+    if(amb.on&&!a.ended)userTakeover(false);});      /* עצירה חיצונית (משתמש/רכז-אודיו) → מכבדים */
+  if(window.matchMedia){                             /* העדפת-תנועה השתנתה תוך-כדי → עוצרים מיד */
+    var _mq=window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(_mq&&_mq.addEventListener)_mq.addEventListener('change',function(ev){if(ev.matches)ambientStop();});}
+  if('IntersectionObserver' in window){
+    var podSec=document.getElementById('podcast');
+    if(podSec){
+      var aio=new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if(e.isIntersecting){
+            if(!amb.done){
+              if(sndBtn)sndBtn.hidden=false;         /* ההזמנה מוצגת תמיד — גם בלי אמביינט */
+              if(a.paused)ambientStart();}}
+          else ambientStop();});
+      },{threshold:.35});
+      aio.observe(podSec);}}
+
   sel(1,false);
 })();
 </script>
