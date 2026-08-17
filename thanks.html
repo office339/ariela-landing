@@ -17,7 +17,7 @@
 <style>
   /* ---- דף-תודה: נשען כולו על styles2.css; רק כיוונונים ספציפיים-לדף ---- */
   /* sticky-footer: הפוטר יושב בתחתית המסך גם כשהתוכן קצר — בלי לגלול */
-  body{min-height:100svh;display:flex;flex-direction:column}
+  body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
   .thanks{flex:1 0 auto;position:relative;z-index:2;display:flex;align-items:center;justify-content:center;
     overflow:hidden;padding:clamp(108px,14vw,160px) 24px clamp(56px,7vw,92px)}
   .thanks-bg{position:absolute;inset:0;z-index:0;overflow:hidden;
@@ -107,8 +107,16 @@
   s.parentNode.insertBefore(t,s)}(window,document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', id);
-  fbq('track', 'PageView');
-  fbq('track', 'Lead');                    /* ההמרה של מתן: כל הגעה לדף-התודה = ליד */
+  fbq('track', 'PageView');                /* צפייה בדף — תמיד */
+  /* שער-Lead חד-פעמי: ההמרה נספרת רק אחרי שליחת-טופס אמיתית (סמן מ-app2.js),
+     כך שריענון / כניסה-ישירה / חזרה-אחורה לא מנפחים את מספר-ההמרות אצל מתן. */
+  var lead = true;                         /* ברירת-מחדל בטוחה — ראה catch */
+  try{
+    lead = sessionStorage.getItem('ar_lead_ok') === '1';
+    if(lead) sessionStorage.removeItem('ar_lead_ok');   /* נצרך — הריענון הבא כבר לא יספור */
+  }catch(e){ lead = true; }                /* גלישה-פרטית/אחסון חסום → יורים בכל-זאת:
+                                              עדיף ניפוח קל מאשר לאבד המרה אמיתית */
+  if(lead) fbq('track', 'Lead');
 })();
 </script>
 
