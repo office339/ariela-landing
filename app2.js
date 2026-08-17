@@ -192,7 +192,8 @@
       // הטופס נשאר עם הפרטים, כפתור שליחה-חוזרת, ולינק-ווטסאפ ישיר — ליד לא אובד בשקט.
       var payload = JSON.stringify({ name:nameV, phone:phoneV, age:ageV, msg:msgV });
       var settled = false, timer = null;
-      function succeed(){ if(settled) return; settled = true; clearTimeout(timer); hideSendError(); showSuccess(); }
+      // מעבר לדף-התודה (יעד-ההמרה של הפיקסל) אחרי פעימה קצרה, כדי שההצלחה תספיק להיראות
+      function succeed(){ if(settled) return; settled = true; clearTimeout(timer); hideSendError(); showSuccess(); setTimeout(function(){ location.href = 'thanks.html'; }, 600); }
       function fail(){
         if(settled) return; settled = true; clearTimeout(timer);
         btn.textContent = 'שליחה חוזרת'; btn.disabled = false;
