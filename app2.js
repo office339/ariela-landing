@@ -170,6 +170,11 @@
   /* ---- form ---- */
   var form = document.getElementById('leadForm');
   if(form){
+    var submissionId = null;
+    function makeSubmissionId(){
+      try{ if(window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID(); }catch(e){}
+      return 'lead_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,12);
+    }
     var phoneRe = /^0\d{1,2}[-\s]?\d{7}$|^0\d{9}$|^\+?\d[\d\-\s]{7,}$/;
     function setInvalid(f, bad){ f.classList.toggle('invalid', bad); }
     form.addEventListener('submit', function(ev){
@@ -187,10 +192,11 @@
         var s = document.getElementById('formSuccess');
         if(s){ s.classList.add('show'); var u = s.querySelector('.uname'); if(u) u.textContent = nameV.split(' ')[0]; }
       }
-      // שולח את הליד ל-shir-wa-proxy → וואטסאפ (אריאלה) + מייל. text/plain נמנע מ-CORS preflight (השרת מפרסר */*).
-      // כנות-מסירה (ממצא-עין 10/08): "קיבלתי" רק אחרי 2xx מאושר. כשל/timeout →
+      // שולח את הליד ל-shir-wa-proxy → מחסן הלידים + התראת וואטסאפ לאריאלה. text/plain נמנע מ-CORS preflight.
+      // כנות-מסירה: "קיבלתי" רק אחרי JSON מאושר שמוכיח stored:true; סטטוס 2xx לבד אינו הוכחת-מסירה. כשל/timeout →
       // הטופס נשאר עם הפרטים, כפתור שליחה-חוזרת, ולינק-ווטסאפ ישיר — ליד לא אובד בשקט.
-      var payload = JSON.stringify({ name:nameV, phone:phoneV, age:ageV, msg:msgV });
+      if(!submissionId) submissionId = makeSubmissionId();
+      var payload = JSON.stringify({ name:nameV, phone:phoneV, age:ageV, msg:msgV, submissionId:submissionId });
       var settled = false, timer = null;
       // מעבר לדף-התודה (יעד-ההמרה של הפיקסל) אחרי פעימה קצרה, כדי שההצלחה תספיק להיראות.
       // הסמן ar_lead_ok = שער חד-פעמי: רק שליחה אמיתית תספר Lead בדף-התודה (ריענון/כניסה-ישירה לא).
@@ -213,12 +219,20 @@
       timer = setTimeout(fail, 12000);   // אין אישור-קבלה תוך 12ש' → אמת, לא "קיבלתי" מזויף
       try{
         fetch('https://shir-wa-proxy.onrender.com/lead', { method:'POST', headers:{'Content-Type':'text/plain'}, body:payload, keepalive:true })
-          .then(function(r){ if(r && r.ok) succeed(); else fail(); })
+          .then(function(r){
+            if(!r) return fail();
+            return r.json().then(function(j){
+              if(r.ok && j && j.ok === true && j.stored === true) succeed(); else fail();
+            }).catch(function(){ fail(); });
+          })
           .catch(function(){ fail(); });
       }catch(e){ fail(); }
     });
-    form.querySelectorAll('input').forEach(function(inp){
-      inp.addEventListener('input', function(){ inp.closest('.field').classList.remove('invalid'); });
+    form.querySelectorAll('input,select,textarea').forEach(function(inp){
+      inp.addEventListener('input', function(){
+        submissionId = null;
+        var field = inp.closest('.field'); if(field) field.classList.remove('invalid');
+      });
     });
   }
 })();
